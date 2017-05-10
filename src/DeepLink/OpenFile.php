@@ -16,19 +16,19 @@ class OpenFile extends DeepLink implements LinkInterface
     const BASE = 'file';
     
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
-     * @var scalar
+     * @var string
      */
     private $fileId = null;
     
     /**
      * Setter for teamId
      *
-     * @param scalar $teamId
+     * @param string $teamId
      * @return OpenFile
      */
     public function setTeamId($teamId)
@@ -37,7 +37,7 @@ class OpenFile extends DeepLink implements LinkInterface
             throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
     
         return $this;
     }
@@ -45,16 +45,16 @@ class OpenFile extends DeepLink implements LinkInterface
     /**
      * Setter for fileId
      *
-     * @param scalar $fileId
+     * @param string $fileId
      * @return OpenFile
      */
     public function setFileId($fileId)
     {
         if (!is_scalar($fileId)) {
-            throw new \Exception('File id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new DeepLinkException('File id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->fileId = $fileId;
+        $this->fileId = (string)$fileId;
     
         return $this;
     }
