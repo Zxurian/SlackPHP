@@ -90,6 +90,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setChannel($channel)
     {
+        if (!is_scalar($channel)) {
+            throw new SlackException('Channel should be a string type', SlackException::NOT_STRING);
+        }
+        
         $this->channel = $channel;
         
         return $this;
@@ -113,6 +117,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setText($text)
     {
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be a string type', SlackException::NOT_STRING);
+        }
+        
         $this->text = $text;
         
         return $this;
@@ -136,6 +144,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setParse($parse)
     {
+        if (!is_scalar($channel)) {
+            throw new SlackException('Channel should be a string type', SlackException::NOT_STRING);
+        }
+        
         $this->parse = $parse;
         
         return $this;
@@ -427,13 +439,33 @@ class ChatPostMessage extends AbstractPayload
     public function hasRequiredProperties()
     {
         if ($this->channel === null) {
-            throw new SlackException('Channel property should be set before sending payload', SlackException::CHANNEL_NOT_SET);
+            return false;
         }
         
         if ($this->text === null) {
-            throw new SlackException('Text property should be set before sending payload', SlackException::TEXT_NOT_SET);
+            return false;
         }
         
         return true;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
+     */
+    public function getMissingRequiredProperties()
+    {
+        $return = [];
+        
+        if ($this->channel === null) {
+            $return[] = 'channel';
+        }
+        
+        if ($this->text === null) {
+            $return[] = 'text';
+        }
+        
+        return $return;
     }
 }

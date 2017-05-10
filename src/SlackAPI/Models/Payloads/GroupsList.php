@@ -58,4 +58,14 @@ class GroupsList extends AbstractPayload
     {
         return true;
     }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
+     */
+    public function getMissingRequiredProperties()
+    {
+        return [];
+    }
 }
