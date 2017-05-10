@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+	bootstrap="./tests/bootstrap.php"
+	colors="true"
+>
+    <testsuites>
+        <testsuite name="SlackPHP">
+            <directory suffix=".php">./tests/SlackPHP/</directory>
+        </testsuite>
+        <testsuite name="DeepLink">
+        	<directory suffix=".php">./tests/DeepLink/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
