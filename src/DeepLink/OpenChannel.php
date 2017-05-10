@@ -16,19 +16,19 @@ class OpenChannel extends DeepLink implements LinkInterface
     const BASE = 'channel';
     
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
-     * @var scalar
+     * @var string
      */
     private $channelId = null;
     
     /**
      * Setter for teamId
      *
-     * @param scalar $teamId
+     * @param string $teamId
      * @return OpenChannel
      */
     public function setTeamId($teamId)
@@ -37,7 +37,7 @@ class OpenChannel extends DeepLink implements LinkInterface
             throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
     
         return $this;
     }
@@ -45,16 +45,16 @@ class OpenChannel extends DeepLink implements LinkInterface
     /**
      * Setter for channelId
      *
-     * @param scalar $channelId
+     * @param string $channelId
      * @return OpenChannel
      */
     public function setChannelId($channelId)
     {
         if (!is_scalar($channelId)) {
-            throw new \Exception('Channel id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new DeepLinkException('Channel id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->channelId = $channelId;
+        $this->channelId = (string)$channelId;
     
         return $this;
     }
@@ -73,7 +73,7 @@ class OpenChannel extends DeepLink implements LinkInterface
         }
         
         if ($this->channelId === null) {
-            throw new DeepLinkException('Channel id is not set', DeepLinkException::CANNEL_ID_NOT_SET);
+            throw new DeepLinkException('Channel id is not set', DeepLinkException::CHANNEL_ID_NOT_SET);
         }
         
         $return['team'] = $this->teamId;
