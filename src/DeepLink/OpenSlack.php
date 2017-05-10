@@ -16,14 +16,14 @@ class OpenSlack extends DeepLink implements LinkInterface
     const BASE = 'open';
     
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
      * Setter for teamId
      *
-     * @param scalar $teamId
+     * @param string $teamId
      * @return OpenSlack
      */
     public function setTeamId($teamId)
@@ -32,7 +32,7 @@ class OpenSlack extends DeepLink implements LinkInterface
             throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
     
         return $this;
     }
