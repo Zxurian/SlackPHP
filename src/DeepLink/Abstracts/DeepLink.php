@@ -20,6 +20,6 @@ class DeepLink
     {
         $parameters = http_build_query($this->getQueryParameters());
         
-        return self::SLACK_DEEP_LINK.static::BASE.(count($parameters) > 0 ? '?'.$parameters : '');
+        return self::SLACK_DEEP_LINK.static::BASE.($parameters != '' ? '?'.$parameters : '');
     }
 }
