@@ -10,6 +10,7 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
  * Create DeepLink url to open Slack and Slack team
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenSlack extends DeepLink implements LinkInterface
 {

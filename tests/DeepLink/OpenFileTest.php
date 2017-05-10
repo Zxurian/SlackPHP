@@ -6,7 +6,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
 /**
  * @author zxurian
- * @covers OpenChannel
+ * @covers OpenFile
  */
 final class OpenFileTest extends TestCase
 {

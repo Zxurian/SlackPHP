@@ -6,7 +6,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
 /**
  * @author zxurian
- * @covers OpenChannel
+ * @covers OpenDirectMessage
  */
 final class OpenDirectMessageTest extends TestCase
 {

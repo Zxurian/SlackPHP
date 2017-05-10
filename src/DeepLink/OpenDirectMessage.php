@@ -10,6 +10,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * Create DeepLink url to open direct message in Slack
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenDirectMessage extends DeepLink implements LinkInterface
 {
@@ -66,8 +67,6 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
      */
     public function getQueryParameters()
     {
-        $return = [];
-        
         if ($this->teamId === null) {
             throw new DeepLinkException('Team ID is not set', DeepLinkException::TEAM_ID_NOT_SET);
         }
@@ -76,9 +75,9 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
             throw new DeepLinkException('User ID is not set', DeepLinkException::USER_ID_NOT_SET);
         }
         
-        $return['team'] = $this->teamId;
-        $return['id'] = $this->userId;
-        
-        return $return;
+        return [
+            'team'  => $this->teamId,
+            'id'    => $this->userId,
+        ];
     }
 }

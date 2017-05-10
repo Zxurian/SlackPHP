@@ -10,6 +10,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * Create DeepLink url to open file in Slack
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenFile extends DeepLink implements LinkInterface
 {
@@ -66,8 +67,6 @@ class OpenFile extends DeepLink implements LinkInterface
      */
     public function getQueryParameters()
     {
-        $return = [];
-        
         if ($this->teamId === null) {
             throw new DeepLinkException('Team id is not set', DeepLinkException::TEAM_ID_NOT_SET);
         }
@@ -76,9 +75,9 @@ class OpenFile extends DeepLink implements LinkInterface
             throw new DeepLinkException('File id is not set', DeepLinkException::FILE_ID_NOT_SET);
         }
         
-        $return['team'] = $this->teamId;
-        $return['id'] = $this->fileId;
-        
-        return $return;
+        return [
+            'team'  => $this->teamId,
+            'id'    => $this->fileId,
+        ];
     }
 }
