@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\Attachment;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Class creates payload for updating a message in channel
@@ -227,17 +226,41 @@ class ChatUpdate extends AbstractPayload
     public function hasRequiredProperties()
     {
         if ($this->ts === null) {
-            throw new SlackException('TS property should be set before sending payload', SlackException::TS_NOT_SET);
+            return false;
         }
         
         if ($this->channel === null) {
-            throw new SlackException('Channel property should be set before sending payload', SlackException::CHANNEL_NOT_SET);
+            return false;
         }
         
         if ($this->text === null) {
-            throw new SlackException('Text property should be set before sending payload', SlackException::TEXT_NOT_SET);
+            return false;
         }
         
         return true;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
+     */
+    public function getMissingRequiredProperties()
+    {
+        $return = [];
+        
+        if ($this->ts === null) {
+            $return[] = 'ts';
+        }
+        
+        if ($this->channel === null) {
+            $return[] = 'channel';
+        }
+        
+        if ($this->text === null) {
+            $return[] = 'text';
+        }
+        
+        return $return;
     }
 }

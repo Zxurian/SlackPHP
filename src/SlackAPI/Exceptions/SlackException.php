@@ -20,4 +20,6 @@ class SlackException extends \Exception
     const CHANNEL_NOT_SET = 108;
     const TEXT_NOT_SET = 109;
     const TS_NOT_SET = 110;
+    const NOT_BOOLEAN = 111;
+    const NOT_STRING = 112;
 }

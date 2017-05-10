@@ -25,6 +25,10 @@ class PayloadResponseProcessor extends AbstractProcessor
      */
     public function process(ResponseInterface $response, $payloadResponseClass)
     {
+        if (!is_string($payloadResponseClass)) {
+            throw new SerializerException('Payload response class should be a string type', SerializerException::NOT_STRING);
+        }
+        
         if ($response->getStatusCode() != 200) {
             throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
         }

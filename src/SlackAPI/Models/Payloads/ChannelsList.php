@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Method gets list of channels in team
@@ -29,6 +30,10 @@ class ChannelsList extends AbstractPayload
      */
     public function setExcludeArchived($excludeArchived)
     {
+        if (!is_bool($excludeArchived)) {
+            throw new SlackException('Exclude archived property should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->excludeArchived = $excludeArchived;
         
         return $this;
@@ -52,6 +57,10 @@ class ChannelsList extends AbstractPayload
      */
     public function setExcludeMembers($excludeMembers)
     {
+        if (!is_bool($excludeMembers)) {
+            throw new SlackException('Exclude members property should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->excludeMembers = $excludeMembers;
         
         return $this;
@@ -85,5 +94,15 @@ class ChannelsList extends AbstractPayload
     public function hasRequiredProperties()
     {
         return true;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
+     */
+    public function getMissingRequiredProperties()
+    {
+        return [];
     }
 }
