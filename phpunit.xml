@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="Bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="DeepLinkTest">
+            <directory>./Tests/DeepLink</directory>
+        </testsuite>
+        <testsuite name="SlackAPITest">
+            <directory>./Tests/SlackAPI</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
