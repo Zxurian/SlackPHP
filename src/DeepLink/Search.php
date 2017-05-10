@@ -7,26 +7,28 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
 use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
 /**
- * Create DeepLink url to open Slack team and do search
+ * Send the user directly to a specific search query from your application
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @see https://api.slack.com/docs/deep-linking#search
  */
 class Search extends DeepLink implements LinkInterface
 {
     const BASE = 'search';
 
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
-     * @var scalar
+     * @var string
      */
     private $query = null;
     
     /**
-     * @var scalar
+     * @var \DateTime
      */
     private $sort = null;
     
@@ -48,7 +50,7 @@ class Search extends DeepLink implements LinkInterface
     /**
      * Setter for teamId
      * 
-     * @param scalar $teamId
+     * @param string $teamId
      * @return Search
      */
     public function setTeamId($teamId)
@@ -57,7 +59,7 @@ class Search extends DeepLink implements LinkInterface
             throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
         
         return $this;
     }
@@ -65,7 +67,7 @@ class Search extends DeepLink implements LinkInterface
     /**
      * Setter for query
      *
-     * @param scalar $query
+     * @param string $query
      * @return Search
      */
     public function setQuery($query)
@@ -74,30 +76,26 @@ class Search extends DeepLink implements LinkInterface
             throw new DeepLinkException('Query should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->query = $query;
+        $this->query = (string)$query;
     
         return $this;
     }
     
     /**
-     * Setter for sort
+     * Specify an epoch time value or message timestamp and we'll narrow the history to around that time
      *
-     * @param scalar $sort
+     * @param \DateTime $sort
      * @return Search
      */
-    public function setSort($sort)
+    public function setSort(\DateTime $sort)
     {
-        if (!is_scalar($sort)) {
-            throw new DeepLinkException('Sort should be scalar type', DeepLinkException::NOT_SCALAR);
-        }
-        
         $this->sort = $sort;
     
         return $this;
     }
     
     /**
-     * Setter for highlight
+     * Specify false or true to control whether matching terms should be highlighted
      *
      * @param bool $highlight
      * @return Search
@@ -114,7 +112,7 @@ class Search extends DeepLink implements LinkInterface
     }
     
     /**
-     * Setter for count
+     * Paginate results this many results at a time
      *
      * @param int $count
      * @return Search
@@ -131,7 +129,7 @@ class Search extends DeepLink implements LinkInterface
     }
     
     /**
-     * Setter for page
+     * Navigate to this specific page of results
      *
      * @param int $page
      * @return Search
@@ -164,12 +162,17 @@ class Search extends DeepLink implements LinkInterface
             throw new DeepLinkException('Query is not set', DeepLinkException::QUERY_NOT_SET);
         }
         
+        $return = [
+            'team'  => $this->teamId,
+            'query' => $this->query,
+        ];
+        
         if ($this->sort !== null) {
-            $return['sort'] = $this->sort;
+            $return['sort'] = $this->sort->getTimestamp();
         }
         
         if ($this->highlight !== null) {
-            $return['highlight'] = $this->highlight;
+            $return['highlight'] = $this->highlight ? 1 : 0;
         }
         
         if ($this->count !== null) {
@@ -180,9 +183,6 @@ class Search extends DeepLink implements LinkInterface
             $return['page'] = $this->page;
         }
         
-        $return['team'] = $this->teamId;
-        $return['query'] = $this->query;
-
         return $return;
     }
 }
