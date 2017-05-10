@@ -11,7 +11,7 @@ class DeepLinkException extends \Exception
 {
     const NOT_SCALAR = 100;
     const TEAM_ID_NOT_SET = 101;
-    const CANNEL_ID_NOT_SET = 102;
+    const CHANNEL_ID_NOT_SET = 102;
     const USER_ID_NOT_SET = 103;
     const FILE_ID_NOT_SET = 104;
     const NOT_BOOLEAN = 105;
