@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Class for confirm action buttons
  *
@@ -36,7 +38,11 @@ class ActionConfirm
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        if (!is_scalar($title)) {
+            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->title = (string)$title;
         
         return $this;
     }
@@ -58,7 +64,11 @@ class ActionConfirm
      */
     public function setText($text)
     {
-        $this->text = $text;
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->text = (string)$text;
         
         return $this;
     }
@@ -80,7 +90,11 @@ class ActionConfirm
      */
     public function setOkText($okText)
     {
-        $this->okText = $okText;
+        if (!is_scalar($okText)) {
+            throw new SlackException('Ok text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->okText = (string)$okText;
     
         return $this;
     }
@@ -102,6 +116,10 @@ class ActionConfirm
      */
     public function setDismissText($dismissText)
     {
+        if (!is_scalar($dismissText)) {
+            throw new SlackException('Dismiss text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->dismissText = $dismissText;
     
         return $this;
