@@ -10,6 +10,7 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
  * Create DeepLink url to open Slack channel 
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenChannel extends DeepLink implements LinkInterface
 {
@@ -76,9 +77,9 @@ class OpenChannel extends DeepLink implements LinkInterface
             throw new DeepLinkException('Channel id is not set', DeepLinkException::CHANNEL_ID_NOT_SET);
         }
         
-        $return['team'] = $this->teamId;
-        $return['id'] = $this->channelId;
-        
-        return $return;
+        return [
+            'team'  => $this->teamId,
+            'id'    => $this->channelId,
+        ];
     }
 }

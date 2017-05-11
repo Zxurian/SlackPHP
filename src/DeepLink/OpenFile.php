@@ -10,25 +10,26 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * Create DeepLink url to open file in Slack
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenFile extends DeepLink implements LinkInterface
 {
     const BASE = 'file';
     
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
-     * @var scalar
+     * @var string
      */
     private $fileId = null;
     
     /**
      * Setter for teamId
      *
-     * @param scalar $teamId
+     * @param string $teamId
      * @return OpenFile
      */
     public function setTeamId($teamId)
@@ -37,7 +38,7 @@ class OpenFile extends DeepLink implements LinkInterface
             throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
     
         return $this;
     }
@@ -45,16 +46,16 @@ class OpenFile extends DeepLink implements LinkInterface
     /**
      * Setter for fileId
      *
-     * @param scalar $fileId
+     * @param string $fileId
      * @return OpenFile
      */
     public function setFileId($fileId)
     {
         if (!is_scalar($fileId)) {
-            throw new \Exception('File id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new DeepLinkException('File id should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->fileId = $fileId;
+        $this->fileId = (string)$fileId;
     
         return $this;
     }
@@ -66,8 +67,6 @@ class OpenFile extends DeepLink implements LinkInterface
      */
     public function getQueryParameters()
     {
-        $return = [];
-        
         if ($this->teamId === null) {
             throw new DeepLinkException('Team id is not set', DeepLinkException::TEAM_ID_NOT_SET);
         }
@@ -76,9 +75,9 @@ class OpenFile extends DeepLink implements LinkInterface
             throw new DeepLinkException('File id is not set', DeepLinkException::FILE_ID_NOT_SET);
         }
         
-        $return['team'] = $this->teamId;
-        $return['id'] = $this->fileId;
-        
-        return $return;
+        return [
+            'team'  => $this->teamId,
+            'id'    => $this->fileId,
+        ];
     }
 }

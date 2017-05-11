@@ -10,18 +10,19 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * Create DeepLink url to open direct message in Slack
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  */
 class OpenDirectMessage extends DeepLink implements LinkInterface
 {
     const BASE = 'user';
 
     /**
-     * @var scalar
+     * @var string
      */
     private $teamId = null;
     
     /**
-     * @var scalar
+     * @var string
      */
     private $userId = null;
     
@@ -34,10 +35,10 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new DeepLinkException('Team ID should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->teamId = $teamId;
+        $this->teamId = (string)$teamId;
     
         return $this;
     }
@@ -51,10 +52,10 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
     public function setUserId($userId)
     {
         if (!is_scalar($userId)) {
-            throw new DeepLinkException('User id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new DeepLinkException('User ID should be scalar type', DeepLinkException::NOT_SCALAR);
         }
         
-        $this->userId = $userId;
+        $this->userId = (string)$userId;
     
         return $this;
     }
@@ -66,19 +67,17 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
      */
     public function getQueryParameters()
     {
-        $return = [];
-        
         if ($this->teamId === null) {
-            throw new DeepLinkException('Team id is not set', DeepLinkException::TEAM_ID_NOT_SET);
+            throw new DeepLinkException('Team ID is not set', DeepLinkException::TEAM_ID_NOT_SET);
         }
         
         if ($this->userId === null) {
-            throw new DeepLinkException('User id is not set', DeepLinkException::USER_ID_NOT_SET);
+            throw new DeepLinkException('User ID is not set', DeepLinkException::USER_ID_NOT_SET);
         }
         
-        $return['team'] = $this->teamId;
-        $return['id'] = $this->userId;
-        
-        return $return;
+        return [
+            'team'  => $this->teamId,
+            'id'    => $this->userId,
+        ];
     }
 }
