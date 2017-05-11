@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Class to create new option for action
  *
@@ -23,15 +25,21 @@ class ActionOption
      * @var string|NULL
      */
     private $description = null;
+    
     /**
      * Setter for text
      * 
+     * @throws SlackException
      * @param string $text
      * @return ActionOption
      */
     public function setText($text)
     {
-        $this->text = $text;
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->text = (string)$text;
         
         return $this;
     }
@@ -54,7 +62,11 @@ class ActionOption
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        if (!is_scalar($value)) {
+            throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->value = (string)$value;
         
         return $this;
     }
@@ -77,7 +89,11 @@ class ActionOption
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        if (!is_scalar($description)) {
+            throw new SlackException('Description should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->description = (string)$description;
     
         return $this;
     }

@@ -120,7 +120,7 @@ class ActionConfirm
             throw new SlackException('Dismiss text should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->dismissText = $dismissText;
+        $this->dismissText = (string)$dismissText;
     
         return $this;
     }

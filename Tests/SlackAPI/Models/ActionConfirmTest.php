@@ -12,7 +12,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  */
 class ActionConfirmTest extends TestCase
 {
-    private $mockString = 'string';
+    private $dummyString = 'string';
     
     /**
      * Testing setting valid title 
@@ -20,12 +20,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingTitle()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setTitle($this->mockString);
+        $actionConfirmObject->setTitle($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $titleProperty = $refActionConfirmObject->getProperty('title');
         $titleProperty->setAccessible(true);
         
-        $this->assertEquals($this->mockString, $titleProperty->getValue($actionConfirmObject));
+        $this->assertEquals($this->dummyString, $titleProperty->getValue($actionConfirmObject));
     }
     
     /**
@@ -47,9 +47,9 @@ class ActionConfirmTest extends TestCase
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $titleProperty = $refActionConfirmObject->getProperty('title');
         $titleProperty->setAccessible(true);
-        $titleProperty->setValue($actionConfirmObject, $this->mockString);
+        $titleProperty->setValue($actionConfirmObject, $this->dummyString);
         
-        $this->assertEquals($this->mockString, $actionConfirmObject->getTitle());
+        $this->assertEquals($this->dummyString, $actionConfirmObject->getTitle());
     }
     
     /**
@@ -58,12 +58,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setText($this->mockString);
+        $actionConfirmObject->setText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $textProperty = $refActionConfirmObject->getProperty('text');
         $textProperty->setAccessible(true);
         
-        $this->assertEquals($this->mockString, $textProperty->getValue($actionConfirmObject));
+        $this->assertEquals($this->dummyString, $textProperty->getValue($actionConfirmObject));
     }
     
     /**
@@ -85,9 +85,9 @@ class ActionConfirmTest extends TestCase
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $textProperty = $refActionConfirmObject->getProperty('text');
         $textProperty->setAccessible(true);
-        $textProperty->setValue($actionConfirmObject, $this->mockString);
+        $textProperty->setValue($actionConfirmObject, $this->dummyString);
         
-        $this->assertEquals($this->mockString, $actionConfirmObject->getText());
+        $this->assertEquals($this->dummyString, $actionConfirmObject->getText());
     }
     
     /**
@@ -96,12 +96,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingOkText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setOkText($this->mockString);
+        $actionConfirmObject->setOkText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $okTextProperty = $refActionConfirmObject->getProperty('okText');
         $okTextProperty->setAccessible(true);
         
-        $this->assertEquals($this->mockString, $okTextProperty->getValue($actionConfirmObject));
+        $this->assertEquals($this->dummyString, $okTextProperty->getValue($actionConfirmObject));
     }
     
     /**
@@ -123,9 +123,9 @@ class ActionConfirmTest extends TestCase
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $okTextProperty = $refActionConfirmObject->getProperty('okText');
         $okTextProperty->setAccessible(true);
-        $okTextProperty->setValue($actionConfirmObject, $this->mockString);
+        $okTextProperty->setValue($actionConfirmObject, $this->dummyString);
         
-        $this->assertEquals($this->mockString, $actionConfirmObject->getOkText());
+        $this->assertEquals($this->dummyString, $actionConfirmObject->getOkText());
     }
     
     /**
@@ -134,12 +134,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingDismissText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setDismissText($this->mockString);
+        $actionConfirmObject->setDismissText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $dismissTextProperty = $refActionConfirmObject->getProperty('dismissText');
         $dismissTextProperty->setAccessible(true);
         
-        $this->assertEquals($this->mockString, $dismissTextProperty->getValue($actionConfirmObject));
+        $this->assertEquals($this->dummyString, $dismissTextProperty->getValue($actionConfirmObject));
     }
     
     /**
@@ -161,8 +161,8 @@ class ActionConfirmTest extends TestCase
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $dismissTextProperty = $refActionConfirmObject->getProperty('dismissText');
         $dismissTextProperty->setAccessible(true);
-        $dismissTextProperty->setValue($actionConfirmObject, $this->mockString);
+        $dismissTextProperty->setValue($actionConfirmObject, $this->dummyString);
     
-        $this->assertEquals($this->mockString, $actionConfirmObject->getDismissText());
+        $this->assertEquals($this->dummyString, $actionConfirmObject->getDismissText());
     }
 }
