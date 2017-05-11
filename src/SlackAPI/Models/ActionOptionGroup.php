@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Class to create new option group in action
  *
@@ -27,6 +29,10 @@ class ActionOptionGroup
      */
     public function setText($text)
     {
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->text = $text;
         
         return $this;
