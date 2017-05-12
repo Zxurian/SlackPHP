@@ -4,12 +4,17 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 use SlackPHP\SlackAPI\Models\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class creates payload for posting message to Slack channel
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
+ * @see https://api.slack.com/methods/chat.postMessage
+ * @package SlackAPI
+ * @version 0.2
+ * 
  * @method string getChannel()
  * @method string getText()
  * @method string getParse()
@@ -30,22 +35,22 @@ class ChatPostMessage extends AbstractPayload
     const method = 'chat.postMessage';
     
     /**
-     * @var string|NULL
+     * @var string
      */
     private $channel = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
     private $text = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
     private $parse = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $linkNames = null;
     
@@ -55,55 +60,58 @@ class ChatPostMessage extends AbstractPayload
     private $attachments = [];
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $unfurlLinks = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $unfurlMedia = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
     private $username = null;
 
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $asUser = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
     private $iconUrl = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
     private $iconEmoji = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
     private $threadTs = null;
 
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $replyBroadcast = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $mrkdwn = null;
     
     /**
-     * Setter for channel, where the message will be sent to
+     * Channel, private group, or IM channel to send message to.
+     * Can be an encoded ID, or a name. See link for more details.
      *
+     * @see https://api.slack.com/methods/chat.postMessage#channels
      * @param string $channel
      * @return ChatPostMessage
+     * @Required
      */
     public function setChannel($channel)
     {
@@ -117,8 +125,10 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for text
+     * Text of the message to send.
+     * See link for an explanation of formatting. This field is usually required, unless you're providing only attachments instead.
      * 
+     * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $text
      * @return ChatPostMessage
      */
@@ -134,8 +144,10 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for parse
+     * Change how messages are treated.
+     * Defaults to none. See link.
      * 
+     * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $parse
      * @return ChatPostMessage
      */
@@ -151,7 +163,7 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for linkNames
+     * Find and link channel names and usernames.
      * 
      * @param bool $linkNames
      * @return ChatPostMessage
@@ -164,7 +176,7 @@ class ChatPostMessage extends AbstractPayload
     }
     
    /**
-     * Add new attachment to array
+     * Add an attachment to the message
      * 
      * @param Attachment $attachment
      * @return ChatPostMessage
@@ -177,7 +189,7 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for unfurlLinks
+     * Pass true to enable unfurling of primarily text-based content.
      *
      * @param bool $unfurlLinks
      * @return ChatPostMessage
@@ -190,7 +202,7 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for unfurlMedia
+     * Pass false to disable unfurling of media content.
      *
      * @param bool $unfurlMedia
      * @return ChatPostMessage
@@ -203,8 +215,10 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for username
+     * Set your bot's user name.
+     * Must be used in conjunction with as_user set to false, otherwise ignored. See link.
      * 
+     * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $username
      * @return ChatPostMessage
      */
@@ -216,8 +230,10 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for asUser
+     * Pass true to post the message as the authed user, instead of as a bot.
+     * Defaults to false. See link.
      * 
+     * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param bool $asUser
      * @return ChatPostMessage
      */
@@ -229,8 +245,10 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for iconUrl
+     * URL to an image to use as the icon for this message.
+     * Must be used in conjunction with as_user set to false, otherwise ignored. See link.
      * 
+     * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $iconUrl
      * @return ChatPostMessage
      */
@@ -242,8 +260,10 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for iconEmoji
+     * Emoji to use as the icon for this message.
+     * Overrides icon_url. Must be used in conjunction with as_user set to false, otherwise ignored. See link.
      *
+     * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $iconEmoji
      * @return ChatPostMessage
      */
@@ -259,7 +279,8 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Setter for threadTs
+     * Provide another message's ts value to make this message a reply.
+     * Avoid using a reply's ts value; use its parent instead.
      * 
      * @param string $threadTs
      * @return ChatPostMessage
@@ -272,7 +293,8 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for replyBroadcast
+     * Used in conjunction with threadTs and indicates whether reply should be made visible to everyone in the channel or conversation.
+     * Defaults to false.
      * 
      * @param bool $replyBroadcast
      * @return ChatPostMessage
@@ -285,14 +307,15 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Setter for markdown
+     * Pass false to disable formatting on a non-user message
      * 
-     * @param bool $mrkdwn
+     * @see https://api.slack.com/docs/message-formatting
+     * @param bool $markdown
      * @return ChatPostMessage
      */
-    public function setMrkdwn($mrkdwn)
+    public function setMrkdwn($markdown)
     {
-        $this->mrkdwn = $mrkdwn;
+        $this->mrkdwn = $markdown;
         
         return $this;
     }
