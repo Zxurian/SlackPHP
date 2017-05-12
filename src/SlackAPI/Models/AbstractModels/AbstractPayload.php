@@ -3,8 +3,10 @@
 namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
 use SlackPHP\SlackAPI\Interfaces\PayloadInterface;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Abstract method for individual Slack Payloads 
@@ -18,6 +20,11 @@ abstract class AbstractPayload implements PayloadInterface
 {
     public function __construct()
     {
+        // Add Required annotation to autoloader
+        AnnotationRegistry::registerAutoloadNamespace(
+            'Doctrine\\Common\\Annotations',
+            'vendor/doctrine/annotations/lib'
+        );
     }
     
     /**
@@ -59,22 +66,23 @@ abstract class AbstractPayload implements PayloadInterface
     }
     
     /**
-     * Check to see if the payload has all of the required properties
+     * Validate the payload by checking for all required fields.
+     * This is easily mapped by adding the @Required annotation to the property of the payload, or if
+     * more complicated validations need to be done, this should be overridden within the payload itself
      * 
-     * @return bool
+     * @return void
      */
-    public function hasRequired()
+    public function validateRequired()
     {
-        AnnotationRegistry::registerAutoloadNamespace(
-            'Doctrine\\Common\\Annotations',
-            'vendor/doctrine/annotations/lib/Doctrine/Common/Annotations'
-        );
-        
         $annotationReader = new AnnotationReader();
         $refClass = new \ReflectionClass($this);
         foreach ($refClass->getProperties() as $property) {
             $annotations = $annotationReader->getPropertyAnnotations($property);
-            var_dump($annotations);
+            foreach ($annotationReader->getPropertyAnnotations($property) as $annotation) {
+                if ($annotation instanceof Required && $this->{$property->name} === null) {
+                    throw new SlackException(get_class($this).' missing required field : '.$property->name);
+                }
+            }
         }
     }
 }

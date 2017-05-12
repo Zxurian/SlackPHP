@@ -15,17 +15,4 @@ namespace SlackPHP\SlackAPI\Interfaces;
  */
 interface PayloadInterface
 {
-    /**
-     * Check that all required properties are set
-     * 
-     * @return bool
-     */
-    public function hasRequiredProperties();
-    
-    /**
-     * Get all the missing required properties from payload
-     * 
-     * @return array
-     */
-    public function getMissingRequiredProperties();
 }

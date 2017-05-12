@@ -162,49 +162,4 @@ class ChatUpdate extends AbstractPayload
         return $this;
     }
     
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::hasRequiredProperties()
-     */
-    public function hasRequiredProperties()
-    {
-        if ($this->ts === null) {
-            return false;
-        }
-        
-        if ($this->channel === null) {
-            return false;
-        }
-        
-        if ($this->text === null) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
-     */
-    public function getMissingRequiredProperties()
-    {
-        $return = [];
-        
-        if ($this->ts === null) {
-            $return[] = 'ts';
-        }
-        
-        if ($this->channel === null) {
-            $return[] = 'channel';
-        }
-        
-        if ($this->text === null) {
-            $return[] = 'text';
-        }
-        
-        return $return;
-    }
 }
