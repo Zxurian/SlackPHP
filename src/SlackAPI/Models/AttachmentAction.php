@@ -71,7 +71,11 @@ class AttachmentAction
      */
     public function setName($name)
     {
-        $this->name = $name;
+        if (!is_scalar($name)) {
+            throw new SlackException('Name should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->name = (string)$name;
         
         return $this;
     }

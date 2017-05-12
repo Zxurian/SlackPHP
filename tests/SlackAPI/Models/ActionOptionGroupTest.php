@@ -34,7 +34,8 @@ class ActionOptionGroupTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class, '', SlackException::NOT_SCALAR);
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::NOT_SCALAR);
         $actionOptionGroup = new ActionOptionGroup();
         $actionOptionGroup->setText(new \stdClass());
     }
@@ -62,13 +63,13 @@ class ActionOptionGroupTest extends TestCase
         $actionOptionGroupObject = new ActionOptionGroup();
         $returnedObject = $actionOptionGroupObject->addOption($actionOption);
         $refActionOptionGroupObject = new \ReflectionObject($actionOptionGroupObject);
-        $optionsPropery = $refActionOptionGroupObject->getProperty('options');
-        $optionsPropery->setAccessible(true);
+        $optionsProperty = $refActionOptionGroupObject->getProperty('options');
+        $optionsProperty->setAccessible(true);
         
         $this->assertInstanceOf(ActionOptionGroup::class, $returnedObject);
-        $this->assertInternalType('array', $optionsPropery->getValue($actionOptionGroupObject));
-        $this->assertEquals(1, count($optionsPropery->getValue($actionOptionGroupObject)));
-        $this->assertInstanceOf(ActionOption::class, $optionsPropery->getValue($actionOptionGroupObject)[0]);
+        $this->assertInternalType('array', $optionsProperty->getValue($actionOptionGroupObject));
+        $this->assertEquals(1, count($optionsProperty->getValue($actionOptionGroupObject)));
+        $this->assertInstanceOf(ActionOption::class, $optionsProperty->getValue($actionOptionGroupObject)[0]);
     }
 
     /**
@@ -79,9 +80,9 @@ class ActionOptionGroupTest extends TestCase
         $actionOption = new ActionOption();
         $actionOptionGroupObject = new ActionOptionGroup();
         $refActionOptionGroupObject = new \ReflectionObject($actionOptionGroupObject);
-        $optionsPropery = $refActionOptionGroupObject->getProperty('options');
-        $optionsPropery->setAccessible(true);
-        $optionsPropery->setValue($actionOptionGroupObject, [$actionOption]);
+        $optionsProperty = $refActionOptionGroupObject->getProperty('options');
+        $optionsProperty->setAccessible(true);
+        $optionsProperty->setValue($actionOptionGroupObject, [$actionOption]);
         
         $this->assertInternalType('array', $actionOptionGroupObject->getOptions());
         $this->assertEquals(1, count($actionOptionGroupObject->getOptions()));
