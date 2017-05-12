@@ -15,9 +15,14 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @see https://api.slack.com/methods/channels.list
  * @package SlackAPI
  * @version 0.1
+ * 
+ * @method bool getExcludeArchived()
+ * @method bool getExcludeMembers()
  */
 class ChannelsList extends AbstractPayload
 {
+    const method = 'channels.list';
+    
     /**
      * @var bool
      * @Required
@@ -48,16 +53,6 @@ class ChannelsList extends AbstractPayload
     }
     
     /**
-     * Getter for excludeArchived
-     * 
-     * @return bool
-     */
-    public function getExcludeArchived()
-    {
-        return $this->excludeArchived;
-    }
-    
-    /**
      * Setter for excludeMembers
      * 
      * @param bool $excludeMembers
@@ -72,16 +67,6 @@ class ChannelsList extends AbstractPayload
         $this->excludeMembers = $excludeMembers;
         
         return $this;
-    }
-    
-    /**
-     * Getter for excludeMembers
-     * 
-     * @return bool
-     */
-    public function getExcludeMembers()
-    {
-        return $this->excludeMembers;
     }
     
     /**
