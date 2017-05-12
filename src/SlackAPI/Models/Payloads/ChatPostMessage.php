@@ -321,4 +321,17 @@ class ChatPostMessage extends AbstractPayload
         return $this;
     }
     
+    /**
+     * {@inheritdoc}
+     * @see SlackAPI\Models\AbstractModels\AbstractPayload::validateRequired()
+     */
+    public function validateRequired()
+    {
+        parent::validateRequired();
+        
+        if ($this->channel === null && count($this->attachments) == 0) {
+            throw new SlackException('Must provide either channel or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);
+        }
+    }
+    
 }
