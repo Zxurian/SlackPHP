@@ -113,7 +113,11 @@ class Attachment
      */
     public function setFallback($fallback)
     {
-        $this->fallback = $fallback;
+        if (!is_scalar($fallback)) {
+            throw new SlackException('Fallback should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->fallback = (string)$fallback;
         
         return $this;
     }
@@ -135,7 +139,11 @@ class Attachment
      */
     public function setColor($color)
     {
-        $this->color = $color;
+        if (!is_scalar($color)) {
+            throw new SlackException('Color should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->color = (string)$color;
         
         return $this;
     }
@@ -157,7 +165,11 @@ class Attachment
      */
     public function setPretext($pretext)
     {
-        $this->pretext = $pretext;
+        if (!is_scalar($pretext)) {
+            throw new SlackException('Pretext should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->pretext = (string)$pretext;
         
         return $this;
     }
@@ -179,7 +191,11 @@ class Attachment
      */
     public function setAuthorName($authorName)
     {
-        $this->authorName = $authorName;
+        if (!is_scalar($authorName)) {
+            throw new SlackException('Author name should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->authorName = (string)$authorName;
         
         return $this;
     }
@@ -201,7 +217,11 @@ class Attachment
      */
     public function setAuthorLink($authorLink)
     {
-        $this->authorLink = $authorLink;
+        if (!is_scalar($authorLink)) {
+            throw new SlackException('Author link should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->authorLink = (string)$authorLink;
         
         return $this;
     }
@@ -223,7 +243,11 @@ class Attachment
      */
     public function setAuthorIcon($authorIcon)
     {
-        $this->authorIcon = $authorIcon;
+        if (!is_scalar($authorIcon)) {
+            throw new SlackException('Author icon should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->authorIcon = (string)$authorIcon;
         
         return $this;
     }
@@ -245,7 +269,11 @@ class Attachment
      */
     public function setTitle($title)
     {
-        $this->title = $title;
+        if (!is_scalar($title)) {
+            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->title = (string)$title;
         
         return $this;
     }
@@ -267,7 +295,11 @@ class Attachment
      */
     public function setTitleLink($titleLink)
     {
-        $this->titleLink = $titleLink;
+        if (!is_scalar($titleLink)) {
+            throw new SlackException('Title link should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->titleLink = (string)$titleLink;
         
         return $this;
     }
@@ -289,7 +321,11 @@ class Attachment
      */
     public function setText($text)
     {
-        $this->text = $text;
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->text = (string)$text;
         
         return $this;
     }
@@ -333,8 +369,8 @@ class Attachment
      */
     public function addAction(AttachmentAction $action)
     {
-        if (count($this->actions) > 5) {
-            throw new SlackException(' A maximum of 5 actions per attachment may be provided', SlackException::MORE_THAN_5_ACTIONS_IN_ATTACHMENT);
+        if (count($this->actions) >= 5) {
+            throw new SlackException('A maximum of 5 actions per attachment can be provided', SlackException::MORE_THAN_5_ACTIONS_IN_ATTACHMENT);
         }
         
         $this->actions[] = $action;
@@ -359,7 +395,11 @@ class Attachment
      */
     public function setImageUrl($imageUrl)
     {
-        $this->imageUrl = $imageUrl;
+        if (!is_scalar($imageUrl)) {
+            throw new SlackException('Image url should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->imageUrl = (string)$imageUrl;
         
         return $this;
     }
@@ -381,7 +421,11 @@ class Attachment
      */
     public function setThumbUrl($thumbUrl)
     {
-        $this->thumbUrl = $thumbUrl;
+        if (!is_scalar($thumbUrl)) {
+            throw new SlackException('Thumb url should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->thumbUrl = (string)$thumbUrl;
         
         return $this;
     }
@@ -403,7 +447,11 @@ class Attachment
      */
     public function setFooter($footer)
     {
-        $this->footer = $footer;
+        if (!is_scalar($footer)) {
+            throw new SlackException('Footer should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->footer = (string)$footer;
         
         return $this;
     }
@@ -425,7 +473,11 @@ class Attachment
      */
     public function setFooterIcon($footerIcon)
     {
-        $this->footerIcon = $footerIcon;
+        if (!is_scalar($footerIcon)) {
+            throw new SlackException('Footer icon should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->footerIcon = (string)$footerIcon;
         
         return $this;
     }
@@ -447,7 +499,11 @@ class Attachment
      */
     public function setTs($ts)
     {
-        $this->ts = $ts;
+        if (!is_scalar($ts)) {
+            throw new SlackException('Ts should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->ts = (string)$ts;
         
         return $this;
     }
@@ -469,7 +525,11 @@ class Attachment
      */
     public function setCallbackId($callbackId)
     {
-        $this->callbackId = $callbackId;
+        if (!is_scalar($callbackId)) {
+            throw new SlackException('Callback id should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->callbackId = (string)$callbackId;
     
         return $this;
     }
@@ -491,7 +551,11 @@ class Attachment
      */
     public function setAttachmentType($attachmentType)
     {
-        $this->attachmentType = $attachmentType;
+        if (!is_scalar($attachmentType)) {
+            throw new SlackException('Attachment type should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->attachmentType = (string)$attachmentType;
     
         return $this;
     }
@@ -507,13 +571,36 @@ class Attachment
     }
     
     /**
-     * Setter for array of fields, that use markdown formatting
+     * Setter for array of fields, that will use markdown formatting
+     * Valid values for array are: pretext, text, fields
      * 
      * @param array Array of fields in attachment that have use markdown formatting
      */
     public function setMrkdwnIn(Array $mrkdwnIn)
     {
-        $this->mrkdwnIn = $mrkdwnIn;
+        $flag = true;
+        $validValues = ["pretext", "text", "fields"];
+        $validToSetValues = [];
+        $invalidValues = [];
+        
+        foreach ($mrkdwnIn as $value) {
+            if (in_array($value, $validValues)) {
+                $validToSetValues[] = $value;
+            } else {
+                $flag = false;
+                $invalidValues[] = $value;
+            }
+        }
+        
+        if (!$flag) {
+            throw new SlackException('Invalid values provided for mrkdwnIn property: '.implode(', ', $invalidValues), SlackException::INVALID_MRKDWN_IN_VALUES);
+        }
+        
+        if (count($validToSetValues) > 0) {
+            $this->mrkdwnIn = $validToSetValues;
+        }
+        
+        return $this;
     }
     
     /**
