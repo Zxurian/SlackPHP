@@ -5,19 +5,28 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 
 /**
- * Class creates payload to get users list of the team
+ * This method returns a list of all users in the team.
+ * This includes deleted/deactivated users.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @see https://api.slack.com/methods/users.list
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method bool getPresence()
  */
 class UsersList extends AbstractPayload
 {
+    const method = 'users.list';
+    
     /**
-     * @var bool|NULL
+     * @var bool
      */
     private $presence = null;
     
     /**
-     * Setter for presence
+     * Whether to include presence data in the output
      *
      * @param bool $presence
      * @return UsersList
@@ -27,26 +36,6 @@ class UsersList extends AbstractPayload
         $this->presence = $presence;
     
         return $this;
-    }
-    
-    /**
-     * Getter for presence
-     *
-     * @return bool|NULL
-     */
-    public function getPresence()
-    {
-        return $this->presence;
-    }
-    
-    /**
-     * Getter for current API method, used for url
-     *
-     * @inheritdoc
-     */
-    public function getMethod()
-    {
-        return 'users.list';
     }
     
     /**
