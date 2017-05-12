@@ -27,13 +27,13 @@ class ChannelsList extends AbstractPayload
      * @var bool
      * @Required
      */
-    private $excludeArchived = null;
+    protected $excludeArchived = null;
     
     /**
      * @var bool
      * @Required
      */
-    private $excludeMembers = null;
+    protected $excludeMembers = null;
     
     /**
      * Setter for excludeArchived

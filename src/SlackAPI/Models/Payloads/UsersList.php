@@ -23,7 +23,7 @@ class UsersList extends AbstractPayload
     /**
      * @var bool
      */
-    private $presence = null;
+    protected $presence = null;
     
     /**
      * Whether to include presence data in the output

@@ -23,7 +23,7 @@ class GroupsList extends AbstractPayload
     /**
      * @var bool
      */
-    private $excludeArchived = null;
+    protected $excludeArchived = null;
     
     /**
      * Set true to not return archived private channels.

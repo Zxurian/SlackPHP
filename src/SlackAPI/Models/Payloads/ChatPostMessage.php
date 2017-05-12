@@ -37,72 +37,72 @@ class ChatPostMessage extends AbstractPayload
     /**
      * @var string
      */
-    private $channel = null;
+    protected$channel = null;
 
     /**
      * @var string
      */
-    private $text = null;
+    protected $text = null;
 
     /**
      * @var string
      */
-    private $parse = null;
+    protected $parse = null;
     
     /**
      * @var bool
      */
-    private $linkNames = null;
+    protected $linkNames = null;
     
     /**
      * @var Attachment[]
      */
-    private $attachments = [];
+    protected $attachments = [];
     
     /**
      * @var bool
      */
-    private $unfurlLinks = null;
+    protected $unfurlLinks = null;
     
     /**
      * @var bool
      */
-    private $unfurlMedia = null;
+    protected $unfurlMedia = null;
     
     /**
      * @var string
      */
-    private $username = null;
+    protected $username = null;
 
     /**
      * @var bool
      */
-    private $asUser = null;
+    protected $asUser = null;
 
     /**
      * @var string
      */
-    private $iconUrl = null;
+    protected $iconUrl = null;
     
     /**
      * @var string
      */
-    private $iconEmoji = null;
+    protected $iconEmoji = null;
     
     /**
      * @var string
      */
-    private $threadTs = null;
+    protected $threadTs = null;
 
     /**
      * @var bool
      */
-    private $replyBroadcast = null;
+    protected $replyBroadcast = null;
     
     /**
      * @var bool
      */
-    private $mrkdwn = null;
+    protected $mrkdwn = null;
     
     /**
      * Channel, private group, or IM channel to send message to.

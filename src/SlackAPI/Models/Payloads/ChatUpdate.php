@@ -32,44 +32,44 @@ class ChatUpdate extends AbstractPayload
      * @var string
      * @Required
      */
-    private $ts = null;
+    protected $ts = null;
     
     /**
      * @var string
      * @Required
      */
-    private $channel = null;
+    protected $channel = null;
     
     /**
      * @var string
      * @Required
      */
-    private $text = null;
+    protected $text = null;
     
     /**
      * @var Attachment[]
      */
-    private $attachments = [];
+    protected $attachments = [];
     
     /**
      * @var string
      */
-    private $parse = null;
+    protected $parse = null;
     
     /**
      * @var bool
      */
-    private $linkNames = null;
+    protected $linkNames = null;
     
     /**
      * @var bool
      */
-    private $asUser = null;
+    protected $asUser = null;
     
     /**
      * @var bool
      */
-    private $mrkdwn = null;
+    protected $mrkdwn = null;
     
     /**
      * Setter for channel, where the message should be updated
