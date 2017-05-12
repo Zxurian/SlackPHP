@@ -7,7 +7,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
- * Class creates payload for posting message to Slack channel
+ * This method posts a message to a public channel, private channel, or direct message/IM channel.
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
