@@ -9,9 +9,26 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * Class creates payload for posting message to Slack channel
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @method string getChannel()
+ * @method string getText()
+ * @method string getParse()
+ * @method bool getLinkNames()
+ * @method Attachment[] getAttachments()
+ * @method bool getUnfurlLinks()
+ * @method bool getUnfurlMedia()
+ * @method string getUsername()
+ * @method bool getAsUser()
+ * @method string getIconUrl()
+ * @method string getIconEmoji()
+ * @method string getThreadTs()
+ * @method bool getReplyBroadcast()
+ * @method bool getMarkdown()
  */
 class ChatPostMessage extends AbstractPayload
 {
+    const method = 'chat.postMessage';
+    
     /**
      * @var string|NULL
      */
@@ -100,16 +117,6 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Getter for channel
-     * 
-     * @return string|NULL
-     */
-    public function getChannel()
-    {
-        return $this->channel;
-    }
-
-    /**
      * Setter for text
      * 
      * @param string $text
@@ -124,16 +131,6 @@ class ChatPostMessage extends AbstractPayload
         $this->text = $text;
         
         return $this;
-    }
-
-    /**
-     * Getter for text
-     * 
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
     }
 
     /**
@@ -154,16 +151,6 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Getter for parse
-     * 
-     * @return string|NULL
-     */
-    public function getParse()
-    {
-        return $this->parse;
-    }
-
-    /**
      * Setter for linkNames
      * 
      * @param bool $linkNames
@@ -176,28 +163,7 @@ class ChatPostMessage extends AbstractPayload
         return $this;
     }
     
-    /**
-     * Getter for linkNames
-     *
-     * @return bool|NULL
-     */
-    public function getLinkNames()
-    {
-        return $this->linkNames;
-    }
-    
-
-    /**
-     * Getter for attachments
-     * 
-     * @return Attachment[]
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
-    }
-    
-    /**
+   /**
      * Add new attachment to array
      * 
      * @param Attachment $attachment
@@ -224,16 +190,6 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Getter for unfurlLinks
-     * 
-     * @return bool|NULL
-     */
-    public function getUnfurlLinks()
-    {
-        return $this->unfurlLinks;
-    }
-
-    /**
      * Setter for unfurlMedia
      *
      * @param bool $unfurlMedia
@@ -244,16 +200,6 @@ class ChatPostMessage extends AbstractPayload
         $this->unfurlMedia = $unfurlMedia;
         
         return $this;
-    }
-    
-    /**
-     * Getter for unfurlMedia
-     * 
-     * @return bool|NULL
-     */
-    public function getUnfurlMedia()
-    {
-        return $this->unfurlMedia;
     }
     
     /**
@@ -270,16 +216,6 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Getter for username
-     * 
-     * @return string|NULL
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
      * Setter for asUser
      * 
      * @param bool $asUser
@@ -293,16 +229,6 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Getter for asUser
-     * 
-     * @return bool|NULL
-     */
-    public function getAsUser()
-    {
-        return $this->asUser;
-    }
-
-    /**
      * Setter for iconUrl
      * 
      * @param string $iconUrl
@@ -313,16 +239,6 @@ class ChatPostMessage extends AbstractPayload
         $this->iconUrl = $iconUrl;
         
         return $this;
-    }
-    
-    /**
-     * Getter for iconUrl
-     * 
-     * @return string|NULL
-     */
-    public function getIconUrl()
-    {
-        return $this->iconUrl;
     }
     
     /**
@@ -343,16 +259,6 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Getter for iconEmoji
-     * 
-     * @return string|NULL
-     */
-    public function getIconEmoji()
-    {
-        return $this->iconEmoji;
-    }
-
-    /**
      * Setter for threadTs
      * 
      * @param string $threadTs
@@ -363,16 +269,6 @@ class ChatPostMessage extends AbstractPayload
         $this->threadTs = $threadTs;
         
         return $this;
-    }
-    
-    /**
-     * Getter of threadTs
-     * 
-     * @return string|NULL
-     */
-    public function getThreadTs()
-    {
-        return $this->threadTs;
     }
     
     /**
@@ -389,26 +285,6 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * Getter for replyBroadcast
-     * 
-     * @return bool|NULL
-     */
-    public function getReplyBroadcast()
-    {
-        return $this->replyBroadcast;
-    }
-    
-    /**
-     * Getter for current API method, used for url
-     * 
-     * @inheritdoc
-     */
-    public function getMethod()
-    {
-        return 'chat.postMessage';
-    }
-    
-    /**
      * Setter for markdown
      * 
      * @param bool $mrkdwn
@@ -419,16 +295,6 @@ class ChatPostMessage extends AbstractPayload
         $this->mrkdwn = $mrkdwn;
         
         return $this;
-    }
-    
-    /**
-     * Getter for markdown
-     * 
-     * @return bool|NULL
-     */
-    public function getMrkdwn()
-    {
-        return $this->mrkdwn;
     }
     
     /**
