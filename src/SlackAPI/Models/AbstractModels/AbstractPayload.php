@@ -2,7 +2,6 @@
 
 namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
-use SlackPHP\SlackAPI\Interfaces\PayloadInterface;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -16,7 +15,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @package SlackAPI
  * @version 0.2
  */
-abstract class AbstractPayload implements PayloadInterface
+abstract class AbstractPayload
 {
     public function __construct()
     {
@@ -62,7 +61,7 @@ abstract class AbstractPayload implements PayloadInterface
             return $this->{$propertyName};
         }
         
-        $this->$methodName();
+        $this->{$methodName}(...$arguments);
     }
     
     /**

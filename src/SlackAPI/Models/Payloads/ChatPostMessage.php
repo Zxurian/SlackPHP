@@ -111,13 +111,14 @@ class ChatPostMessage extends AbstractPayload
      *
      * @see https://api.slack.com/methods/chat.postMessage#channels
      * @param string $channel
+     * @throws SlackException
      * @return ChatPostMessage
      * @Required
      */
     public function setChannel($channel)
     {
         if (!is_scalar($channel)) {
-            throw new SlackException('Channel should be a string type', SlackException::NOT_STRING);
+            throw new SlackException('Channel should be a scalar type', SlackException::NOT_SCALAR);
         }
         
         $this->channel = $channel;
@@ -131,12 +132,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $text
+     * @throws SlackException
      * @return ChatPostMessage
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be a string type', SlackException::NOT_STRING);
+            throw new SlackException('Text should be a scalar type', SlackException::NOT_SCALAR);
         }
         
         $this->text = $text;
@@ -150,12 +152,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $parse
+     * @throws SlackException
      * @return ChatPostMessage
      */
     public function setParse($parse)
     {
-        if (!is_scalar($channel)) {
-            throw new SlackException('Channel should be a string type', SlackException::NOT_STRING);
+        if (!is_scalar($parse)) {
+            throw new SlackException('Parse should be a scalar type', SlackException::NOT_SCALAR);
         }
         
         $this->parse = $parse;
@@ -329,7 +332,7 @@ class ChatPostMessage extends AbstractPayload
     {
         parent::validateRequired();
         
-        if ($this->channel === null && count($this->attachments) == 0) {
+        if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either channel or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);
         }
     }

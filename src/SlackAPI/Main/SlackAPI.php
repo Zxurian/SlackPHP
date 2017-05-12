@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Main;
 
 use SlackPHP\SlackAPI\Interfaces\SlackAPIInterface;
-use SlackPHP\SlackAPI\Interfaces\PayloadInterface;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -17,6 +16,7 @@ use SlackPHP\SlackAPI\Events\ReceivedEvent;
 use SlackPHP\SlackAPI\Events\ParsedReceivedEvent;
 use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 
 /**
  * Class where the calls to Slack API are executed from
@@ -83,10 +83,10 @@ class SlackAPI implements SlackAPIInterface
     /**
      * Send payload to Slack API
      * 
-     * @param PayloadInterface $payload Payload to send
+     * @param AbstractPayload $payload Payload to send
      * @return PayloadResponseInterface
      */
-    public function send(PayloadInterface $payload)
+    public function send(AbstractPayload $payload)
     {
         $payload->validateRequired();
         

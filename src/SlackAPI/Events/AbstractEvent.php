@@ -2,8 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Events;
 
-use SlackPHP\SlackAPI\Interfaces\PayloadInterface;
 use Symfony\Component\EventDispatcher\Event;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 
 /**
  * Class for the events, that save original payload
@@ -13,17 +13,17 @@ use Symfony\Component\EventDispatcher\Event;
 class AbstractEvent extends Event
 {
     /** 
-     * @var PayloadInterface|NULL
+     * @var AbstractPayload|NULL
      */
     private $payload = null;
     
     /**
      * Setter for the original payload
      * 
-     * @param PayloadInterface $payload
+     * @param AbstractPayload $payload
      * @return AbstractEvent
      */
-    public function setPayload(PayloadInterface $payload)
+    public function setPayload(AbstractPayload $payload)
     {
         $this->payload = $payload;
         
@@ -33,7 +33,7 @@ class AbstractEvent extends Event
     /**
      * Getter for the original payload
      * 
-     * @return PayloadInterface|NULL
+     * @return AbstractPayload|NULL
      */
     public function getPayload()
     {

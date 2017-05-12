@@ -6,6 +6,8 @@
 
 namespace SlackPHP\SlackAPI\Interfaces;
 
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
+
 /**
  * Interface for Slack API class, where all the payloads are sent to Slack API
  * 
@@ -14,9 +16,9 @@ namespace SlackPHP\SlackAPI\Interfaces;
 interface SlackAPIInterface
 {
     /**
-     * @param PayloadInterface $payload Payload to be sent
+     * @param AbstractPayload $payload Payload to be sent
      * 
      * @return PayloadResponseInterface Processed payload from Slack API response
      */
-    public function send(PayloadInterface $payload);
+    public function send(AbstractPayload $payload);
 }

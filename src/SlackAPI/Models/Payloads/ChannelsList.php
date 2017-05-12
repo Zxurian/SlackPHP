@@ -39,6 +39,7 @@ class ChannelsList extends AbstractPayload
      * Setter for excludeArchived
      * 
      * @param bool $excludeArchived
+     * @throws SlackException
      * @return ChannelsList
      */
     public function setExcludeArchived($excludeArchived)
@@ -56,6 +57,7 @@ class ChannelsList extends AbstractPayload
      * Setter for excludeMembers
      * 
      * @param bool $excludeMembers
+     * @throws SlackException::
      * @return ChannelsList
      */
     public function setExcludeMembers($excludeMembers)
@@ -68,15 +70,4 @@ class ChannelsList extends AbstractPayload
         
         return $this;
     }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMethod()
-     */
-    public function getMethod()
-    {
-        return 'channels.list';
-    }
-    
 }

@@ -3,9 +3,9 @@
 namespace SlackPHP\SlackAPI\Processors;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractProcessor;
-use SlackPHP\SlackAPI\Interfaces\PayloadInterface;
 use SlackPHP\SlackAPI\Exceptions\SerializerException;
 use function GuzzleHttp\json_encode;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 
 /**
  * Class processes payload, for sending to Slack API
@@ -17,10 +17,10 @@ class PayloadProcessor extends AbstractProcessor
     /**
      * Getting payload ready for use with request
      * 
-     * @param PayloadInterface $payload
+     * @param AbstractPayload $payload
      * @return array Processed payload
      */
-    public function process(PayloadInterface $payload)
+    public function process(AbstractPayload $payload)
     {
         $serializedPayload = $this->serializer->serialize($payload, 'json');
         
