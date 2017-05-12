@@ -24,4 +24,5 @@ class SlackException extends \Exception
     const NOT_STRING = 112;
     const NOT_SCALAR = 113;
     const INVALID_MRKDWN_IN_VALUES = 114;
+    const MISSING_REQUIRED_FIELD = 115;
 }

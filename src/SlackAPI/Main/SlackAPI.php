@@ -88,9 +88,7 @@ class SlackAPI implements SlackAPIInterface
      */
     public function send(PayloadInterface $payload)
     {
-        if (!$payload->hasRequiredProperties()) {
-            throw new SlackException('Required payload properties are not set: '.implode(', ', $payload->getMissingRequiredProperties()));
-        }
+        $payload->validateRequired();
         
         $processedPayload = $this->payloadProcessor->process($payload);
         

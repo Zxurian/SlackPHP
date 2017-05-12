@@ -6,46 +6,70 @@ use SlackPHP\SlackAPI\Models\Attachment;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 
 /**
- * Class creates payload for updating a message in channel
+ * This method updates a message in a channel.
+ * Though related to chat.postMessage, some parameters of chat.update are handled differently.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @see https://api.slack.com/methods/chat.update
+ * @package SlackAPI
+ * @version 0.1
+ * 
+ * @method string getTs()
+ * @method string getChannel()
+ * @method string getText()
+ * @method Attachment[] getAttachments()
+ * @method string getParse()
+ * @method bool getLinkNames()
+ * @method bool getAsUser()
+ * @method bool getMarkdown()
  */
 class ChatUpdate extends AbstractPayload
 {
-    /**
-     * @var string|NULL
-     */
-    private $channel = null;
+    const method = 'chat.update';
     
     /**
-     * @var string|NULL
+     * @var string
+     * @Required
      */
-    private $ts = null;
+    protected $ts = null;
     
     /**
-     * @var string|NULL
+     * @var string
+     * @Required
      */
-    private $text = null;
+    protected $channel = null;
+    
+    /**
+     * @var string
+     * @Required
+     */
+    protected $text = null;
     
     /**
      * @var Attachment[]
      */
-    private $attachments = [];
+    protected $attachments = [];
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $parse = null;
+    protected $parse = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
-    private $linkNames = null;
+    protected $linkNames = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
      */
-    private $asUser = null;
+    protected $asUser = null;
+    
+    /**
+     * @var bool
+     */
+    protected $mrkdwn = null;
     
     /**
      * Setter for channel, where the message should be updated
@@ -61,16 +85,6 @@ class ChatUpdate extends AbstractPayload
     }
 
     /**
-     * Getter for channel
-     * 
-     * @return string|NULL
-     */
-    public function getChannel()
-    {
-        return $this->channel;
-    }
-    
-    /**
      * Setter for ts of message, that has to be updated
      *
      * @param string $ts
@@ -84,16 +98,6 @@ class ChatUpdate extends AbstractPayload
     }
     
     /**
-     * Getter of ts
-     *
-     * @return string|NULL
-     */
-    public function getTs()
-    {
-        return $this->ts;
-    }
-    
-    /**
      * Setter for text
      *
      * @param string $text
@@ -104,26 +108,6 @@ class ChatUpdate extends AbstractPayload
         $this->text = $text;
     
         return $this;
-    }
-    
-    /**
-     * Getter for text
-     *
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-    
-    /**
-     * Getter for attachments
-     *
-     * @return Attachment[]
-     */
-    public function getAttachments()
-    {
-        return $this->attachments;
     }
     
     /**
@@ -153,16 +137,6 @@ class ChatUpdate extends AbstractPayload
     }
     
     /**
-     * Getter for parse
-     *
-     * @return string|NULL
-     */
-    public function getParse()
-    {
-        return $this->parse;
-    }
-    
-    /**
      * Setter for linkNames
      *
      * @param bool $linkNames
@@ -173,16 +147,6 @@ class ChatUpdate extends AbstractPayload
         $this->linkNames = $linkNames;
     
         return $this;
-    }
-    
-    /**
-     * Getter for linkNames
-     *
-     * @return bool|NULL
-     */
-    public function getLinkNames()
-    {
-        return $this->linkNames;
     }
     
     /**
@@ -198,69 +162,4 @@ class ChatUpdate extends AbstractPayload
         return $this;
     }
     
-    /**
-     * Getter for asUser
-     *
-     * @return bool|NULL
-     */
-    public function getAsUser()
-    {
-        return $this->asUser;
-    }
-    
-    /**
-     * Getter for current API method, used for url
-     *
-     * @inheritdoc
-     */
-    public function getMethod()
-    {
-        return 'chat.update';
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::hasRequiredProperties()
-     */
-    public function hasRequiredProperties()
-    {
-        if ($this->ts === null) {
-            return false;
-        }
-        
-        if ($this->channel === null) {
-            return false;
-        }
-        
-        if ($this->text === null) {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
-     */
-    public function getMissingRequiredProperties()
-    {
-        $return = [];
-        
-        if ($this->ts === null) {
-            $return[] = 'ts';
-        }
-        
-        if ($this->channel === null) {
-            $return[] = 'channel';
-        }
-        
-        if ($this->text === null) {
-            $return[] = 'text';
-        }
-        
-        return $return;
-    }
 }

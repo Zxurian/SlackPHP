@@ -15,31 +15,4 @@ namespace SlackPHP\SlackAPI\Interfaces;
  */
 interface PayloadInterface
 {
-    /**
-     * Get API method name used for payload
-     * 
-     * @return string
-     */
-    public function getMethod();
-    
-    /**
-     * Get class name, used to process the response payload
-     * 
-     * @return string
-     */
-    public function getResponseClass();
-    
-    /**
-     * Check that all required properties are set
-     * 
-     * @return bool
-     */
-    public function hasRequiredProperties();
-    
-    /**
-     * Get all the missing required properties from payload
-     * 
-     * @return array
-     */
-    public function getMissingRequiredProperties();
 }

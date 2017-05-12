@@ -4,23 +4,36 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
- * Method gets list of channels in team
+ * This method returns a list of all channels in the team.
+ * This includes channels the caller is in, channels they are not currently in, and archived channels but does not include private channels. The number of (non-deactivated) members in each channel is also returned.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @see https://api.slack.com/methods/channels.list
+ * @package SlackAPI
+ * @version 0.1
+ * 
+ * @method bool getExcludeArchived()
+ * @method bool getExcludeMembers()
  */
 class ChannelsList extends AbstractPayload
 {
-    /**
-     * @var bool|NULL
-     */
-    private $excludeArchived = null;
+    const method = 'channels.list';
     
     /**
-     * @var bool|NULL
+     * @var bool
+     * @Required
      */
-    private $excludeMembers = null;
+    protected $excludeArchived = null;
+    
+    /**
+     * @var bool
+     * @Required
+     */
+    protected $excludeMembers = null;
     
     /**
      * Setter for excludeArchived
@@ -37,16 +50,6 @@ class ChannelsList extends AbstractPayload
         $this->excludeArchived = $excludeArchived;
         
         return $this;
-    }
-    
-    /**
-     * Getter for excludeArchived
-     * 
-     * @return bool
-     */
-    public function getExcludeArchived()
-    {
-        return $this->excludeArchived;
     }
     
     /**
@@ -67,16 +70,6 @@ class ChannelsList extends AbstractPayload
     }
     
     /**
-     * Getter for excludeMembers
-     * 
-     * @return bool
-     */
-    public function getExcludeMembers()
-    {
-        return $this->excludeMembers;
-    }
-    
-    /**
      * 
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMethod()
@@ -86,23 +79,4 @@ class ChannelsList extends AbstractPayload
         return 'channels.list';
     }
     
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::hasRequiredProperties()
-     */
-    public function hasRequiredProperties()
-    {
-        return true;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Interfaces\PayloadInterface::getMissingRequiredProperties()
-     */
-    public function getMissingRequiredProperties()
-    {
-        return [];
-    }
 }
