@@ -4,21 +4,29 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
- * Method gets list of channels in team
+ * This method returns a list of all channels in the team.
+ * This includes channels the caller is in, channels they are not currently in, and archived channels but does not include private channels. The number of (non-deactivated) members in each channel is also returned.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @see https://api.slack.com/methods/channels.list
+ * @package SlackAPI
+ * @version 0.1
  */
 class ChannelsList extends AbstractPayload
 {
     /**
-     * @var bool|NULL
+     * @var bool
+     * @Required
      */
     private $excludeArchived = null;
     
     /**
-     * @var bool|NULL
+     * @var bool
+     * @Required
      */
     private $excludeMembers = null;
     
