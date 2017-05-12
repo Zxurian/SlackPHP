@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Class to create new action for attachment
  *
@@ -68,6 +70,8 @@ class AttachmentAction
      * Setter for name
      * 
      * @param string $name
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setName($name)
     {
@@ -94,10 +98,16 @@ class AttachmentAction
      * Setter for text
      * 
      * @param string $text
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setText($text)
     {
-        $this->text = $text;
+        if (!is_scalar($text)) {
+            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->text = (string)$text;
         
         return $this;
     }
@@ -116,9 +126,15 @@ class AttachmentAction
      * Setter for style
      *
      * @param string $style
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setStyle($style)
     {
+        if (!is_scalar($style)) {
+            throw new SlackException('Style should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->style = $style;
     
         return $this;
