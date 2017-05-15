@@ -3,16 +3,41 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 
 /**
  * Class to create Attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @see https://api.slack.com/docs/interactive-message-field-guide#attachment_fields
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method string getFallback()
+ * @method string getColor()
+ * @method string getPretext()
+ * @method string getAuthorName()
+ * @method string getAuthorLink()
+ * @method string getAuthorIcon()
+ * @method string getTitle()
+ * @method string getTitleLink()
+ * @method string getText()
+ * @method AttachmentField[] getFields()
+ * @method AttachmentAction[] getActions()
+ * @method string getImageUrl()
+ * @method string getThumbUrl()
+ * @method string getFooter()
+ * @method string getFooterIcon()
+ * @method string getTs()
+ * @method string getCallbackId()
+ * @method string getAttachmentType()
+ * @method string getMrkdwnIn()
  */
-class Attachment
+class Attachment extends AbstractMain
 {
     /**
      * @var string|NULL
+     * @Required
      */
     private $fallback = null;
     
@@ -123,16 +148,6 @@ class Attachment
     }
     
     /**
-     * Getter for fallback
-     *
-     * @return string|NULL
-     */
-    public function getFallback()
-    {
-        return $this->fallback;
-    }
-    
-    /**
      * Setter for color
      *
      * @param string $color
@@ -146,16 +161,6 @@ class Attachment
         $this->color = (string)$color;
         
         return $this;
-    }
-    
-    /**
-     * Getter for color
-     *
-     * @return string|NULL
-     */
-    public function getColor()
-    {
-        return $this->color;
     }
     
     /**
@@ -175,16 +180,6 @@ class Attachment
     }
     
     /**
-     * Getter for pretext
-     *
-     * @return string|NULL
-     */
-    public function getPretext()
-    {
-        return $this->pretext;
-    }
-    
-    /**
      * Setter for authorName
      *
      * @param string $authorName
@@ -198,16 +193,6 @@ class Attachment
         $this->authorName = (string)$authorName;
         
         return $this;
-    }
-    
-    /**
-     * Getter for authorName
-     *
-     * @return string|NULL
-     */
-    public function getAuthorName()
-    {
-        return $this->authorName;
     }
     
     /**
@@ -227,16 +212,6 @@ class Attachment
     }
     
     /**
-     * Getter for authorLink
-     *
-     * @return string|NULL
-     */
-    public function getAuthorLink()
-    {
-        return $this->authorLink;
-    }
-    
-    /**
      * Setter for authorIcon
      *
      * @param string $authorIcon
@@ -250,16 +225,6 @@ class Attachment
         $this->authorIcon = (string)$authorIcon;
         
         return $this;
-    }
-    
-    /**
-     * Getter for authorIcon
-     *
-     * @return string|NULL
-     */
-    public function getAuthorIcon()
-    {
-        return $this->authorIcon;
     }
     
     /**
@@ -279,16 +244,6 @@ class Attachment
     }
 
     /**
-     * Getter for title
-     * 
-     * @return string|NULL
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Setter for titleLink
      * 
      * @param string $titleLink
@@ -302,16 +257,6 @@ class Attachment
         $this->titleLink = (string)$titleLink;
         
         return $this;
-    }
-
-    /**
-     * Getter for titleLink
-     * 
-     * @return string|NULL
-     */
-    public function getTitleLink()
-    {
-        return $this->titleLink;
     }
 
     /**
@@ -331,16 +276,6 @@ class Attachment
     }
     
     /**
-     * Getter for text
-     *
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-    
-    /**
      * Add new AttachmentField to Array
      *
      * @param AttachmentField $field
@@ -350,16 +285,6 @@ class Attachment
         $this->fields[] = $field;
         
         return $this;
-    }
-    
-    /**
-     * Getter for fields
-     *
-     * @return AttachmentField[]
-     */
-    public function getFields()
-    {
-        return $this->fields;
     }
     
     /**
@@ -379,16 +304,6 @@ class Attachment
     }
     
     /**
-     * Getter for actions
-     *
-     * @return AttachmentAction[]
-     */
-    public function getActions()
-    {
-        return $this->actions;
-    }
-    
-    /**
      * Setter for imageUrl
      * 
      * @param string $imageUrl
@@ -402,16 +317,6 @@ class Attachment
         $this->imageUrl = (string)$imageUrl;
         
         return $this;
-    }
-
-    /**
-     * Getter for imageUrl
-     * 
-     * @return string|NULL
-     */
-    public function getImageUrl()
-    {
-        return $this->imageUrl;
     }
     
     /**
@@ -431,16 +336,6 @@ class Attachment
     }
     
     /**
-     * Getter for thumbUrl
-     * 
-     * @return string|NULL
-     */
-    public function getThumbUrl()
-    {
-        return $this->thumbUrl;
-    }
-    
-    /**
      * Setter for footer
      * 
      * @param string $footer
@@ -454,16 +349,6 @@ class Attachment
         $this->footer = (string)$footer;
         
         return $this;
-    }
-    
-    /**
-     * Getter for footer
-     * 
-     * @return string|NULL
-     */
-    public function getFooter()
-    {
-        return $this->footer;
     }
     
     /**
@@ -483,16 +368,6 @@ class Attachment
     }
     
     /**
-     * Getter for footerIcon
-     * 
-     * @return string|NULL
-     */
-    public function getFooterIcon()
-    {
-        return $this->footerIcon;
-    }
-    
-    /**
      * Setter for ts
      * 
      * @param string $ts
@@ -506,16 +381,6 @@ class Attachment
         $this->ts = (string)$ts;
         
         return $this;
-    }
-    
-    /**
-     * Getter for ts
-     * 
-     * @return string|NULL
-     */
-    public function getTs()
-    {
-        return $this->ts;
     }
     
     /**
@@ -535,16 +400,6 @@ class Attachment
     }
     
     /**
-     * Getter for callbackId
-     *
-     * @return string|NULL
-     */
-    public function getCallbackId()
-    {
-        return $this->callbackId;
-    }
-    
-    /**
      * Setter for attachmentType
      *
      * @param string $attachmentType
@@ -558,16 +413,6 @@ class Attachment
         $this->attachmentType = (string)$attachmentType;
     
         return $this;
-    }
-    
-    /**
-     * Getter for attachmentType
-     *
-     * @return string|NULL
-     */
-    public function getAttachmentType()
-    {
-        return $this->attachmentType;
     }
     
     /**
@@ -604,12 +449,15 @@ class Attachment
     }
     
     /**
-     * Getter for array of markdown fields
-     * 
-     * @return Array
+     * {@inheritdoc}
+     * @see SlackAPI\Models\AbstractModels\AbstractMain::validateRequired()
      */
-    public function getMrkdwnIn()
+    public function validateRequired()
     {
-        return $this->mrkdwnIn;
+        parent::validateRequired();
+    
+        if (count($this->actions) > 0 && $this->callbackId === null) {
+            throw new SlackException('Must provide callback id, if buttons set in attachments payload', SlackException::MISSING_REQUIRED_FIELD);
+        }
     }
 }

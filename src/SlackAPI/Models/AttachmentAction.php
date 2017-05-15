@@ -3,21 +3,39 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 
 /**
  * Class to create new action for attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @see https://api.slack.com/docs/interactive-message-field-guide#action_fields
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method string getName()
+ * @method string getText()
+ * @method string getStyle()
+ * @method bool getType()
+ * @method ActionOption[] getOptions()
+ * @method bool getValue()
+ * @method ActionConfirm getConfirm()
+ * @method ActionOption[] getSelectedOptions()
+ * @method ActionOptionGroup[] getOptionGroups()
+ * @method string getDataSource()
+ * @method int getMinQueryLength()
  */
-class AttachmentAction
+class AttachmentAction extends AbstractMain
 {
     /**
      * @var string|NULL
+     * @Required
      */
     private $name = null;
 
     /**
      * @var string|NULL
+     * @Required
      */
     private $text = null;
 
@@ -28,6 +46,7 @@ class AttachmentAction
 
     /**
      * @var string|NULL
+     * @Required
      */
     private $type = null;
     
@@ -85,16 +104,6 @@ class AttachmentAction
     }
 
     /**
-     * Getter for name
-     * 
-     * @return string|NULL
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Setter for text
      * 
      * @param string $text
@@ -110,16 +119,6 @@ class AttachmentAction
         $this->text = (string)$text;
         
         return $this;
-    }
-
-    /**
-     * Getter for text
-     * 
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
     }
     
     /**
@@ -141,16 +140,6 @@ class AttachmentAction
     }
     
     /**
-     * Getter for style
-     *
-     * @return string|NULL
-     */
-    public function getStyle()
-    {
-        return $this->style;
-    }
-    
-    /**
      * Setter for type
      *
      * @param string $type
@@ -160,16 +149,6 @@ class AttachmentAction
         $this->type = $type;
     
         return $this;
-    }
-    
-    /**
-     * Getter for type
-     *
-     * @return string|NULL
-     */
-    public function getType()
-    {
-        return $this->type;
     }
     
     /**
@@ -185,16 +164,6 @@ class AttachmentAction
     }
     
     /**
-     * Getter for value
-     *
-     * @return string|NULL
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-    
-    /**
      * Setter for confirm
      *
      * @param string $text
@@ -204,16 +173,6 @@ class AttachmentAction
         $this->confirm = $confirm;
     
         return $this;
-    }
-    
-    /**
-     * Getter for confirm
-     *
-     * @return ActionConfirm|NULL
-     */
-    public function getConfirm()
-    {
-        return $this->confirm;
     }
     
     /**
@@ -230,16 +189,6 @@ class AttachmentAction
     }
     
     /**
-     * Getter for Options
-     * 
-     * @return ActionOption[]
-     */
-    public function getOptions()
-    {
-        return $this->getOptions();
-    }
-    
-    /**
      * Add new Selected Option to Array
      *
      * @param ActionOption $selectedOption
@@ -250,16 +199,6 @@ class AttachmentAction
         $this->selectedOptions[] = $selectedOption;
     
         return $this;
-    }
-    
-    /**
-     * Getter for selectedOptions
-     *
-     * @return ActionOption[]
-     */
-    public function getSelectedOptions()
-    {
-        return $this->selectedOptions();
     }
     
     /**
@@ -276,16 +215,6 @@ class AttachmentAction
     }
     
     /**
-     * Getter for option groups
-     *
-     * @return ActionOptionGroup[]
-     */
-    public function getOptionGroups()
-    {
-        return $this->optionGroups();
-    }
-    
-    /**
      * Setter for minQueryLength
      *
      * @param int $minQueryLength
@@ -295,15 +224,5 @@ class AttachmentAction
         $this->minQueryLength = $minQueryLength;
     
         return $this;
-    }
-    
-    /**
-     * Getter for minQueryLength
-     *
-     * @return int|NULL
-     */
-    public function getMinQueryLength()
-    {
-        return $this->minQueryLength;
     }
 }

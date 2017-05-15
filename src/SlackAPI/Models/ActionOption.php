@@ -3,21 +3,31 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 
 /**
  * Class to create new option for action
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @see https://api.slack.com/docs/interactive-message-field-guide#option_fields_to_place_within_message_menu_actions
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method string getDescription()
+ * @method string getText()
+ * @method string getValue()
  */
-class ActionOption
+class ActionOption extends AbstractMain
 {
     /**
      * @var string|NULL
+     * @Required
      */
     private $text = null;
     
     /**
      * @var string|NULL
+     * @Required
      */
     private $value = null;
     
@@ -45,16 +55,6 @@ class ActionOption
     }
     
     /**
-     * Getter for text
-     * 
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-    
-    /**
      * Setter for value
      * 
      * @param string $value
@@ -69,16 +69,6 @@ class ActionOption
         $this->value = (string)$value;
         
         return $this;
-    }
-
-    /**
-     * Getter for value
-     * 
-     * @return string|NULL
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
     
     /**
@@ -96,15 +86,5 @@ class ActionOption
         $this->description = (string)$description;
     
         return $this;
-    }
-    
-    /**
-     * Getter for description
-     *
-     * @return string|NULL
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 }

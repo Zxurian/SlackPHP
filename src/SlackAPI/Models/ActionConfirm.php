@@ -3,13 +3,22 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 
 /**
  * Class for confirm action buttons
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @see https://api.slack.com/docs/interactive-message-field-guide#confirmation_fields
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method string getTitle()
+ * @method string getText()
+ * @method string getOkText()
+ * @method string getDismissText()
  */
-class ActionConfirm
+class ActionConfirm extends AbstractMain
 {
     /**
      * @var string|NULL
@@ -18,6 +27,7 @@ class ActionConfirm
 
     /**
      * @var string|NULL
+     * @Required
      */
     private $text = null;
 
@@ -48,16 +58,6 @@ class ActionConfirm
     }
 
     /**
-     * Getter for title
-     * 
-     * @return string|NULL
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Setter for text
      * 
      * @param string $text
@@ -71,16 +71,6 @@ class ActionConfirm
         $this->text = (string)$text;
         
         return $this;
-    }
-
-    /**
-     * Getter for text
-     * 
-     * @return string|NULL
-     */
-    public function getText()
-    {
-        return $this->text;
     }
 
     /**
@@ -100,16 +90,6 @@ class ActionConfirm
     }
     
     /**
-     * Getter for okText
-     *
-     * @return string|NULL
-     */
-    public function getOkText()
-    {
-        return $this->okText;
-    }
-    
-    /**
      * Setter for dismissText
      *
      * @param string $dismissText
@@ -123,15 +103,5 @@ class ActionConfirm
         $this->dismissText = (string)$dismissText;
     
         return $this;
-    }
-    
-    /**
-     * Getter for dismissText
-     *
-     * @return string|NULL
-     */
-    public function getDismissText()
-    {
-        return $this->dismissText;
     }
 }

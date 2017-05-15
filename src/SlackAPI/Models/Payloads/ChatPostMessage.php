@@ -38,7 +38,7 @@ class ChatPostMessage extends AbstractPayload
      * @var string
      * @Required
      */
-    protected$channel = null;
+    protected $channel = null;
 
     /**
      * @var string
@@ -333,7 +333,7 @@ class ChatPostMessage extends AbstractPayload
         parent::validateRequired();
         
         if ($this->text === null && count($this->attachments) == 0) {
-            throw new SlackException('Must provide either channel or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);
+            throw new SlackException('Must provide either text or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);
         }
     }
     
