@@ -43,7 +43,7 @@ class ActionOptionGroup extends AbstractMain
             throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->text = $text;
+        $this->text = (string)$text;
         
         return $this;
     }

@@ -8,7 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
- * @covers Attachment
+ * @covers AttachmentField
  */
 class AttachmentFieldTest extends TestCase
 {
