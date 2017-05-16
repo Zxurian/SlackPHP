@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class to create new option group in action
@@ -19,20 +20,21 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 class ActionOptionGroup extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $text = null;
+    protected $text = null;
     
     /**
      * @var ActionOption[]
      */
-    private $options = [];
+    protected $options = [];
     
     /**
      * Setter for text
      * 
      * @param string $text
+     * @throws SlackException
      * @return ActionOptionGroup
      */
     public function setText($text)
@@ -57,5 +59,18 @@ class ActionOptionGroup extends AbstractMain
         $this->options[] = $option;
         
         return $this;
+    }
+    
+    /**
+     * {@inheritdoc}
+     * @see SlackAPI\Models\AbstractModels\AbstractPayload::validateRequired()
+     */
+    public function validateRequired()
+    {
+        parent::validateRequired();
+    
+        if (count($this->options) == 0) {
+            throw new SlackException('Must provide at least one option for group', SlackException::MISSING_REQUIRED_FIELD);
+        }
     }
 }
