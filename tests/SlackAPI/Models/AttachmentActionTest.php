@@ -25,11 +25,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingName()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setName($this->dummyString);
+        $returnedObject = $attachmentActionObject->setName($this->dummyString);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $nameProperty = $refAttachmentActionObject->getProperty('name');
         $nameProperty->setAccessible(true);
     
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyString, $nameProperty->getValue($attachmentActionObject));
     }
     
@@ -64,11 +65,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingText()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setText($this->dummyString);
+        $returnedObject = $attachmentActionObject->setText($this->dummyString);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $textProperty = $refAttachmentActionObject->getProperty('text');
         $textProperty->setAccessible(true);
         
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyString, $textProperty->getValue($attachmentActionObject));
     }
     
@@ -103,11 +105,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingStyle()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setStyle($this->dummyString);
+        $returnedObject = $attachmentActionObject->setStyle($this->dummyString);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $styleProperty = $refAttachmentActionObject->getProperty('style');
         $styleProperty->setAccessible(true);
         
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyString, $styleProperty->getValue($attachmentActionObject));
     }
     
@@ -142,11 +145,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingType()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setType($this->dummyString);
+        $returnedObject = $attachmentActionObject->setType($this->dummyString);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $typeProperty = $refAttachmentActionObject->getProperty('type');
         $typeProperty->setAccessible(true);
     
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyString, $typeProperty->getValue($attachmentActionObject));
     }
     
@@ -181,11 +185,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingValue()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setValue($this->dummyString);
+        $returnedObject = $attachmentActionObject->setValue($this->dummyString);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $valueProperty = $refAttachmentActionObject->getProperty('value');
         $valueProperty->setAccessible(true);
     
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyString, $valueProperty->getValue($attachmentActionObject));
     }
     
@@ -384,11 +389,12 @@ class AttachmentActionTest extends TestCase
     public function testSettingMinQueryLength()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setMinQueryLength($this->dummyInt);
+        $returnedObject = $attachmentActionObject->setMinQueryLength($this->dummyInt);
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $minQueryLengthProperty = $refAttachmentActionObject->getProperty('minQueryLength');
         $minQueryLengthProperty->setAccessible(true);
         
+        $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertEquals($this->dummyInt, $minQueryLengthProperty->getValue($attachmentActionObject));
     }
     

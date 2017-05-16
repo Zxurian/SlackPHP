@@ -29,35 +29,35 @@ use Doctrine\Common\Annotations\Annotation\Required;
 class AttachmentAction extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
     protected $name = null;
 
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
     protected $text = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
     protected $style = null;
 
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
     protected $type = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
     protected $value = null;
     
     /**
-     * @var ActionConfirm|NULL
+     * @var ActionConfirm
      */
     protected $confirm = null;
     
@@ -77,12 +77,12 @@ class AttachmentAction extends AbstractMain
     protected $optionGroups = [];
     
     /**
-     * @var string|NULL
+     * @var string
      */
     protected $dataSource = null;
     
     /**
-     * @var int|NULL
+     * @var int
      */
     protected $minQueryLength = null;
     
@@ -135,7 +135,7 @@ class AttachmentAction extends AbstractMain
             throw new SlackException('Style should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->style = $style;
+        $this->style = (string)$style;
     
         return $this;
     }
@@ -153,7 +153,7 @@ class AttachmentAction extends AbstractMain
             throw new SlackException('Type should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->type = $type;
+        $this->type = (string)$type;
     
         return $this;
     }
@@ -171,7 +171,7 @@ class AttachmentAction extends AbstractMain
             throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->value = $value;
+        $this->value = (string)$value;
     
         return $this;
     }
