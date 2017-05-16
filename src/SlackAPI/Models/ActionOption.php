@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class to create new option for action
@@ -20,27 +21,27 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 class ActionOption extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $text = null;
+    protected $text = null;
     
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $value = null;
+    protected $value = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $description = null;
+    protected $description = null;
     
     /**
      * Setter for text
      * 
-     * @throws SlackException
      * @param string $text
+     * @throws SlackException
      * @return ActionOption
      */
     public function setText($text)
@@ -58,6 +59,7 @@ class ActionOption extends AbstractMain
      * Setter for value
      * 
      * @param string $value
+     * @throws SlackException
      * @return ActionOption
      */
     public function setValue($value)
@@ -75,6 +77,7 @@ class ActionOption extends AbstractMain
      * Setter for description
      *
      * @param string $description
+     * @throws SlackException
      * @return ActionOption
      */
     public function setDescription($description)

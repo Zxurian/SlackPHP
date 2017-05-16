@@ -21,11 +21,12 @@ class ActionOptionTest extends TestCase
     public function testSettingText()
     {
         $actionOptionObject = new ActionOption();
-        $actionOptionObject->setText($this->dummyString);
+        $returnedObject = $actionOptionObject->setText($this->dummyString);
         $refActionOptionObject = new \ReflectionObject($actionOptionObject);
         $textProperty = $refActionOptionObject->getProperty('text');
         $textProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionOption::class, $returnedObject);
         $this->assertEquals($this->dummyString, $textProperty->getValue($actionOptionObject));
     }
     
@@ -60,11 +61,12 @@ class ActionOptionTest extends TestCase
     public function testSettingValue()
     {
         $actionOptionObject = new ActionOption();
-        $actionOptionObject->setValue($this->dummyString);
+        $returnedObject = $actionOptionObject->setValue($this->dummyString);
         $refActionOptionObject = new \ReflectionObject($actionOptionObject);
         $valueProperty = $refActionOptionObject->getProperty('value');
         $valueProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionOption::class, $returnedObject);
         $this->assertEquals($this->dummyString, $valueProperty->getValue($actionOptionObject));
     }
     
@@ -99,11 +101,12 @@ class ActionOptionTest extends TestCase
     public function testSettingDescription()
     {
         $actionOptionObject = new ActionOption();
-        $actionOptionObject->setDescription($this->dummyString);
+        $returnedObject = $actionOptionObject->setDescription($this->dummyString);
         $refActionOptionObject = new \ReflectionObject($actionOptionObject);
         $descriptionProperty = $refActionOptionObject->getProperty('description');
         $descriptionProperty->setAccessible(true);
     
+        $this->assertInstanceOf(ActionOption::class, $returnedObject);
         $this->assertEquals($this->dummyString, $descriptionProperty->getValue($actionOptionObject));
     }
     
@@ -130,5 +133,29 @@ class ActionOptionTest extends TestCase
         $descriptionProperty->setValue($actionOptionObject, $this->dummyString);
     
         $this->assertEquals($this->dummyString, $actionOptionObject->getDescription());
+    }
+    
+    /**
+     * Test that exception is thrown if required text property is not set
+     */
+    public function testValidateRequiredText()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $actionOptionObject = new ActionOption();
+        $actionOptionObject->setValue($this->dummyString);
+        $actionOptionObject->validateRequired();
+    }
+    
+    /**
+     * Test that exception is thrown if required value property is not set
+     */
+    public function testValidateRequiredValue()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $actionOptionObject = new ActionOption();
+        $actionOptionObject->setText($this->dummyString);
+        $actionOptionObject->validateRequired();
     }
 }
