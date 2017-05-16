@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class to create new action for attachment
@@ -31,59 +32,59 @@ class AttachmentAction extends AbstractMain
      * @var string|NULL
      * @Required
      */
-    private $name = null;
+    protected $name = null;
 
     /**
      * @var string|NULL
      * @Required
      */
-    private $text = null;
+    protected $text = null;
 
     /**
      * @var string|NULL
      */
-    private $style = null;
+    protected $style = null;
 
     /**
      * @var string|NULL
      * @Required
      */
-    private $type = null;
+    protected $type = null;
     
     /**
      * @var string|NULL
      */
-    private $value = null;
+    protected $value = null;
     
     /**
      * @var ActionConfirm|NULL
      */
-    private $confirm = null;
+    protected $confirm = null;
     
     /**
      * @var ActionOption[]
      */
-    private $options = [];
+    protected $options = [];
     
     /**
      * @var ActionOption[]
      */
-    private $selectedOptions = [];
+    protected $selectedOptions = [];
     
     /**
      * @var ActionOptionGroup[]
      */
-    private $optionGroups = [];
+    protected $optionGroups = [];
     
     /**
      * @var string|NULL
      */
-    private $dataSource = null;
+    protected $dataSource = null;
     
     /**
      * @var int|NULL
      */
-    private $minQueryLength = null;
+    protected $minQueryLength = null;
     
     /**
      * Setter for name
@@ -143,9 +144,15 @@ class AttachmentAction extends AbstractMain
      * Setter for type
      *
      * @param string $type
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setType($type)
     {
+        if (!is_scalar($type)) {
+            throw new SlackException('Type should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->type = $type;
     
         return $this;
@@ -155,9 +162,15 @@ class AttachmentAction extends AbstractMain
      * Setter for value
      *
      * @param string $value
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setValue($value)
     {
+        if (!is_scalar($value)) {
+            throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->value = $value;
     
         return $this;
@@ -166,7 +179,8 @@ class AttachmentAction extends AbstractMain
     /**
      * Setter for confirm
      *
-     * @param string $text
+     * @param ActionConfirm $confirm
+     * @return AttachmentAction
      */
     public function setConfirm(ActionConfirm $confirm)
     {
@@ -218,9 +232,15 @@ class AttachmentAction extends AbstractMain
      * Setter for minQueryLength
      *
      * @param int $minQueryLength
+     * @throws SlackException
+     * @return AttachmentAction
      */
     public function setMinQueryLength($minQueryLength)
     {
+        if (!is_int($minQueryLength)) {
+            throw new SlackException('MinQueryLength should be integer type', SlackException::NOT_INT);
+        }
+        
         $this->minQueryLength = $minQueryLength;
     
         return $this;
