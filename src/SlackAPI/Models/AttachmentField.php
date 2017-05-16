@@ -3,6 +3,8 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class to create new field for attachment
@@ -19,29 +21,35 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 class AttachmentField extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $title = null;
+    protected $title = null;
 
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $value = null;
+    protected $value = null;
 
     /**
-     * @var bool|NULL
+     * @var bool
      */
-    private $short = null;
+    protected $short = null;
 
     /**
      * Setter for title
      * 
      * @param string $title
+     * @throws SlackException
+     * @return AttachmentField
      */
     public function setTitle($title)
     {
+        if (!is_scalar($title)) {
+            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->title = $title;
         
         return $this;
@@ -51,9 +59,15 @@ class AttachmentField extends AbstractMain
      * Setter for value
      * 
      * @param string $value
+     * @throws SlackException
+     * @return AttachmentField
      */
     public function setValue($value)
     {
+        if (!is_scalar($value)) {
+            throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
         $this->value = $value;
         
         return $this;
@@ -63,9 +77,15 @@ class AttachmentField extends AbstractMain
      * Setter for an optional flag indicating whether the value is short enough to be displayed side-by-side with other values.
      * 
      * @param bool $short
+     * @throws SlackException
+     * @return AttachmentField
      */
     public function setShort($short)
     {
+        if (!is_bool($short)) {
+            throw new SlackException('Short should be boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->short = $short;
         
         return $this;
