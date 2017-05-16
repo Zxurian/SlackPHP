@@ -169,4 +169,15 @@ class ActionConfirmTest extends TestCase
     
         $this->assertEquals($this->dummyString, $actionConfirmObject->getDismissText());
     }
+    
+    /**
+     * Testing that exception is thrown if required text property is not set
+     */
+    public function testValidateRequiredText()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $actionConfirmObject = new ActionConfirm();
+        $actionConfirmObject->validateRequired();
+    }
 }

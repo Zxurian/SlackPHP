@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class for confirm action buttons
@@ -21,30 +22,32 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 class ActionConfirm extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $title = null;
+    protected $title = null;
 
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $text = null;
+    protected $text = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $okText = null;
+    protected $okText = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $dismissText = null;
+    protected $dismissText = null;
 
     /**
      * Setter for title
      * 
      * @param string $title
+     * @throws SlackException
+     * @return ActionConfirm
      */
     public function setTitle($title)
     {
@@ -61,6 +64,8 @@ class ActionConfirm extends AbstractMain
      * Setter for text
      * 
      * @param string $text
+     * @throws SlackException
+     * @return ActionConfirm
      */
     public function setText($text)
     {
@@ -77,6 +82,8 @@ class ActionConfirm extends AbstractMain
      * Setter for okText
      *
      * @param string $okText
+     * @throws SlackException
+     * @return ActionConfirm
      */
     public function setOkText($okText)
     {
@@ -93,6 +100,8 @@ class ActionConfirm extends AbstractMain
      * Setter for dismissText
      *
      * @param string $dismissText
+     * @throws SlackException
+     * @return ActionConfirm
      */
     public function setDismissText($dismissText)
     {
