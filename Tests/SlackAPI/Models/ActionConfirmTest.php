@@ -20,11 +20,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingTitle()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setTitle($this->dummyString);
+        $returnedObject = $actionConfirmObject->setTitle($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $titleProperty = $refActionConfirmObject->getProperty('title');
         $titleProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionConfirm::class, $returnedObject);
         $this->assertEquals($this->dummyString, $titleProperty->getValue($actionConfirmObject));
     }
     
@@ -59,11 +60,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setText($this->dummyString);
+        $returnedObject = $actionConfirmObject->setText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $textProperty = $refActionConfirmObject->getProperty('text');
         $textProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionConfirm::class, $returnedObject);
         $this->assertEquals($this->dummyString, $textProperty->getValue($actionConfirmObject));
     }
     
@@ -98,11 +100,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingOkText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setOkText($this->dummyString);
+        $returnedObject = $actionConfirmObject->setOkText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $okTextProperty = $refActionConfirmObject->getProperty('okText');
         $okTextProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionConfirm::class, $returnedObject);
         $this->assertEquals($this->dummyString, $okTextProperty->getValue($actionConfirmObject));
     }
     
@@ -137,11 +140,12 @@ class ActionConfirmTest extends TestCase
     public function testSettingDismissText()
     {
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->setDismissText($this->dummyString);
+        $returnedObject = $actionConfirmObject->setDismissText($this->dummyString);
         $refActionConfirmObject = new \ReflectionObject($actionConfirmObject);
         $dismissTextProperty = $refActionConfirmObject->getProperty('dismissText');
         $dismissTextProperty->setAccessible(true);
         
+        $this->assertInstanceOf(ActionConfirm::class, $returnedObject);
         $this->assertEquals($this->dummyString, $dismissTextProperty->getValue($actionConfirmObject));
     }
     
