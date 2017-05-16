@@ -22,11 +22,12 @@ class AttachmentFieldTest extends TestCase
     public function testSettingTitle()
     {
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setTitle($this->dummyString);
+        $returnedObject = $attachmentFieldObject->setTitle($this->dummyString);
         $refAttachmentFieldObject = new \ReflectionObject($attachmentFieldObject);
         $titleProperty = $refAttachmentFieldObject->getProperty('title');
         $titleProperty->setAccessible(true);
         
+        $this->assertInstanceOf(AttachmentField::class, $returnedObject);
         $this->assertEquals($this->dummyString, $titleProperty->getValue($attachmentFieldObject));
     }
     
@@ -61,11 +62,12 @@ class AttachmentFieldTest extends TestCase
     public function testSettingValue()
     {
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setValue($this->dummyString);
+        $returnedObject = $attachmentFieldObject->setValue($this->dummyString);
         $refAttachmentFieldObject = new \ReflectionObject($attachmentFieldObject);
         $valueProperty = $refAttachmentFieldObject->getProperty('value');
         $valueProperty->setAccessible(true);
     
+        $this->assertInstanceOf(AttachmentField::class, $returnedObject);
         $this->assertEquals($this->dummyString, $valueProperty->getValue($attachmentFieldObject));
     }
     
@@ -100,11 +102,12 @@ class AttachmentFieldTest extends TestCase
     public function testSettingShort()
     {
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setShort($this->dummyBool);
+        $returnedObject = $attachmentFieldObject->setShort($this->dummyBool);
         $refAttachmentFieldObject = new \ReflectionObject($attachmentFieldObject);
         $shortProperty = $refAttachmentFieldObject->getProperty('short');
         $shortProperty->setAccessible(true);
     
+        $this->assertInstanceOf(AttachmentField::class, $returnedObject);
         $this->assertEquals($this->dummyBool, $shortProperty->getValue($attachmentFieldObject));
     }
     

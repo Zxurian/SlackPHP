@@ -50,7 +50,7 @@ class AttachmentField extends AbstractMain
             throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->title = $title;
+        $this->title = (string)$title;
         
         return $this;
     }
@@ -68,7 +68,7 @@ class AttachmentField extends AbstractMain
             throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->value = $value;
+        $this->value = (string)$value;
         
         return $this;
     }
