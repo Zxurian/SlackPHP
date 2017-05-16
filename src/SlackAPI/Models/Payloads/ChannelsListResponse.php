@@ -6,9 +6,13 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class, used for deserialization of response channels list payload
+ * Class, used for deserialization of response on channels list payload
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method array getChannels()
  */
 class ChannelsListResponse extends AbstractPayloadResponse
 {
@@ -16,15 +20,5 @@ class ChannelsListResponse extends AbstractPayloadResponse
      * @var array|NULL
      * @Type("array")
      */
-    private $channels = null;
-    
-    /**
-     * Getter for channels array
-     *
-     * @return array
-     */
-    public function getChannels()
-    {
-        return $this->channels;
-    }
+    protected $channels = null;
 }
