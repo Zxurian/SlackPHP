@@ -786,4 +786,31 @@ class AttachmentTest extends TestCase
         
         $this->assertEquals($this->mrkdwnInArray, $attachmentObject->getMrkdwnIn());
     }
+    
+    /**
+     * Test that exception is thrown, if required fallback option is not set
+     */
+    public function testValidateRequiredFallback()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentObject = new Attachment();
+        $attachmentObject->validateRequired();
+    }
+    
+    /**
+     * Test that exception is thrown, if callbackId is not set, when there is at least one action
+     */
+    public function testValidateRequiredNoCallbackIdWithButtons()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentActionObject = new AttachmentAction();
+        $attachmentActionObject ->setText($this->dummyString);
+        $attachmentObject = new Attachment();
+        $attachmentObject->addAction($attachmentActionObject)
+            ->setFallback($this->dummyString)
+        ;
+        $attachmentObject->validateRequired();
+    }
 }

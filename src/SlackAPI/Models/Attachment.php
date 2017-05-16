@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
  * Class to create Attachment
@@ -36,105 +37,107 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
 class Attachment extends AbstractMain
 {
     /**
-     * @var string|NULL
+     * @var string
      * @Required
      */
-    private $fallback = null;
+    protected $fallback = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $color = null;
+    protected $color = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $pretext = null;
+    protected $pretext = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $authorName = null;
+    protected $authorName = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $authorLink = null;
+    protected $authorLink = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $authorIcon = null;
+    protected $authorIcon = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $title = null;
+    protected $title = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $titleLink = null;
+    protected $titleLink = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $text = null;
+    protected $text = null;
     
     /**
      * @var AttachmentField[]
      */
-    private $fields = [];
+    protected $fields = [];
     
     /**
      * @var AttachmentAction[]
      */
-    private $actions = [];
+    protected $actions = [];
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $imageUrl = null;
+    protected $imageUrl = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $thumbUrl = null;
+    protected $thumbUrl = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $footer = null;
+    protected $footer = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $footerIcon = null;
+    protected $footerIcon = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $ts = null;
+    protected $ts = null;
 
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $callbackId = null;
+    protected $callbackId = null;
     
     /**
-     * @var string|NULL
+     * @var string
      */
-    private $attachmentType = null;
+    protected $attachmentType = null;
     
     /**
      * @var Array
      */
-    private $mrkdwnIn = [];
+    protected $mrkdwnIn = [];
     
     /**
      * Setter for fallback
      *
      * @param string $fallback
+     * @throws SlackException
+     * @return Attachment
      */
     public function setFallback($fallback)
     {
@@ -151,6 +154,8 @@ class Attachment extends AbstractMain
      * Setter for color
      *
      * @param string $color
+     * @throws SlackException
+     * @return Attachment
      */
     public function setColor($color)
     {
@@ -167,6 +172,8 @@ class Attachment extends AbstractMain
      * Setter for pretext
      *
      * @param string $pretext
+     * @throws SlackException
+     * @return Attachment
      */
     public function setPretext($pretext)
     {
@@ -183,6 +190,8 @@ class Attachment extends AbstractMain
      * Setter for authorName
      *
      * @param string $authorName
+     * @throws SlackException
+     * @return Attachment
      */
     public function setAuthorName($authorName)
     {
@@ -199,6 +208,8 @@ class Attachment extends AbstractMain
      * Setter for authorLink
      *
      * @param string $authorLink
+     * @throws SlackException
+     * @return Attachment
      */
     public function setAuthorLink($authorLink)
     {
@@ -215,6 +226,8 @@ class Attachment extends AbstractMain
      * Setter for authorIcon
      *
      * @param string $authorIcon
+     * @throws SlackException
+     * @return Attachment
      */
     public function setAuthorIcon($authorIcon)
     {
@@ -231,6 +244,8 @@ class Attachment extends AbstractMain
      * Setter for title
      * 
      * @param string $title
+     * @throws SlackException
+     * @return Attachment
      */
     public function setTitle($title)
     {
@@ -247,6 +262,8 @@ class Attachment extends AbstractMain
      * Setter for titleLink
      * 
      * @param string $titleLink
+     * @throws SlackException
+     * @return Attachment
      */
     public function setTitleLink($titleLink)
     {
@@ -263,6 +280,8 @@ class Attachment extends AbstractMain
      * Setter for text
      *
      * @param string $text
+     * @throws SlackException
+     * @return Attachment
      */
     public function setText($text)
     {
@@ -279,6 +298,7 @@ class Attachment extends AbstractMain
      * Add new AttachmentField to Array
      *
      * @param AttachmentField $field
+     * @return Attachment
      */
     public function addField(AttachmentField $field)
     {
@@ -291,6 +311,8 @@ class Attachment extends AbstractMain
      * Add new AttachmentAction to Array
      *
      * @param AttachmentAction $field
+     * @throws SlackException
+     * @return Attachment
      */
     public function addAction(AttachmentAction $action)
     {
@@ -307,6 +329,8 @@ class Attachment extends AbstractMain
      * Setter for imageUrl
      * 
      * @param string $imageUrl
+     * @throws SlackException
+     * @return Attachment
      */
     public function setImageUrl($imageUrl)
     {
@@ -323,6 +347,8 @@ class Attachment extends AbstractMain
      * Setter for thumbUrl
      * 
      * @param string $thumbUrl
+     * @throws SlackException
+     * @return Attachment
      */
     public function setThumbUrl($thumbUrl)
     {
@@ -339,6 +365,8 @@ class Attachment extends AbstractMain
      * Setter for footer
      * 
      * @param string $footer
+     * @throws SlackException
+     * @return Attachment
      */
     public function setFooter($footer)
     {
@@ -355,6 +383,8 @@ class Attachment extends AbstractMain
      * Setter for footerIcon
      * 
      * @param string $footerIcon
+     * @throws SlackException
+     * @return Attachment
      */
     public function setFooterIcon($footerIcon)
     {
@@ -371,6 +401,8 @@ class Attachment extends AbstractMain
      * Setter for ts
      * 
      * @param string $ts
+     * @throws SlackException
+     * @return Attachment
      */
     public function setTs($ts)
     {
@@ -387,6 +419,8 @@ class Attachment extends AbstractMain
      * Setter for callbackId
      *
      * @param string $callbackId
+     * @throws SlackException
+     * @return Attachment
      */
     public function setCallbackId($callbackId)
     {
@@ -403,6 +437,8 @@ class Attachment extends AbstractMain
      * Setter for attachmentType
      *
      * @param string $attachmentType
+     * @throws SlackException
+     * @return Attachment
      */
     public function setAttachmentType($attachmentType)
     {
@@ -420,6 +456,8 @@ class Attachment extends AbstractMain
      * Valid values for array are: pretext, text, fields
      * 
      * @param array Array of fields in attachment that have use markdown formatting
+     * @throws SlackException
+     * @return Attachment
      */
     public function setMrkdwnIn(Array $mrkdwnIn)
     {
@@ -457,7 +495,7 @@ class Attachment extends AbstractMain
         parent::validateRequired();
     
         if (count($this->actions) > 0 && $this->callbackId === null) {
-            throw new SlackException('Must provide callback id, if buttons set in attachments payload', SlackException::MISSING_REQUIRED_FIELD);
+            throw new SlackException('Must provide callback id, if actions added to attachment payload', SlackException::MISSING_REQUIRED_FIELD);
         }
     }
 }
