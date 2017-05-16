@@ -4,9 +4,9 @@ namespace SlackPHP\SlackAPI\Processors;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractProcessor;
 use SlackPHP\SlackAPI\Exceptions\SerializerException;
-use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
 use Psr\Http\Message\ResponseInterface;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 
 /**
  * Class used to process payload received from Slack API
@@ -21,7 +21,7 @@ class PayloadResponseProcessor extends AbstractProcessor
      * @param ResponseInterface $response
      * @param string $payloadResponseClass
      *
-     * @return PayloadResponseInterface
+     * @return AbstractPayloadResponse
      */
     public function process(ResponseInterface $response, $payloadResponseClass)
     {
@@ -35,7 +35,7 @@ class PayloadResponseProcessor extends AbstractProcessor
 
         $payloadResponseObject = $this->serializer->deserialize($response->getBody()->getContents(), $payloadResponseClass, 'json');
         
-        if (!($payloadResponseObject instanceof PayloadResponseInterface)) {
+        if (!($payloadResponseObject instanceof AbstractPayloadResponse)) {
             throw new SerializerException('The result of serialization should be '.$payloadResponseClass.' but received '.(is_object($payloadResponseObject) ? 'instance of '.get_class($payloadResponseObject) : gettype($payloadResponseObject)), SerializerException::SERIALIZATION_TYPE);
         }
         

@@ -18,7 +18,7 @@ interface SlackAPIInterface
     /**
      * @param AbstractPayload $payload Payload to be sent
      * 
-     * @return PayloadResponseInterface Processed payload from Slack API response
+     * @return AbstractPayloadResponse Processed payload from Slack API response
      */
     public function send(AbstractPayload $payload);
 }

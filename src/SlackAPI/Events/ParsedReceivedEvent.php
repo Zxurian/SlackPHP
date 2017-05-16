@@ -3,7 +3,7 @@
 namespace SlackPHP\SlackAPI\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 
 /**
  * Event is triggered, when payload is received and parsed
@@ -13,7 +13,7 @@ use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
 class ParsedReceivedEvent extends AbstractEvent
 {
     /**
-     * @var PayloadResponseInterface|NULL
+     * @var AbstractPayloadResponse|NULL
      */
     private $payload = null;
 
@@ -25,7 +25,7 @@ class ParsedReceivedEvent extends AbstractEvent
     /**
      * @param array $payload
      */
-    public function __construct(PayloadResponseInterface $payload)
+    public function __construct(AbstractPayloadResponse $payload)
     {
         $this->payload = $payload;
     }

@@ -14,9 +14,9 @@ use SlackPHP\SlackAPI\Events\RequestEvent;
 use GuzzleHttp\Psr7\Request;
 use SlackPHP\SlackAPI\Events\ReceivedEvent;
 use SlackPHP\SlackAPI\Events\ParsedReceivedEvent;
-use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 
 /**
  * Class where the calls to Slack API are executed from
@@ -84,7 +84,7 @@ class SlackAPI implements SlackAPIInterface
      * Send payload to Slack API
      * 
      * @param AbstractPayload $payload Payload to send
-     * @return PayloadResponseInterface
+     * @return AbstractPayloadResponse
      */
     public function send(AbstractPayload $payload)
     {

@@ -2,41 +2,51 @@
 
 namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
-use SlackPHP\SlackAPI\Interfaces\PayloadResponseInterface;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Privides ok and error properties for deserialization of received payload
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @package SlackAPI
+ * @version 0.1
+ * 
+ * @method bool getOk()
+ * @method string getError()
  */
-abstract class AbstractPayloadResponse implements PayloadResponseInterface
+abstract class AbstractPayloadResponse
 {
     /**
      * @var bool|NULL
      * @Type("boolean")
      */
-    private $ok = null;
+    protected $ok = null;
 
     /**
      * @var string|NULL
      * @Type("string")
      */
-    private $error = null;
-
+    protected $error = null;
+    
     /**
-     * @inheritdoc
+     * Magic Method for getting properties
+     *
+     * @param string $methodName
      */
-    public function isOk()
+    public function __call($methodName, $arguments)
     {
-        return (bool)$this->ok;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getError()
-    {
-        return $this->error;
+        if (substr($methodName, 0, 3) == 'get') {
+            $propertyName = strtolower(substr($methodName, 3, 1)).substr($methodName, 4);
+            if (!property_exists($this, $propertyName)) {
+                throw new \ErrorException('Undefined property: '.get_class($this).'::$'.$propertyName);
+            }
+            return $this->{$propertyName};
+        }
+    
+        if (method_exists($this, $methodName)) {
+            $this->{$methodName}(...$arguments);
+        } else {
+            throw new \ErrorException('Method '.$methodName.' doesn’t exist in '.get_class($this).' class');
+        }
     }
 }
