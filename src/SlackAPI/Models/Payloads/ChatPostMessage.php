@@ -121,7 +121,7 @@ class ChatPostMessage extends AbstractPayload
             throw new SlackException('Channel should be a scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->channel = $channel;
+        $this->channel = (string)$channel;
         
         return $this;
     }
@@ -141,7 +141,7 @@ class ChatPostMessage extends AbstractPayload
             throw new SlackException('Text should be a scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->text = $text;
+        $this->text = (string)$text;
         
         return $this;
     }
@@ -161,7 +161,7 @@ class ChatPostMessage extends AbstractPayload
             throw new SlackException('Parse should be a scalar type', SlackException::NOT_SCALAR);
         }
         
-        $this->parse = $parse;
+        $this->parse = (string)$parse;
         
         return $this;
     }
@@ -174,6 +174,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setLinkNames($linkNames)
     {
+        if (!is_bool($linkNames)) {
+            throw new SlackException('Link names should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->linkNames = $linkNames;
         
         return $this;
@@ -200,6 +204,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setUnfurlLinks($unfurlLinks)
     {
+        if (!is_bool($unfurlLinks)) {
+            throw new SlackException('UnfurlLinks should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->unfurlLinks = $unfurlLinks;
         
         return $this;
@@ -213,6 +221,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setUnfurlMedia($unfurlMedia)
     {
+        if (!is_bool($unfurlMedia)) {
+            throw new SlackException('UnfurlMedia should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->unfurlMedia = $unfurlMedia;
         
         return $this;
@@ -228,7 +240,11 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setUsername($username)
     {
-        $this->username = $username;
+        if (!is_scalar($username)) {
+            throw new SlackException('Username should be a scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->username = (string)$username;
         
         return $this;
     }
@@ -243,6 +259,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setAsUser($asUser)
     {
+        if (!is_bool($asUser)) {
+            throw new SlackException('AsUser should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->asUser = $asUser;
         
         return $this;
@@ -258,7 +278,11 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setIconUrl($iconUrl)
     {
-        $this->iconUrl = $iconUrl;
+        if (!is_scalar($iconUrl)) {
+            throw new SlackException('IconUrl should be a scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->iconUrl = (string)$iconUrl;
         
         return $this;
     }
@@ -273,8 +297,16 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setIconEmoji($iconEmoji)
     {
+        if (!is_scalar($iconEmoji)) {
+            throw new SlackException('IconEmoji should be a scalar type', SlackException::NOT_SCALAR);
+        }
+        
         if (substr($iconEmoji, 0, 1) !== ':') {
-            $iconEmoji = ':'.$iconEmoji.':';
+            $iconEmoji = ':'.$iconEmoji;
+        }
+        
+        if (substr($iconEmoji, -1, 1) !== ':') {
+            $iconEmoji = $iconEmoji.':';
         }
 
         $this->iconEmoji = $iconEmoji;
@@ -291,7 +323,11 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setThreadTs($threadTs)
     {
-        $this->threadTs = $threadTs;
+        if (!is_scalar($threadTs)) {
+            throw new SlackException('ThreadTs should be a scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->threadTs = (string)$threadTs;
         
         return $this;
     }
@@ -305,6 +341,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setReplyBroadcast($replyBroadcast)
     {
+        if (!is_bool($replyBroadcast)) {
+            throw new SlackException('ReplyBroadcast should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->replyBroadcast = $replyBroadcast;
         
         return $this;
@@ -319,6 +359,10 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setMrkdwn($markdown)
     {
+        if (!is_bool($markdown)) {
+            throw new SlackException('Mrkdwn should be a boolean type', SlackException::NOT_BOOLEAN);
+        }
+        
         $this->mrkdwn = $markdown;
         
         return $this;
