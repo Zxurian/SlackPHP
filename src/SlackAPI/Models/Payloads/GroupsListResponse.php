@@ -9,6 +9,10 @@ use JMS\Serializer\Annotation\Type;
  * Class, used for deserialization of responce payload of groups list
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @package SlackAPI
+ * @version 0.2
+ * 
+ * @method array getGroups()
  */
 class GroupsListResponse extends AbstractPayloadResponse
 {
@@ -16,15 +20,5 @@ class GroupsListResponse extends AbstractPayloadResponse
      * @var array|NULL
      * @Type("array")
      */
-    private $groups = null;
-    
-    /**
-     * Getter for groups array
-     *
-     * @return array
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
+    protected $groups = null;
 }
