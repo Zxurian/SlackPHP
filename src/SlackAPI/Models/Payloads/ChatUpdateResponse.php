@@ -16,46 +16,17 @@ class ChatUpdateResponse extends AbstractPayloadResponse
      * @var string|NULL
      * @Type("string")
      */
-    private $ts = null;
+    protected $ts = null;
 
     /**
      * @var string|NULL
      * @Type("string")
      */
-    private $channel = null;
+    protected $channel = null;
 
     /**
      * @var string|NULL
      * @Type("string")
      */
-    private $text = null;
-    
-    /**
-     * Getter for ts
-     * 
-     * @return string|NULL
-     */
-    public function getTs()
-    {
-        return $this->ts;
-    }
-
-    /**
-     * Getter for channel
-     * 
-     * @return string|NULL
-     */
-    public function getChannel()
-    {
-        return $this->channel;
-    }
-    /**
-     * Getter for text
-     * 
-     * @return array
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
+    protected $text = null;
 }
