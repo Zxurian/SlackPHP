@@ -103,14 +103,18 @@ class SlackAPI
             http_build_query($preparedPayload)
         );
         $response = $this->client->send($request);
-        $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, new ReceivedEvent($response));
+        $receivedEvent = new ReceivedEvent($response);
+        $receivedEvent->setPayload($payload);
+        $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
         
         if ($response->getStatusCode() != 200) {
             throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
         }
         
         $payloadResponseObject = $payload->getResponseClass()::parseResponse($response->getBody()->getContents());
-        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, new ParsedReceivedEvent($payloadResponseObject));
+        $parsedReceivedEvent = new ParsedReceivedEvent($payloadResponseObject);
+        $parsedReceivedEvent->setPayload($payload);
+        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
         
         return $payloadResponseObject;
     }

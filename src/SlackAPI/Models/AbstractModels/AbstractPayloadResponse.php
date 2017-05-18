@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\SerializerBuilder;
-use SlackPHP\SlackAPI\Exceptions\SerializerException;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Privides ok and error properties for deserialization of received payload
@@ -43,7 +43,7 @@ abstract class AbstractPayloadResponse extends MagicGetter
         $payloadResponseObject = $serializer->deserialize($responseContents, static::class, 'json');
         
         if (!($payloadResponseObject instanceof AbstractPayloadResponse)) {
-            throw new SerializerException('The result of deserialization should be '.$payloadResponseClass.' but received '.(is_object($payloadResponseObject) ? 'instance of '.get_class($payloadResponseObject) : gettype($payloadResponseObject)), SerializerException::SERIALIZATION_TYPE);
+            throw new SlackException('The result of deserialization should be '.$payloadResponseClass.' but received '.(is_object($payloadResponseObject) ? 'instance of '.get_class($payloadResponseObject) : gettype($payloadResponseObject)), SlackException::SERIALIZATION_TYPE);
         }
     
         return $payloadResponseObject;

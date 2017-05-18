@@ -26,4 +26,5 @@ class SlackException extends \Exception
     const INVALID_MRKDWN_IN_VALUES = 114;
     const MISSING_REQUIRED_FIELD = 115;
     const NOT_INT = 116;
+    const SERIALIZATION_TYPE = 117;
 }

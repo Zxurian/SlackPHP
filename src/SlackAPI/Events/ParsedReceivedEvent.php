@@ -15,7 +15,7 @@ class ParsedReceivedEvent extends AbstractEvent
     /**
      * @var AbstractPayloadResponse|NULL
      */
-    private $payload = null;
+    private $payloadResponse = null;
 
     /**
      * Event triggered after the responce received from the Slack API and has been parsed
@@ -23,20 +23,20 @@ class ParsedReceivedEvent extends AbstractEvent
     const EVENT_NAME = 'SLACKAPI_EVENT_PARSED_RECEIVED';
     
     /**
-     * @param array $payload
+     * @param AbstractPayloadResponse $payloadResponse
      */
-    public function __construct(AbstractPayloadResponse $payload)
+    public function __construct(AbstractPayloadResponse $payloadResponse)
     {
-        $this->payload = $payload;
+        $this->payloadResponse = $payloadResponse;
     }
 
     /**
-     * Getter for payload, that has been parsed
+     * Getter for response payload
      * 
-     * @return array|NULL
+     * @return AbstractPayloadResponse|NULL
      */
-    public function getPayload()
+    public function getPayloadResponse()
     {
-        return $this->payload;
+        return $this->payloadResponse;
     }
 }
