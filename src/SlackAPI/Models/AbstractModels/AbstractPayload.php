@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Abstract class for individual Slack Payloads 
  * 
@@ -12,6 +14,28 @@ namespace SlackPHP\SlackAPI\Models\AbstractModels;
  */
 abstract class AbstractPayload extends AbstractMain
 {
+    /**
+     * @var string
+     * @Required
+     */
+    protected $token = null;
+    
+    /**
+     * Setter for token
+     *
+     * @param string $token
+     * @throws SlackException
+     * @return AbstractPayload
+     */
+    public function setToken($token)
+    {
+        if (!is_scalar($token)) {
+            throw new SlackException('Token should be a scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->token = $token;
+    }
+    
     /**
      * Get the name of the response class that will hold the returning information
      * 

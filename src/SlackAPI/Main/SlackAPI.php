@@ -2,7 +2,6 @@
 
 namespace SlackPHP\SlackAPI\Main;
 
-use SlackPHP\SlackAPI\Interfaces\SlackAPIInterface;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,7 +23,7 @@ use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  */
-class SlackAPI implements SlackAPIInterface
+class SlackAPI
 {
     /**
      * @var string|NULL
@@ -57,13 +56,17 @@ class SlackAPI implements SlackAPIInterface
     const API_URL = 'https://slack.com/api/';
     
     /**
-     * @param string $token
+     * @param string|null $token
      * @param ClientInterface|null $client
      * @param EventDispatcherInterface|null $eventDispatcher
      */
-    public function __construct($token, ClientInterface $client = null, EventDispatcherInterface $eventDispatcher = null) 
+    public function __construct($token = null, ClientInterface $client = null, EventDispatcherInterface $eventDispatcher = null) 
     {
-        if ($token === null) {
+        if (is_scalar($token)) {
+            $this->token = (string)$token;
+        }
+        
+        if ($token !== null) {
             throw new SlackException('Auth Token has to be set before sending payload', SlackException::NO_TOKEN_SET);
         }
         
@@ -75,7 +78,6 @@ class SlackAPI implements SlackAPIInterface
             $this->eventDispatcher = new EventDispatcher();
         }
         
-        $this->token = $token;
         $this->payloadProcessor = new PayloadProcessor();
         $this->payloadResponseProcessor = new PayloadResponseProcessor();
     }
@@ -88,6 +90,10 @@ class SlackAPI implements SlackAPIInterface
      */
     public function send(AbstractPayload $payload)
     {
+        if ($payload->getToken === null) {
+            $payload->setToken($this->token);
+        }
+        
         $payload->validateRequired();
         
         $processedPayload = $this->payloadProcessor->process($payload);
