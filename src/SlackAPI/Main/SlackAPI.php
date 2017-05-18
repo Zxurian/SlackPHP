@@ -83,7 +83,7 @@ class SlackAPI
      */
     public function send(AbstractPayload $payload)
     {
-        if ($payload->getToken === null) {
+        if ($payload->getToken() === null) {
             $payload->setToken($this->token);
         }
         
@@ -104,11 +104,14 @@ class SlackAPI
         );
         $response = $this->client->send($request);
         $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, new ReceivedEvent($response));
-        AnnotationRegistry::registerLoader('class_exists');
-        $processedResponse = $this->payloadResponseProcessor->process($response, $payload->getResponseClass());
-    
-        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, new ParsedReceivedEvent($processedResponse));
         
-        return $processedResponse;
+        if ($response->getStatusCode() != 200) {
+            throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
+        }
+        
+        $payloadResponseObject = $payload->getResponseClass()::parseResponse($response->getBody()->getContents());
+        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, new ParsedReceivedEvent($payloadResponseObject));
+        
+        return $payloadResponseObject;
     }
 }
