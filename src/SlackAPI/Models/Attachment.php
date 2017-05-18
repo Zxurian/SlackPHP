@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
+use SlackAPI\Enumerators\MrkdwnIn;
 
 /**
  * Class to create Attachment
@@ -335,7 +336,7 @@ class Attachment extends AbstractModel
     public function setImageUrl($imageUrl)
     {
         if (!is_scalar($imageUrl)) {
-            throw new SlackException('Image url should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Image url should be scalar type');
         }
         
         $this->imageUrl = (string)$imageUrl;
@@ -455,32 +456,25 @@ class Attachment extends AbstractModel
      * Setter for array of fields, that will use markdown formatting
      * Valid values for array are: pretext, text, fields
      * 
-     * @param array Array of fields in attachment that have use markdown formatting
-     * @throws SlackException
+     * @param MrkdwnIn|MrkdwnIn[] value to add to the array
      * @return Attachment
      */
-    public function setMrkdwnIn(Array $mrkdwnIn)
+    public function addMrkdwnIn($mrkdwnIn)
     {
-        $flag = true;
-        $validValues = ["pretext", "text", "fields"];
-        $validToSetValues = [];
-        $invalidValues = [];
+        if (!is_array($mrkdwnIn)) {
+            $mrkdwnIn = [ $mrkdwnIn ];
+        }
         
         foreach ($mrkdwnIn as $value) {
-            if (in_array($value, $validValues)) {
-                $validToSetValues[] = $value;
-            } else {
-                $flag = false;
-                $invalidValues[] = $value;
+            if (!$value instanceof MrkdwnIn) {
+                throw new \InvalidArgumentException('Must provide MrkDwnIn object to Attachment::addMrkdwnIn()');
             }
         }
         
-        if (!$flag) {
-            throw new SlackException('Invalid values provided for mrkdwnIn property: '.implode(', ', $invalidValues), SlackException::INVALID_MRKDWN_IN_VALUES);
-        }
-        
-        if (count($validToSetValues) > 0) {
-            $this->mrkdwnIn = $validToSetValues;
+        foreach ($mrkdwnIn as $value) {
+            if (!in_array($mrkdwnIn->getValue(), $this->mrkdwnIn)) {
+                $this->mrkdwnIn[] = $mrkdwnIn->getValue();
+            }
         }
         
         return $this;
