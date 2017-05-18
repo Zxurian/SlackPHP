@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\AbstractModels;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use JMS\Serializer\SerializerBuilder;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -54,5 +55,25 @@ abstract class AbstractPayload extends AbstractMain
     public function getMethod()
     {
         return static::method;
+    }
+    
+    /**
+     * Validate and prepare payload as single level array for sending to slack
+     * 
+     * @return array
+     */
+    public function preparePayloadForSlack()
+    {
+        $this->validateRequired();
+        $serializer = SerializerBuilder::create()->build();
+        $arrayPayload = $serializer->toArray($this);
+        
+        foreach($arrayPayload as $key => $value) {
+            if (is_array($value)) {
+                $arrayPayload[$key] = json_encode($value);
+            }
+        }
+        
+        return $arrayPayload;
     }
 }

@@ -14,7 +14,7 @@ class RequestEvent extends AbstractEvent
     /**
      * @var array|NULL
      */
-    private $processedPayload = null;
+    private $preparedPayload = null;
 
     /**
      * Event triggered before it is sent to the Slack API
@@ -22,25 +22,25 @@ class RequestEvent extends AbstractEvent
     const EVENT_NAME = 'SLACKAPI_EVENT_REQUEST';
     
     /**
-     * Setter for the processedPayload
+     * Setter for the preparedPayload
      * 
      * @param array $payload
      * @return AbstractEvent
      */
-    public function setProcessedPayload(array $processedPayload)
+    public function setPreparedPayload(array $preparedPayload)
     {
-        $this->processedPayload = $processedPayload;
+        $this->preparedPayload = $preparedPayload;
         
         return $this;
     }
 
     /**
-     * Getter for processedPayload
+     * Getter for preparedPayload
      * 
      * @return array|NULL
      */
-    public function getProcessedPayload()
+    public function getPreparedPayload()
     {
-        return $this->processedPayload;
+        return $this->preparedPayload;
     }
 }

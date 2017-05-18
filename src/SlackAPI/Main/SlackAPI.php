@@ -5,7 +5,6 @@ namespace SlackPHP\SlackAPI\Main;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use SlackPHP\SlackAPI\Processors\PayloadProcessor;
 use SlackPHP\SlackAPI\Processors\PayloadResponseProcessor;
 use GuzzleHttp\Client;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -29,11 +28,6 @@ class SlackAPI
      * @var string|NULL
      */
     private $token = null;
-    
-    /**
-     * @var PayloadProcessor|NULL
-     */
-    private $payloadProcessor = null;
     
     /**
      * @var PayloadResponseProcessor|NULL
@@ -78,7 +72,6 @@ class SlackAPI
             $this->eventDispatcher = new EventDispatcher();
         }
         
-        $this->payloadProcessor = new PayloadProcessor();
         $this->payloadResponseProcessor = new PayloadResponseProcessor();
     }
     
@@ -94,15 +87,12 @@ class SlackAPI
             $payload->setToken($this->token);
         }
         
-        $payload->validateRequired();
+        $preparedPayload = $payload->preparePayloadForSlack();
         
-        $processedPayload = $this->payloadProcessor->process($payload);
-        
-        $processedPayload['token'] = $this->token;
         $requestEvent = new RequestEvent();
         $requestEvent
             ->setPayload($payload)
-            ->setProcessedPayload($processedPayload)
+            ->setPreparedPayload($preparedPayload)
         ;
         
         $this->eventDispatcher->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
@@ -110,7 +100,7 @@ class SlackAPI
             'POST',
             self::API_URL . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
-            http_build_query($processedPayload)
+            http_build_query($preparedPayload)
         );
         $response = $this->client->send($request);
         $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, new ReceivedEvent($response));
