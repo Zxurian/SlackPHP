@@ -25,7 +25,7 @@ class ParsedReceivedEvent extends AbstractEvent
     /**
      * @param AbstractPayloadResponse $payloadResponse
      */
-    public function __construct(AbstractPayloadResponse $payloadResponse)
+    public function setPayloadResponse(AbstractPayloadResponse $payloadResponse)
     {
         $this->payloadResponse = $payloadResponse;
     }

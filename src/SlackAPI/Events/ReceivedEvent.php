@@ -25,7 +25,7 @@ class ReceivedEvent extends AbstractEvent
     /**
      * @param ResponseInterface $response
      */
-    public function __construct(ResponseInterface $response)
+    public function setResponse(ResponseInterface $response)
     {
         $this->response = $response;
     }
