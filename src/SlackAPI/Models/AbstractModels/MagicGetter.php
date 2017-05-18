@@ -28,10 +28,6 @@ abstract class MagicGetter
             return $this->{$propertyName};
         }
     
-        if (method_exists($this, $methodName)) {
-            $this->{$methodName}(...$arguments);
-        } else {
-            throw new \ErrorException('Method '.$methodName.' doesn’t exist in '.get_class($this).' class');
-        }
+        throw new \Exception('Call to undefined method '. get_class($this) .'::'. $methodName .'()');
     }
 }
