@@ -13,7 +13,7 @@ use JMS\Serializer\SerializerBuilder;
  * @package SlackAPI
  * @version 0.2
  */
-abstract class AbstractPayload extends AbstractMain
+abstract class AbstractPayload extends AbstractModel
 {
     /**
      * @var string

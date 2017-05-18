@@ -3,7 +3,7 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
@@ -34,7 +34,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @method string getAttachmentType()
  * @method string getMrkdwnIn()
  */
-class Attachment extends AbstractMain
+class Attachment extends AbstractModel
 {
     /**
      * @var string
@@ -488,7 +488,7 @@ class Attachment extends AbstractMain
     
     /**
      * {@inheritdoc}
-     * @see SlackAPI\Models\AbstractModels\AbstractMain::validateRequired()
+     * @see SlackAPI\Models\AbstractModels\AbstractModel::validateRequired()
      */
     public function validateRequired()
     {

@@ -3,7 +3,7 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
@@ -19,7 +19,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @method string getOkText()
  * @method string getDismissText()
  */
-class ActionConfirm extends AbstractMain
+class ActionConfirm extends AbstractModel
 {
     /**
      * @var string

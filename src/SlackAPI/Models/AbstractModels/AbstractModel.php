@@ -14,33 +14,16 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @package SlackAPI
  * @version 0.1
  */
-abstract class AbstractMain
+abstract class AbstractModel extends MagicGetter
 {
     public function __construct()
     {
         // Add Required annotation to autoloader
         AnnotationRegistry::registerAutoloadNamespace(
-            'Doctrine\\Common\\Annotations',
-            'vendor/doctrine/annotations/lib'
-            );
-    }
-    
-    /**
-     * Magic Method for getting properties
-     *
-     * @param string $methodName
-     */
-    public function __call($methodName, $arguments)
-    {
-        if (substr($methodName, 0, 3) == 'get') {
-            $propertyName = strtolower(substr($methodName, 3, 1)).substr($methodName, 4);
-            if (!property_exists($this, $propertyName)) {
-                throw new \ErrorException('Undefined property: '.get_class($this).'::$'.$propertyName);
-            }
-            return $this->{$propertyName};
-        }
-    
-        $this->{$methodName}(...$arguments);
+            'Doctrine',
+            'vendor/doctrine'
+        );
+        AnnotationRegistry::registerLoader('class_exists');
     }
     
     /**
@@ -57,15 +40,14 @@ abstract class AbstractMain
         foreach ($refClass->getProperties() as $property) {
             if (is_array($this->{$property->name})) {
                 foreach ($this->{$property->name} as $object) {
-                    if ($object instanceof AbstractMain) {
+                    if ($object instanceof AbstractModel) {
                         $object->validateRequired();
                     }
                 }
             } else {
-                $annotations = $annotationReader->getPropertyAnnotations($property);
                 foreach ($annotationReader->getPropertyAnnotations($property) as $annotation) {
                     if ($annotation instanceof Required && $this->{$property->name} === null) {
-                        throw new SlackException(get_class($this).' missing required field : '.$property->name);
+                        throw new SlackException(get_class($this).' missing required field : '.$property->name, SlackException::MISSING_REQUIRED_FIELD);
                     }
                 }
             }

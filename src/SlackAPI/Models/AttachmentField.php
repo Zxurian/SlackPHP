@@ -2,7 +2,7 @@
 
 namespace SlackPHP\SlackAPI\Models;
 
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractMain;
+use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\Annotation\Required;
 
@@ -18,7 +18,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
  * @method string getValue()
  * @method bool getShort()
  */
-class AttachmentField extends AbstractMain
+class AttachmentField extends AbstractModel
 {
     /**
      * @var string
