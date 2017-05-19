@@ -35,6 +35,8 @@ abstract class AbstractPayload extends AbstractModel
         }
         
         $this->token = $token;
+        
+        return $this;
     }
     
     /**
