@@ -1,6 +1,6 @@
 <?php
 
-namespace SlackAPI\Enumerators;
+namespace SlackPHP\SlackAPI\Enumerators;
 
 use MyCLabs\Enum\Enum;
 
