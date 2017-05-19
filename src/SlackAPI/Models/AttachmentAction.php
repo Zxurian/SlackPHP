@@ -90,13 +90,13 @@ class AttachmentAction extends AbstractModel
      * Setter for name
      * 
      * @param string $name
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentAction
      */
     public function setName($name)
     {
         if (!is_scalar($name)) {
-            throw new SlackException('Name should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Name should be scalar type');
         }
         
         $this->name = (string)$name;
@@ -108,13 +108,13 @@ class AttachmentAction extends AbstractModel
      * Setter for text
      * 
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentAction
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be scalar type');
         }
         
         $this->text = (string)$text;
@@ -126,13 +126,13 @@ class AttachmentAction extends AbstractModel
      * Setter for style
      *
      * @param string $style
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentAction
      */
     public function setStyle($style)
     {
         if (!is_scalar($style)) {
-            throw new SlackException('Style should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Style should be scalar type');
         }
         
         $this->style = (string)$style;
@@ -144,13 +144,13 @@ class AttachmentAction extends AbstractModel
      * Setter for type
      *
      * @param string $type
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentAction
      */
     public function setType($type)
     {
         if (!is_scalar($type)) {
-            throw new SlackException('Type should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Type should be scalar type');
         }
         
         $this->type = (string)$type;
@@ -162,13 +162,13 @@ class AttachmentAction extends AbstractModel
      * Setter for value
      *
      * @param string $value
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentAction
      */
     public function setValue($value)
     {
         if (!is_scalar($value)) {
-            throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Value should be scalar type');
         }
         
         $this->value = (string)$value;
@@ -238,7 +238,7 @@ class AttachmentAction extends AbstractModel
     public function setMinQueryLength($minQueryLength)
     {
         if (!is_int($minQueryLength)) {
-            throw new SlackException('MinQueryLength should be integer type', SlackException::NOT_INT);
+            throw new \InvalidArgumentException('MinQueryLength should be integer type');
         }
         
         $this->minQueryLength = $minQueryLength;

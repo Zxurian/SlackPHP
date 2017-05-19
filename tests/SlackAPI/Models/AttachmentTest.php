@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\ActionOption;
 use SlackPHP\SlackAPI\Models\AttachmentField;
 use SlackPHP\SlackAPI\Models\AttachmentAction;
+use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -16,8 +17,6 @@ use SlackPHP\SlackAPI\Models\AttachmentAction;
 class AttachmentTest extends TestCase
 {
     private $dummyString = 'string';
-    
-    private $mrkdwnInArray = ["pretext", "fields"];
     
     /**
      * Test for setting fallback
@@ -39,8 +38,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidFallback()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setFallback(new \stdClass());
     }
@@ -79,8 +77,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidColor()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setColor(new \stdClass());
     }
@@ -119,8 +116,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidPretext()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setPretext(new \stdClass());
     }
@@ -159,8 +155,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidAuthorName()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setAuthorName(new \stdClass());
     }
@@ -199,8 +194,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidAuthorLink()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setAuthorLink(new \stdClass());
     }
@@ -239,8 +233,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidAuthorIcon()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setAuthorIcon(new \stdClass());
     }
@@ -279,8 +272,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidTitle()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setTitle(new \stdClass());
     }
@@ -319,8 +311,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidTitleLink()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setTitleLink(new \stdClass());
     }
@@ -359,8 +350,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setText(new \stdClass());
     }
@@ -487,8 +477,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidImageUrl()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setImageUrl(new \stdClass());
     }
@@ -527,8 +516,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidThumbUrl()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setThumbUrl(new \stdClass());
     }
@@ -567,8 +555,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidFooter()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setFooter(new \stdClass());
     }
@@ -607,8 +594,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidFooterIcon()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setFooterIcon(new \stdClass());
     }
@@ -647,8 +633,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidTs()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setTs(new \stdClass());
     }
@@ -687,8 +672,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidCallbackId()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setCallbackId(new \stdClass());
     }
@@ -727,8 +711,7 @@ class AttachmentTest extends TestCase
      */
     public function testSettingInvalidAttachmentType()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setAttachmentType(new \stdClass());
     }
@@ -748,29 +731,28 @@ class AttachmentTest extends TestCase
     }
     
     /**
-     * Test for setting mrkdwnIn
+     * Test for adding mrkdwnIn
      */
-    public function testSetMrkdwnIn()
+    public function testAddingMrkdwnIn()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setMrkdwnIn($this->mrkdwnInArray);
+        $returnedObject = $attachmentObject->addMrkdwnIn(MrkdwnIn::pretext());
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $mrkdwnInProperty = $refAttachmentObject->getProperty('mrkdwnIn');
         $mrkdwnInProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->mrkdwnInArray, $mrkdwnInProperty->getValue($attachmentObject));
+        $this->assertEquals([MrkdwnIn::pretext()], $mrkdwnInProperty->getValue($attachmentObject));
     }
     
     /**
-     * Testing setting invalid mrkdwnIn
+     * Testing adding invalid mrkdwnIn
      */
-    public function testSettingInvalidMrkdwnIn()
+    public function testAddingInvalidMrkdwnIn()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::INVALID_MRKDWN_IN_VALUES);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setMrkdwnIn([$this->dummyString]);
+        $attachmentObject->addMrkdwnIn([$this->dummyString]);
     }
     
     /**
@@ -782,9 +764,9 @@ class AttachmentTest extends TestCase
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $mrkdwnInProperty = $refAttachmentObject->getProperty('mrkdwnIn');
         $mrkdwnInProperty->setAccessible(true);
-        $mrkdwnInProperty->setValue($attachmentObject, $this->mrkdwnInArray);
+        $mrkdwnInProperty->setValue($attachmentObject, [MrkdwnIn::pretext()]);
         
-        $this->assertEquals($this->mrkdwnInArray, $attachmentObject->getMrkdwnIn());
+        $this->assertEquals([MrkdwnIn::pretext()], $attachmentObject->getMrkdwnIn());
     }
     
     /**

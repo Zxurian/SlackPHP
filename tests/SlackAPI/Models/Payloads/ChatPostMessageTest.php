@@ -37,8 +37,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidChannel()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setChannel(new \stdClass());
     }
@@ -77,8 +76,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setText(new \stdClass());
     }
@@ -117,8 +115,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidParse()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setParse(new \stdClass());
     }
@@ -157,8 +154,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidLinkNames()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setLinkNames(new \stdClass());
     }
@@ -234,8 +230,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidUnfurlLinks()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setUnfurlLinks(new \stdClass());
     }
@@ -274,8 +269,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidUnfurlMedia()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setUnfurlMedia(new \stdClass());
     }
@@ -314,8 +308,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidUsername()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setUsername(new \stdClass());
     }
@@ -354,8 +347,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidAsUser()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setAsUser(new \stdClass());
     }
@@ -394,8 +386,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidIconUrl()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setIconUrl(new \stdClass());
     }
@@ -434,8 +425,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidIconEmoji()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setIconEmoji(new \stdClass());
     }
@@ -474,8 +464,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidThreadTs()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setThreadTs(new \stdClass());
     }
@@ -514,8 +503,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidReplyBroadcast()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setReplyBroadcast(new \stdClass());
     }
@@ -554,8 +542,7 @@ class ChatPostMessageTest extends TestCase
      */
     public function testSettingInvalidMrkdwn()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setMrkdwn(new \stdClass());
     }

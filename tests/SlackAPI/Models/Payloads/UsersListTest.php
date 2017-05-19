@@ -34,8 +34,7 @@ class UsersListTest extends TestCase
      */
     public function testSettingInvalidPresence()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $usersListObject = new UsersList();
         $usersListObject->setPresence(new \stdClass());
     }

@@ -46,13 +46,13 @@ class ActionConfirm extends AbstractModel
      * Setter for title
      * 
      * @param string $title
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ActionConfirm
      */
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Title should be scalar type');
         }
         
         $this->title = (string)$title;
@@ -64,13 +64,13 @@ class ActionConfirm extends AbstractModel
      * Setter for text
      * 
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ActionConfirm
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be scalar type');
         }
         
         $this->text = (string)$text;
@@ -82,13 +82,13 @@ class ActionConfirm extends AbstractModel
      * Setter for okText
      *
      * @param string $okText
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ActionConfirm
      */
     public function setOkText($okText)
     {
         if (!is_scalar($okText)) {
-            throw new SlackException('Ok text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Ok text should be scalar type');
         }
         
         $this->okText = (string)$okText;
@@ -100,13 +100,13 @@ class ActionConfirm extends AbstractModel
      * Setter for dismissText
      *
      * @param string $dismissText
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ActionConfirm
      */
     public function setDismissText($dismissText)
     {
         if (!is_scalar($dismissText)) {
-            throw new SlackException('Dismiss text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Dismiss text should be scalar type');
         }
         
         $this->dismissText = (string)$dismissText;

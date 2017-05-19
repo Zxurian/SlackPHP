@@ -25,13 +25,13 @@ abstract class AbstractPayload extends AbstractModel
      * Setter for token
      *
      * @param string $token
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AbstractPayload
      */
     public function setToken($token)
     {
         if (!is_scalar($token)) {
-            throw new SlackException('Token should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Token should be a scalar type');
         }
         
         $this->token = $token;

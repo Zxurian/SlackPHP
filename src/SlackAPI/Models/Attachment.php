@@ -5,7 +5,7 @@ namespace SlackPHP\SlackAPI\Models;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
-use SlackAPI\Enumerators\MrkdwnIn;
+use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 
 /**
  * Class to create Attachment
@@ -137,13 +137,13 @@ class Attachment extends AbstractModel
      * Setter for fallback
      *
      * @param string $fallback
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setFallback($fallback)
     {
         if (!is_scalar($fallback)) {
-            throw new SlackException('Fallback should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Fallback should be scalar type');
         }
         
         $this->fallback = (string)$fallback;
@@ -155,13 +155,13 @@ class Attachment extends AbstractModel
      * Setter for color
      *
      * @param string $color
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setColor($color)
     {
         if (!is_scalar($color)) {
-            throw new SlackException('Color should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Color should be scalar type');
         }
         
         $this->color = (string)$color;
@@ -173,13 +173,13 @@ class Attachment extends AbstractModel
      * Setter for pretext
      *
      * @param string $pretext
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setPretext($pretext)
     {
         if (!is_scalar($pretext)) {
-            throw new SlackException('Pretext should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Pretext should be scalar type');
         }
         
         $this->pretext = (string)$pretext;
@@ -191,13 +191,13 @@ class Attachment extends AbstractModel
      * Setter for authorName
      *
      * @param string $authorName
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setAuthorName($authorName)
     {
         if (!is_scalar($authorName)) {
-            throw new SlackException('Author name should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Author name should be scalar type');
         }
         
         $this->authorName = (string)$authorName;
@@ -209,13 +209,13 @@ class Attachment extends AbstractModel
      * Setter for authorLink
      *
      * @param string $authorLink
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setAuthorLink($authorLink)
     {
         if (!is_scalar($authorLink)) {
-            throw new SlackException('Author link should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Author link should be scalar type');
         }
         
         $this->authorLink = (string)$authorLink;
@@ -227,13 +227,13 @@ class Attachment extends AbstractModel
      * Setter for authorIcon
      *
      * @param string $authorIcon
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setAuthorIcon($authorIcon)
     {
         if (!is_scalar($authorIcon)) {
-            throw new SlackException('Author icon should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Author icon should be scalar type');
         }
         
         $this->authorIcon = (string)$authorIcon;
@@ -245,13 +245,13 @@ class Attachment extends AbstractModel
      * Setter for title
      * 
      * @param string $title
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Title should be scalar type');
         }
         
         $this->title = (string)$title;
@@ -263,13 +263,13 @@ class Attachment extends AbstractModel
      * Setter for titleLink
      * 
      * @param string $titleLink
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setTitleLink($titleLink)
     {
         if (!is_scalar($titleLink)) {
-            throw new SlackException('Title link should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Title link should be scalar type');
         }
         
         $this->titleLink = (string)$titleLink;
@@ -281,13 +281,13 @@ class Attachment extends AbstractModel
      * Setter for text
      *
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be scalar type');
         }
         
         $this->text = (string)$text;
@@ -330,7 +330,7 @@ class Attachment extends AbstractModel
      * Setter for imageUrl
      * 
      * @param string $imageUrl
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setImageUrl($imageUrl)
@@ -348,13 +348,13 @@ class Attachment extends AbstractModel
      * Setter for thumbUrl
      * 
      * @param string $thumbUrl
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setThumbUrl($thumbUrl)
     {
         if (!is_scalar($thumbUrl)) {
-            throw new SlackException('Thumb url should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Thumb url should be scalar type');
         }
         
         $this->thumbUrl = (string)$thumbUrl;
@@ -366,13 +366,13 @@ class Attachment extends AbstractModel
      * Setter for footer
      * 
      * @param string $footer
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setFooter($footer)
     {
         if (!is_scalar($footer)) {
-            throw new SlackException('Footer should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Footer should be scalar type');
         }
         
         $this->footer = (string)$footer;
@@ -384,13 +384,13 @@ class Attachment extends AbstractModel
      * Setter for footerIcon
      * 
      * @param string $footerIcon
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setFooterIcon($footerIcon)
     {
         if (!is_scalar($footerIcon)) {
-            throw new SlackException('Footer icon should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Footer icon should be scalar type');
         }
         
         $this->footerIcon = (string)$footerIcon;
@@ -402,13 +402,13 @@ class Attachment extends AbstractModel
      * Setter for ts
      * 
      * @param string $ts
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setTs($ts)
     {
         if (!is_scalar($ts)) {
-            throw new SlackException('Ts should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Ts should be scalar type');
         }
         
         $this->ts = (string)$ts;
@@ -420,13 +420,13 @@ class Attachment extends AbstractModel
      * Setter for callbackId
      *
      * @param string $callbackId
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setCallbackId($callbackId)
     {
         if (!is_scalar($callbackId)) {
-            throw new SlackException('Callback id should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Callback id should be scalar type');
         }
         
         $this->callbackId = (string)$callbackId;
@@ -438,13 +438,13 @@ class Attachment extends AbstractModel
      * Setter for attachmentType
      *
      * @param string $attachmentType
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function setAttachmentType($attachmentType)
     {
         if (!is_scalar($attachmentType)) {
-            throw new SlackException('Attachment type should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Attachment type should be scalar type');
         }
         
         $this->attachmentType = (string)$attachmentType;
@@ -457,6 +457,7 @@ class Attachment extends AbstractModel
      * Valid values for array are: pretext, text, fields
      * 
      * @param MrkdwnIn|MrkdwnIn[] value to add to the array
+     * @throws \InvalidArgumentException
      * @return Attachment
      */
     public function addMrkdwnIn($mrkdwnIn)
@@ -472,8 +473,8 @@ class Attachment extends AbstractModel
         }
         
         foreach ($mrkdwnIn as $value) {
-            if (!in_array($mrkdwnIn->getValue(), $this->mrkdwnIn)) {
-                $this->mrkdwnIn[] = $mrkdwnIn->getValue();
+            if (!in_array($value->getValue(), $this->mrkdwnIn)) {
+                $this->mrkdwnIn[] = $value->getValue();
             }
         }
         

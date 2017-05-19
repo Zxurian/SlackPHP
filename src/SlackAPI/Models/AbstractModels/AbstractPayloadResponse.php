@@ -34,7 +34,7 @@ abstract class AbstractPayloadResponse extends MagicGetter
      * Deserializes the responce from Slack API
      *
      * @param string $responseContents
-     *
+     * @throws SlackException
      * @return AbstractPayloadResponse
      */
     public static function parseResponse($responseContents)

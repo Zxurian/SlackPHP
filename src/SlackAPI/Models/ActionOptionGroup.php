@@ -34,13 +34,13 @@ class ActionOptionGroup extends AbstractModel
      * Setter for text
      * 
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ActionOptionGroup
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be scalar type');
         }
         
         $this->text = (string)$text;

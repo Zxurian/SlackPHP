@@ -36,8 +36,7 @@ class AttachmentFieldTest extends TestCase
      */
     public function testSettingInvalidTitle()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
         $attachmentFieldObject->setTitle(new \stdClass());
     }
@@ -76,8 +75,7 @@ class AttachmentFieldTest extends TestCase
      */
     public function testSettingInvalidValue()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
         $attachmentFieldObject->setValue(new \stdClass());
     }
@@ -116,8 +114,7 @@ class AttachmentFieldTest extends TestCase
      */
     public function testSettingInvalidShort()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
         $attachmentFieldObject->setShort(new \stdClass());
     }

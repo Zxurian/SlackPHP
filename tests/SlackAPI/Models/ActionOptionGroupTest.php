@@ -35,8 +35,7 @@ class ActionOptionGroupTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionOptionGroup = new ActionOptionGroup();
         $actionOptionGroup->setText(new \stdClass());
     }

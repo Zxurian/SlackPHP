@@ -34,8 +34,7 @@ class ChannelsListTest extends TestCase
      */
     public function testSettingInvalidExcludeArchived()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $channelsListObject = new ChannelsList();
         $channelsListObject->setExcludeArchived(new \stdClass());
     }
@@ -74,8 +73,7 @@ class ChannelsListTest extends TestCase
      */
     public function testSettingInvalidExcludeMembers()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $channelsListObject = new ChannelsList();
         $channelsListObject->setExcludeMembers(new \stdClass());
     }

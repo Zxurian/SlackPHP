@@ -35,8 +35,7 @@ class ActionOptionTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
         $actionOption->setText(new \stdClass());
     }
@@ -75,8 +74,7 @@ class ActionOptionTest extends TestCase
      */
     public function testSettingInvalidValue()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
         $actionOption->setValue(new \stdClass());
     }
@@ -115,8 +113,7 @@ class ActionOptionTest extends TestCase
      */
     public function testSettingInvalidDescription()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
         $actionOption->setDescription(new \stdClass());
     }

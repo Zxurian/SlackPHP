@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\Annotation\Required;
 
 /**
@@ -41,13 +40,13 @@ class AttachmentField extends AbstractModel
      * Setter for title
      * 
      * @param string $title
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentField
      */
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new SlackException('Title should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Title should be scalar type');
         }
         
         $this->title = (string)$title;
@@ -59,13 +58,13 @@ class AttachmentField extends AbstractModel
      * Setter for value
      * 
      * @param string $value
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentField
      */
     public function setValue($value)
     {
         if (!is_scalar($value)) {
-            throw new SlackException('Value should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Value should be scalar type');
         }
         
         $this->value = (string)$value;
@@ -77,13 +76,13 @@ class AttachmentField extends AbstractModel
      * Setter for an optional flag indicating whether the value is short enough to be displayed side-by-side with other values.
      * 
      * @param bool $short
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AttachmentField
      */
     public function setShort($short)
     {
         if (!is_bool($short)) {
-            throw new SlackException('Short should be boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Short should be boolean type');
         }
         
         $this->short = $short;

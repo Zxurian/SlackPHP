@@ -37,8 +37,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidChannel()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setChannel(new \stdClass());
     }
@@ -77,8 +76,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidTs()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setTs(new \stdClass());
     }
@@ -117,8 +115,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setText(new \stdClass());
     }
@@ -194,8 +191,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidParse()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setParse(new \stdClass());
     }
@@ -234,8 +230,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidLinkNames()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setLinkNames(new \stdClass());
     }
@@ -274,8 +269,7 @@ class ChatUpdateTest extends TestCase
      */
     public function testSettingInvalidAsUser()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject->setAsUser(new \stdClass());
     }

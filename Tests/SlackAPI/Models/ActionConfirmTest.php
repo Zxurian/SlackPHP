@@ -34,8 +34,7 @@ class ActionConfirmTest extends TestCase
      */
     public function testSettingInvalidTitle()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
         $actionConfirm->setTitle(new \stdClass());
     }
@@ -74,8 +73,7 @@ class ActionConfirmTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
         $actionConfirm->setText(new \stdClass());
     }
@@ -114,8 +112,7 @@ class ActionConfirmTest extends TestCase
      */
     public function testSettingInvalidOkText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
         $actionConfirm->setOkText(new \stdClass());
     }
@@ -154,8 +151,7 @@ class ActionConfirmTest extends TestCase
      */
     public function testSettingInvalidDismissText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
         $actionConfirm->setDismissText(new \stdClass());
     }

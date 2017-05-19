@@ -77,13 +77,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for channel, where the message should be updated
      *
      * @param string $channel
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setChannel($channel)
     {
         if (!is_scalar($channel)) {
-            throw new SlackException('Channel should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Channel should be a scalar type');
         }
         
         $this->channel = $channel;
@@ -95,13 +95,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for ts of message, that has to be updated
      *
      * @param string $ts
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setTs($ts)
     {
         if (!is_scalar($ts)) {
-            throw new SlackException('Ts should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Ts should be a scalar type');
         }
         
         $this->ts = (string)$ts;
@@ -113,13 +113,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for text
      *
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be a scalar type');
         }
         
         $this->text = (string)$text;
@@ -144,13 +144,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for parse
      *
      * @param string $parse
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setParse($parse)
     {
         if (!is_scalar($parse)) {
-            throw new SlackException('Parse should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Parse should be a scalar type');
         }
         
         $this->parse = (string)$parse;
@@ -162,13 +162,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for linkNames
      *
      * @param bool $linkNames
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setLinkNames($linkNames)
     {
         if (!is_bool($linkNames)) {
-            throw new SlackException('LinkNames should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('LinkNames should be a boolean type');
         }
         
         $this->linkNames = $linkNames;
@@ -180,13 +180,13 @@ class ChatUpdate extends AbstractPayload
      * Setter for asUser
      *
      * @param bool $asUser
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatUpdate
      */
     public function setAsUser($asUser)
     {
         if (!is_bool($asUser)) {
-            throw new SlackException('AsUser should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('AsUser should be a boolean type');
         }
         
         $this->asUser = $asUser;

@@ -39,8 +39,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidName()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $nameProperty = new AttachmentAction();
         $nameProperty->setName(new \stdClass());
     }
@@ -79,8 +78,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidText()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $textProperty = new AttachmentAction();
         $textProperty->setText(new \stdClass());
     }
@@ -119,8 +117,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidStyle()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $styleProperty = new AttachmentAction();
         $styleProperty->setStyle(new \stdClass());
     }
@@ -159,8 +156,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidType()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $typeProperty = new AttachmentAction();
         $typeProperty->setStyle(new \stdClass());
     }
@@ -199,8 +195,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidValue()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         $valueProperty = new AttachmentAction();
         $valueProperty->setValue(new \stdClass());
     }
@@ -403,8 +398,7 @@ class AttachmentActionTest extends TestCase
      */
     public function testSettingInvalidMinQueryLength()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_INT);
+        $this->expectException(\InvalidArgumentException::class);
         $valueProperty = new AttachmentAction();
         $valueProperty->setMinQueryLength(new \stdClass());
     }

@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * This method returns a list of private channels in the team that the caller is in and archived groups that the caller was in.
@@ -30,13 +29,13 @@ class GroupsList extends AbstractPayload
      * Set true to not return archived private channels.
      * 
      * @param bool $excludeArchived
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return GroupsList
      */
     public function setExcludeArchived($excludeArchived)
     {
         if (!is_bool($excludeArchived)) {
-            throw new SlackException('ExcludeArchived should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('ExcludeArchived should be a boolean type');
         }
         
         $this->excludeArchived = $excludeArchived;

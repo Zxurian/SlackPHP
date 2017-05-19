@@ -37,13 +37,13 @@ class ChannelsList extends AbstractPayload
      * Setter for excludeArchived
      * 
      * @param bool $excludeArchived
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChannelsList
      */
     public function setExcludeArchived($excludeArchived)
     {
         if (!is_bool($excludeArchived)) {
-            throw new SlackException('Exclude archived property should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Exclude archived property should be a boolean type');
         }
         
         $this->excludeArchived = $excludeArchived;
@@ -55,13 +55,13 @@ class ChannelsList extends AbstractPayload
      * Setter for excludeMembers
      * 
      * @param bool $excludeMembers
-     * @throws SlackException::
+     * @throws \InvalidArgumentException
      * @return ChannelsList
      */
     public function setExcludeMembers($excludeMembers)
     {
         if (!is_bool($excludeMembers)) {
-            throw new SlackException('Exclude members property should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Exclude members property should be a boolean type');
         }
         
         $this->excludeMembers = $excludeMembers;

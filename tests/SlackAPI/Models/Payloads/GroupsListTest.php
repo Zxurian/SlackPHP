@@ -34,8 +34,7 @@ class GroupsListTest extends TestCase
      */
     public function testSettingInvalidExcludeArchived()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         $groupsListObject = new GroupsList();
         $groupsListObject->setExcludeArchived(new \stdClass());
     }

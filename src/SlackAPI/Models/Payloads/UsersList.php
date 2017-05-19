@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * This method returns a list of all users in the team.
@@ -30,13 +29,13 @@ class UsersList extends AbstractPayload
      * Whether to include presence data in the output
      *
      * @param bool $presence
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return UsersList
      */
     public function setPresence($presence)
     {
         if (!is_bool($presence)) {
-            throw new SlackException('Presense should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Presense should be a boolean type');
         }
         
         $this->presence = $presence;

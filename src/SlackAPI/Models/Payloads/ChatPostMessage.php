@@ -111,14 +111,13 @@ class ChatPostMessage extends AbstractPayload
      *
      * @see https://api.slack.com/methods/chat.postMessage#channels
      * @param string $channel
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
-     * @Required
      */
     public function setChannel($channel)
     {
         if (!is_scalar($channel)) {
-            throw new SlackException('Channel should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Channel should be a scalar type');
         }
         
         $this->channel = (string)$channel;
@@ -132,13 +131,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $text
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new SlackException('Text should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Text should be a scalar type');
         }
         
         $this->text = (string)$text;
@@ -152,13 +151,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $parse
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setParse($parse)
     {
         if (!is_scalar($parse)) {
-            throw new SlackException('Parse should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Parse should be a scalar type');
         }
         
         $this->parse = (string)$parse;
@@ -170,12 +169,13 @@ class ChatPostMessage extends AbstractPayload
      * Find and link channel names and usernames.
      * 
      * @param bool $linkNames
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setLinkNames($linkNames)
     {
         if (!is_bool($linkNames)) {
-            throw new SlackException('Link names should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Link names should be a boolean type');
         }
         
         $this->linkNames = $linkNames;
@@ -200,12 +200,13 @@ class ChatPostMessage extends AbstractPayload
      * Pass true to enable unfurling of primarily text-based content.
      *
      * @param bool $unfurlLinks
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setUnfurlLinks($unfurlLinks)
     {
         if (!is_bool($unfurlLinks)) {
-            throw new SlackException('UnfurlLinks should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('UnfurlLinks should be a boolean type');
         }
         
         $this->unfurlLinks = $unfurlLinks;
@@ -217,12 +218,13 @@ class ChatPostMessage extends AbstractPayload
      * Pass false to disable unfurling of media content.
      *
      * @param bool $unfurlMedia
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setUnfurlMedia($unfurlMedia)
     {
         if (!is_bool($unfurlMedia)) {
-            throw new SlackException('UnfurlMedia should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('UnfurlMedia should be a boolean type');
         }
         
         $this->unfurlMedia = $unfurlMedia;
@@ -236,12 +238,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $username
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setUsername($username)
     {
         if (!is_scalar($username)) {
-            throw new SlackException('Username should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Username should be a scalar type');
         }
         
         $this->username = (string)$username;
@@ -255,12 +258,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param bool $asUser
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setAsUser($asUser)
     {
         if (!is_bool($asUser)) {
-            throw new SlackException('AsUser should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('AsUser should be a boolean type');
         }
         
         $this->asUser = $asUser;
@@ -274,12 +278,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $iconUrl
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setIconUrl($iconUrl)
     {
         if (!is_scalar($iconUrl)) {
-            throw new SlackException('IconUrl should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('IconUrl should be a scalar type');
         }
         
         $this->iconUrl = (string)$iconUrl;
@@ -293,12 +298,13 @@ class ChatPostMessage extends AbstractPayload
      *
      * @see https://api.slack.com/methods/chat.postMessage#authorship
      * @param string $iconEmoji
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setIconEmoji($iconEmoji)
     {
         if (!is_scalar($iconEmoji)) {
-            throw new SlackException('IconEmoji should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('IconEmoji should be a scalar type');
         }
         
         if (substr($iconEmoji, 0, 1) !== ':') {
@@ -319,12 +325,13 @@ class ChatPostMessage extends AbstractPayload
      * Avoid using a reply's ts value; use its parent instead.
      * 
      * @param string $threadTs
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setThreadTs($threadTs)
     {
         if (!is_scalar($threadTs)) {
-            throw new SlackException('ThreadTs should be a scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('ThreadTs should be a scalar type');
         }
         
         $this->threadTs = (string)$threadTs;
@@ -337,12 +344,13 @@ class ChatPostMessage extends AbstractPayload
      * Defaults to false.
      * 
      * @param bool $replyBroadcast
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setReplyBroadcast($replyBroadcast)
     {
         if (!is_bool($replyBroadcast)) {
-            throw new SlackException('ReplyBroadcast should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('ReplyBroadcast should be a boolean type');
         }
         
         $this->replyBroadcast = $replyBroadcast;
@@ -355,12 +363,13 @@ class ChatPostMessage extends AbstractPayload
      * 
      * @see https://api.slack.com/docs/message-formatting
      * @param bool $markdown
+     * @throws \InvalidArgumentException
      * @return ChatPostMessage
      */
     public function setMrkdwn($markdown)
     {
         if (!is_bool($markdown)) {
-            throw new SlackException('Mrkdwn should be a boolean type', SlackException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Mrkdwn should be a boolean type');
         }
         
         $this->mrkdwn = $markdown;
