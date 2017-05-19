@@ -30,11 +30,6 @@ class SlackAPI
     private $token = null;
     
     /**
-     * @var PayloadResponseProcessor|NULL
-     */
-    private $payloadResponseProcessor = null;
-    
-    /**
      * @var ClientInterface|NULL
      */
     private $client = null;
@@ -60,10 +55,6 @@ class SlackAPI
             $this->token = (string)$token;
         }
         
-        if ($token !== null) {
-            throw new SlackException('Auth Token has to be set before sending payload', SlackException::NO_TOKEN_SET);
-        }
-        
         if ($client === null) {
             $this->client = new Client();
         }
@@ -71,8 +62,6 @@ class SlackAPI
         if ($eventDispatcher === null) {
             $this->eventDispatcher = new EventDispatcher();
         }
-        
-        $this->payloadResponseProcessor = new PayloadResponseProcessor();
     }
     
     /**
@@ -113,15 +102,17 @@ class SlackAPI
         if ($response->getStatusCode() != 200) {
             throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
         }
-        
-        $payloadResponseObject = $payload->getResponseClass()::parseResponse($response->getBody()->getContents());
+
+        $responseClassName = $payload->getResponseClass();
+        $payloadResponseObject = $responseClassName::parseResponse($response->getBody()->getContents());
         $parsedReceivedEvent = new ParsedReceivedEvent();
         $parsedReceivedEvent
             ->setPayload($payload)
             ->setPayloadResponse($payloadResponseObject)
         ;
         $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
-        
+        var_dump($payloadResponseObject);
+        die();
         return $payloadResponseObject;
     }
 }

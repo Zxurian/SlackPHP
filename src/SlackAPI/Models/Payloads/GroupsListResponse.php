@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Models\Group;
 
 /**
  * Class, used for deserialization of responce payload of groups list
@@ -17,8 +18,8 @@ use JMS\Serializer\Annotation\Type;
 class GroupsListResponse extends AbstractPayloadResponse
 {
     /**
-     * @var array|NULL
-     * @Type("array")
+     * @var Group[]|NULL
+     * @Type("array<SlackPHP\SlackAPI\Models\Group>")
      */
     protected $groups = null;
 }

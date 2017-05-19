@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Payloads;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Models\User;
 
 /**
  * Class, used for deserialization of response users list payload
@@ -17,8 +18,8 @@ use JMS\Serializer\Annotation\Type;
 class UsersListResponse extends AbstractPayloadResponse
 {
     /**
-     * @var array|NULL
-     * @Type("array")
+     * @var User[]|NULL
+     * @Type("array<SlackPHP\SlackAPI\Models\User>")
      */
     protected $members = null;
 
