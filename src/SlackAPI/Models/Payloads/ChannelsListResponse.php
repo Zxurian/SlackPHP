@@ -17,8 +17,8 @@ use JMS\Serializer\Annotation\Type;
 class ChannelsListResponse extends AbstractPayloadResponse
 {
     /**
-     * @var array|NULL
-     * @Type("array")
+     * @var Channel[]|NULL
+     * @Type("array<SlackPHP\SlackAPI\Models\Channel>")
      */
     protected $channels = null;
 }

@@ -6,6 +6,8 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
+use SlackPHP\SlackAPI\Models\AttachmentField;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class to create Attachment
@@ -39,97 +41,116 @@ class Attachment extends AbstractModel
 {
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $fallback = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $color = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $pretext = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $authorName = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $authorLink = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $authorIcon = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $title = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $titleLink = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $text = null;
     
     /**
      * @var AttachmentField[]
+     * @Type("array<SlackPHP\SlackAPI\Models\AttachmentField>")
      */
     protected $fields = [];
     
     /**
      * @var AttachmentAction[]
+     * @Type("array<SlackPHP\SlackAPI\Models\AttachmentAction>")
      */
     protected $actions = [];
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $imageUrl = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $thumbUrl = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $footer = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $footerIcon = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $ts = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $callbackId = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $attachmentType = null;
     
     /**
-     * @var Array
+     * @var MrkdwnIn[]|string[]
+     * @Type("array<string>")
      */
     protected $mrkdwnIn = [];
     

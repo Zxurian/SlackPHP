@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class for confirm action buttons
@@ -23,22 +24,26 @@ class ActionConfirm extends AbstractModel
 {
     /**
      * @var string
+     * @Type("string")
      */
     protected $title = null;
 
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $text = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $okText = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $dismissText = null;
 

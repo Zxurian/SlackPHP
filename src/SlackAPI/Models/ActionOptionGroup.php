@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class to create new option group in action
@@ -21,12 +22,14 @@ class ActionOptionGroup extends AbstractModel
 {
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $text = null;
     
     /**
      * @var ActionOption[]
+     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
      */
     protected $options = [];
     

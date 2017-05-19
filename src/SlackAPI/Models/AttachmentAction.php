@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class to create new action for attachment
@@ -30,59 +31,70 @@ class AttachmentAction extends AbstractModel
 {
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $name = null;
 
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $text = null;
 
     /**
      * @var string
+     * @Type("string")
      */
     protected $style = null;
 
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $type = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $value = null;
     
     /**
      * @var ActionConfirm
+     * @Type("SlackPHP\SlackAPI\Models\ActionConfirm")
      */
     protected $confirm = null;
     
     /**
      * @var ActionOption[]
+     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
      */
     protected $options = [];
     
     /**
      * @var ActionOption[]
+     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
      */
     protected $selectedOptions = [];
     
     /**
      * @var ActionOptionGroup[]
+     * @Type("array<SlackPHP\SlackAPI\Models\ActionOptionGroup>")
      */
     protected $optionGroups = [];
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $dataSource = null;
     
     /**
      * @var int
+     * @Type("integer")
      */
     protected $minQueryLength = null;
     

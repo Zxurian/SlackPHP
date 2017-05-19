@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use SlackPHP\SlackAPI\Models\AbstractModels\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
+use JMS\Serializer\Annotation\Type;
 
 /**
  * Class to create new option for action
@@ -21,18 +22,21 @@ class ActionOption extends AbstractModel
 {
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $text = null;
     
     /**
      * @var string
+     * @Type("string")
      * @Required
      */
     protected $value = null;
     
     /**
      * @var string
+     * @Type("string")
      */
     protected $description = null;
     
