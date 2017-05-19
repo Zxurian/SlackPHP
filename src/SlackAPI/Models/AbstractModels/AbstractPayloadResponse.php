@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models\AbstractModels;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\SerializerBuilder;
 use Doctrine\Common\Annotations\Annotation\Required;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Privides ok and error properties for deserialization of received payload
