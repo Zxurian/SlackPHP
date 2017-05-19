@@ -10,7 +10,7 @@ use SlackPHP\SlackAPI\Models\Purpose;
 use SlackPHP\SlackAPI\Models\Message;
 
 /**
- * Model of Channel type
+ * Model of Group type
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/channel
@@ -19,22 +19,20 @@ use SlackPHP\SlackAPI\Models\Message;
  * 
  * @method string getId()
  * @method string getName()
- * @method bool getIsChannel()
+ * @method bool getIsGroup()
  * @method int getCreated()
  * @method string getCreator()
  * @method bool getIsArchived()
- * @method bool getIsGeneral()
+ * @method bool getIsMpim()
  * @method string[] getMembers()
  * @method Topic getTopic()
  * @method Purpose getPurpose()
- * @method bool getIsMember()
  * @method string getLastRead()
  * @method Message getLatest()
  * @method int getUnreadCount()
  * @method int getUnreadCountDisplay()
- * 
  */
-class Channel extends MagicGetter
+class Group extends MagicGetter
 {
     /**
      * @var string
@@ -52,7 +50,7 @@ class Channel extends MagicGetter
      * @var bool
      * @Type("boolean")
      */
-    protected $isChannel = null;
+    protected $isGroup = null;
     
     /**
      * @var int
@@ -76,7 +74,7 @@ class Channel extends MagicGetter
      * @var bool
      * @Type("boolean")
      */
-    protected $isGeneral = null;
+    protected $isMpim = null;
     
     /**
      * @var string[]
@@ -95,12 +93,6 @@ class Channel extends MagicGetter
      * @Type("SlackPHP\SlackAPI\Models\Purpose")
      */
     protected $purpose = null;
-    
-    /**
-     * @var bool
-     * @Type("boolean")
-     */
-    protected $isMember = null;
     
     /**
      * @var string
