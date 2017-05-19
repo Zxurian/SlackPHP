@@ -28,6 +28,6 @@ abstract class MagicGetter
             return $this->{$propertyName};
         }
     
-        throw new \Exception('Call to undefined method '. get_class($this) .'::'. $methodName .'()');
+        trigger_error('Fatal error: Call to undefined method '. get_class($this) .'::'. $methodName .'()');
     }
 }
