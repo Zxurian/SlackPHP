@@ -111,8 +111,7 @@ class SlackAPI
             ->setPayloadResponse($payloadResponseObject)
         ;
         $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
-        var_dump($payloadResponseObject);
-        die();
+
         return $payloadResponseObject;
     }
 }
