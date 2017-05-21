@@ -32,8 +32,8 @@ use SlackPHP\SlackAPI\Models\Message;
  * @method Message getLatest()
  * @method int getUnreadCount()
  * @method int getUnreadCountDisplay()
- * 
  */
+
 class Channel extends MagicGetter
 {
     /**
