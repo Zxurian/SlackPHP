@@ -6,7 +6,7 @@ use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 
 /**
- * Model of User
+ * Model of user
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/user
@@ -29,7 +29,6 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
  * @method string getImage192()
  * @method string getImage512()
  */
-
 class Profile extends MagicGetter
 {
     /**
@@ -92,31 +91,31 @@ class Profile extends MagicGetter
      */
     protected $image24 = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */
     protected $image32 = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */
     protected $image48 = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */
     protected $image72 = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */
     protected $image192 = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */

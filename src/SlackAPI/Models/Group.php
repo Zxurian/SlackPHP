@@ -10,7 +10,7 @@ use SlackPHP\SlackAPI\Models\Purpose;
 use SlackPHP\SlackAPI\Models\Message;
 
 /**
- * Model of Group type
+ * Model of group
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/channel

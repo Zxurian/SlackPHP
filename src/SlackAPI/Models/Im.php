@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackPHP\SlackAPI\Models;
 
 use JMS\Serializer\Annotation\Type;
@@ -19,7 +20,6 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
  * @method int getCreated()
  * @method bool getIsUserDeleted()
  */
-
 class Im extends MagicGetter
 {
     /**
@@ -28,25 +28,25 @@ class Im extends MagicGetter
      */
     protected $id = null;
 
-        /**
+    /**
      * @var bool
      * @Type("boolean")
      */
     protected $isIm = null;
 
-        /**
+    /**
      * @var string
      * @Type("string")
      */
     protected $user = null;
 
-        /**
+    /**
      * @var int
      * @Type("integer")
      */
     protected $created = null;
 
-        /**
+    /**
      * @var bool
      * @Type("boolean")
      */

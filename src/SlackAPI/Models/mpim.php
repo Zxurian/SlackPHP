@@ -26,7 +26,6 @@ use SlackPHP\SlackAPI\Models\Message;
  * @method int getUnreadCount()
  * @method int getUnreadCountDisplay()
  */
-
 class Mpim extends MagicGetter
 {
     /**

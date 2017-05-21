@@ -7,7 +7,7 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 use SlackPHP\SlackAPI\Models\Reaction;
 
 /**
- * Model of File
+ * Model of file
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/file
@@ -61,7 +61,6 @@ use SlackPHP\SlackAPI\Models\Reaction;
  * @method Reaction[] getReactions()
  * @method int getCommentsCount()
  */
-
 class File extends MagicGetter
 {
     /**

@@ -7,7 +7,7 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 use SlackPHP\SlackAPI\Models\Attachment;
 
 /**
- * Model of Message type
+ * Model of message
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/docs/interactive-message-field-guide#message

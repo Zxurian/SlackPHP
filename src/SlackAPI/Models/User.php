@@ -7,7 +7,7 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 use SlackPHP\SlackAPI\Models\Profile;
 
 /**
- * Model of User
+ * Model of user
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/user

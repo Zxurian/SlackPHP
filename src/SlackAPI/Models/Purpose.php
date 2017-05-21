@@ -6,7 +6,7 @@ use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 
 /**
- * Model of Purpose
+ * Model of purpose
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/channel

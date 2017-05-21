@@ -6,7 +6,7 @@ use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
 
 /**
- * Model of Reaction
+ * Model of reaction
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @see https://api.slack.com/types/file
@@ -17,7 +17,6 @@ use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
  * @method int getCount()
  * @method array getUsers()
  */
-
 class Reaction extends MagicGetter
 {
     /**
