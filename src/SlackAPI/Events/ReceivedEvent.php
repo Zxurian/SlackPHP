@@ -28,6 +28,8 @@ class ReceivedEvent extends AbstractEvent
     public function setResponse(ResponseInterface $response)
     {
         $this->response = $response;
+         
+        return $this;
     }
 
     /**
