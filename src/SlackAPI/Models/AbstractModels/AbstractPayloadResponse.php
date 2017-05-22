@@ -8,7 +8,7 @@ use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
- * Privides ok and error properties for deserialization of received payload
+ * Provides ok, error and warning properties for received Slack payload
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @package SlackAPI
@@ -16,6 +16,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * 
  * @method bool getOk()
  * @method string getError()
+ * @method string getWarning()
  */
 abstract class AbstractPayloadResponse extends MagicGetter
 {
