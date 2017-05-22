@@ -1,7 +1,7 @@
 {
 	"name" : "zxurian/slack-php",
-	"description" : "PHP implementation of Slack\u2019s API",
-	"version" : "0.1.1",
+	"description" : "PHP implementation of Slack’s API",
+	"version" : "0.1",
 	"keywords" : [
 		"slack"
 	],
