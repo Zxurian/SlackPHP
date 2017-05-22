@@ -92,6 +92,7 @@ class SlackAPI
             http_build_query($preparedPayload)
         );
         $response = $this->client->send($request);
+
         $receivedEvent = new ReceivedEvent();
         $receivedEvent
             ->setPayload($payload)

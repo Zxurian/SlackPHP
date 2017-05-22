@@ -10,7 +10,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @covers AbstractModel
  */
-class ChannelsListResponseTest extends TestCase
+class AbstractModelTest extends TestCase
 {
     private $dummyString = 'string';
     
