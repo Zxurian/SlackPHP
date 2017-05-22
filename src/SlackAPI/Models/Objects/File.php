@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Objects;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
-use SlackPHP\SlackAPI\Models\Reaction;
+use SlackPHP\SlackAPI\Models\Objects\Reaction;
 
 /**
  * Model of file

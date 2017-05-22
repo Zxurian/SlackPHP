@@ -2,17 +2,17 @@
 
 namespace SlackPHP\SlackAPI;
 
-use SlackPHP\SlackAPI\Exceptions\SlackException;
-use GuzzleHttp\ClientInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use GuzzleHttp\Client;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use SlackPHP\SlackAPI\Events\RequestEvent;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Request;
+use SlackPHP\SlackAPI\Events\RequestEvent;
 use SlackPHP\SlackAPI\Events\ReceivedEvent;
 use SlackPHP\SlackAPI\Events\ParsedReceivedEvent;
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayloadResponse;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 /**
  * Class where the calls to Slack API are executed from

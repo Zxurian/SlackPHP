@@ -2,7 +2,7 @@
 
 namespace SlackPHP\SlackAPI\Models\Methods;
 
-use SlackPHP\SlackAPI\Models\Attachment;
+use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use Doctrine\Common\Annotations\Annotation\Required;
 

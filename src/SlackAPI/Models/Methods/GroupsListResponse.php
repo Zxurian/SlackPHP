@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
-use SlackPHP\SlackAPI\Models\Group;
+use SlackPHP\SlackAPI\Models\Objects\Group;
 
 /**
  * Class, used for deserialization of responce payload of groups list

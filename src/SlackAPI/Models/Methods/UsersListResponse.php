@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
-use SlackPHP\SlackAPI\Models\User;
+use SlackPHP\SlackAPI\Models\Objects\User;
 
 /**
  * Class, used for deserialization of response users list payload

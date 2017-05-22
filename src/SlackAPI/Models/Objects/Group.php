@@ -4,9 +4,9 @@ namespace SlackPHP\SlackAPI\Models\Objects;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
-use SlackPHP\SlackAPI\Models\Topic;
-use SlackPHP\SlackAPI\Models\Purpose;
-use SlackPHP\SlackAPI\Models\Message;
+use SlackPHP\SlackAPI\Models\Objects\Topic;
+use SlackPHP\SlackAPI\Models\Objects\Purpose;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * Model of group

@@ -3,7 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Objects;
 
 use JMS\Serializer\Annotation\Type;
-use SlackPHP\SlackAPI\Models\AbstractModels\MagicGetter;
+use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 
 /**
  * Model of reaction

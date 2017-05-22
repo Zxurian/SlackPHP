@@ -6,7 +6,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
-use SlackPHP\SlackAPI\Models\AttachmentField;
+use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use JMS\Serializer\Annotation\Type;
 
 /**

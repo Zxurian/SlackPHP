@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
-use SlackPHP\SlackAPI\Models\Message;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * Model of mpim

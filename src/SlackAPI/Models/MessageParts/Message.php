@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
-use SlackPHP\SlackAPI\Models\Attachment;
+use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 
 /**
  * Model of message
