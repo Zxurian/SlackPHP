@@ -5,6 +5,7 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use Doctrine\Common\Annotations\Annotation\Required;
+use SlackPHP\SlackAPI\Enumerators\Parse;
 
 /**
  * This method updates a message in a channel.
@@ -53,7 +54,7 @@ class ChatUpdate extends AbstractPayload
     protected $attachments = [];
     
     /**
-     * @var string
+     * @var Parse
      */
     protected $parse = null;
     
@@ -142,17 +143,12 @@ class ChatUpdate extends AbstractPayload
     /**
      * Setter for parse
      *
-     * @param string $parse
-     * @throws \InvalidArgumentException
+     * @param Parse $parse
      * @return ChatUpdate
      */
-    public function setParse($parse)
+    public function setParse(Parse $parse)
     {
-        if (!is_scalar($parse)) {
-            throw new \InvalidArgumentException('Parse should be a scalar type');
-        }
-        
-        $this->parse = (string)$parse;
+        $this->parse = $parse->getValue();
     
         return $this;
     }

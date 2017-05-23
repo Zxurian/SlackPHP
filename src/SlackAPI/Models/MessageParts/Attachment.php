@@ -149,7 +149,7 @@ class Attachment extends AbstractModel
     protected $attachmentType = null;
     
     /**
-     * @var MrkdwnIn[]|string[]
+     * @var array
      * @Type("array<string>")
      */
     protected $mrkdwnIn = [];

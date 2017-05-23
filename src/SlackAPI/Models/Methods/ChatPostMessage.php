@@ -6,6 +6,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\Annotation\Required;
+use SlackPHP\SlackAPI\Enumerators\Parse;
 
 /**
  * This method posts a message to a public channel, private channel, or direct message/IM channel.
@@ -47,7 +48,7 @@ class ChatPostMessage extends AbstractPayload
     protected $text = null;
 
     /**
-     * @var string
+     * @var Parse
      */
     protected $parse = null;
     
@@ -151,17 +152,12 @@ class ChatPostMessage extends AbstractPayload
      * Defaults to none. See link.
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
-     * @param string $parse
-     * @throws \InvalidArgumentException
+     * @param Parse $parse
      * @return ChatPostMessage
      */
-    public function setParse($parse)
+    public function setParse(Parse $parse)
     {
-        if (!is_scalar($parse)) {
-            throw new \InvalidArgumentException('Parse should be a scalar type');
-        }
-        
-        $this->parse = (string)$parse;
+        $this->parse = $parse->getValue();
         
         return $this;
     }

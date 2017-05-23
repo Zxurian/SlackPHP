@@ -6,6 +6,8 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Enumerators\Style;
+use SlackPHP\SlackAPI\Enumerators\DataSourse;
 
 /**
  * Class to create new action for attachment
@@ -137,17 +139,12 @@ class AttachmentAction extends AbstractModel
     /**
      * Setter for style
      *
-     * @param string $style
-     * @throws \InvalidArgumentException
+     * @param Style $style
      * @return AttachmentAction
      */
-    public function setStyle($style)
+    public function setStyle(Style $style)
     {
-        if (!is_scalar($style)) {
-            throw new \InvalidArgumentException('Style should be scalar type');
-        }
-        
-        $this->style = (string)$style;
+        $this->style = $style->getValue();
     
         return $this;
     }
@@ -155,17 +152,12 @@ class AttachmentAction extends AbstractModel
     /**
      * Setter for type
      *
-     * @param string $type
-     * @throws \InvalidArgumentException
+     * @param \SlackPHP\SlackAPI\Enumerators\Type $type
      * @return AttachmentAction
      */
-    public function setType($type)
+    public function setType(\SlackPHP\SlackAPI\Enumerators\Type $type)
     {
-        if (!is_scalar($type)) {
-            throw new \InvalidArgumentException('Type should be scalar type');
-        }
-        
-        $this->type = (string)$type;
+        $this->type = $type->getValue();
     
         return $this;
     }
@@ -236,6 +228,19 @@ class AttachmentAction extends AbstractModel
     public function addOptionGroup(ActionOptionGroup $optionGroup)
     {
         $this->optionGroups[] = $optionGroup;
+    
+        return $this;
+    }
+    
+    /**
+     * Setter for dataSourse
+     *
+     * @param DataSourse $dataSourse
+     * @return AttachmentAction
+     */
+    public function setDataSourse(DataSourse $dataSourse)
+    {
+        $this->dataSourse = $dataSourse->getValue();
     
         return $this;
     }
