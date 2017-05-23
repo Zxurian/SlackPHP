@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\SlackAPI\Models;
+namespace Tests\SlackAPI\Models\MessageParts;
 
-use SlackPHP\SlackAPI\Models\ActionConfirm;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 

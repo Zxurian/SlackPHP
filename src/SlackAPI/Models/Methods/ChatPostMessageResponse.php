@@ -32,7 +32,7 @@ class ChatPostMessageResponse extends AbstractPayloadResponse
 
     /**
      * @var Message|NULL
-     * @Type("SlackPHP\SlackAPI\Models\Message")
+     * @Type("SlackPHP\SlackAPI\Models\MessageParts\Message")
      */
     protected $message = null;
 }

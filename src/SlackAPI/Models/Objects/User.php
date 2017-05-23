@@ -55,7 +55,7 @@ class User extends MagicGetter
     protected $color = null;
     /**
      * @var Profile
-     * @Type("SlackPHP\SlackAPI\Models\Profile")
+     * @Type("SlackPHP\SlackAPI\Models\Objects\Profile")
      */
     protected $profile = null;
     /**

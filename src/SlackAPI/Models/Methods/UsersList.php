@@ -42,5 +42,4 @@ class UsersList extends AbstractPayload
     
         return $this;
     }
-    
 }

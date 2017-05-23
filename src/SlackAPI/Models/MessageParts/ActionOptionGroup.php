@@ -29,7 +29,7 @@ class ActionOptionGroup extends AbstractModel
     
     /**
      * @var ActionOption[]
-     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\ActionOption>")
      */
     protected $options = [];
     

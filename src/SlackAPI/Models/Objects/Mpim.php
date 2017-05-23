@@ -1,6 +1,6 @@
 <?php
 
-namespace SlackPHP\SlackAPI\Models;
+namespace SlackPHP\SlackAPI\Models\Objects;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
@@ -78,7 +78,7 @@ class Mpim extends MagicGetter
 
     /**
      * @var Message
-     * @Type("SlackPHP\SlackAPI\Models\Message")
+     * @Type("SlackPHP\SlackAPI\Models\MessageParts\Message")
      */
     protected $latest = null;
 

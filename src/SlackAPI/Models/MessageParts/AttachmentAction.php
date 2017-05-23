@@ -64,25 +64,25 @@ class AttachmentAction extends AbstractModel
     
     /**
      * @var ActionConfirm
-     * @Type("SlackPHP\SlackAPI\Models\ActionConfirm")
+     * @Type("SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm")
      */
     protected $confirm = null;
     
     /**
      * @var ActionOption[]
-     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\ActionOption>")
      */
     protected $options = [];
     
     /**
      * @var ActionOption[]
-     * @Type("array<SlackPHP\SlackAPI\Models\ActionOption>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\ActionOption>")
      */
     protected $selectedOptions = [];
     
     /**
      * @var ActionOptionGroup[]
-     * @Type("array<SlackPHP\SlackAPI\Models\ActionOptionGroup>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup>")
      */
     protected $optionGroups = [];
     

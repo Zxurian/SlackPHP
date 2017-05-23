@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\SlackAPI\Models;
+namespace Tests\SlackAPI\Models\MessageParts;
 
-use SlackPHP\SlackAPI\Models\ActionOptionGroup;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\ActionOption;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>

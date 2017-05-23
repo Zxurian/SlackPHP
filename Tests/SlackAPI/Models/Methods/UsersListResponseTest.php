@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Payloads;
+namespace Tests\SlackAPI\Models\PMethods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\Payloads\UsersListResponse;
+use SlackPHP\SlackAPI\Models\Methods\UsersListResponse;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>

@@ -19,7 +19,7 @@ class ChannelsListResponse extends AbstractPayloadResponse
 {
     /**
      * @var Channel[]|NULL
-     * @Type("array<SlackPHP\SlackAPI\Models\Channel>")
+     * @Type("array<SlackPHP\SlackAPI\Models\Objects\Channel>")
      */
     protected $channels = null;
 }

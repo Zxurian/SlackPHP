@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Payloads;
+namespace Tests\SlackAPI\Models\Methods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\Payloads\ChatUpdate;
-use SlackPHP\SlackAPI\Models\Attachment;
+use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
+use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>

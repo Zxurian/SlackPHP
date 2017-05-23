@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\SlackAPI\Main;
+namespace Tests\SlackAPI;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Main\SlackAPI;
+use SlackPHP\SlackAPI\SlackAPI;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client;
-use SlackPHP\SlackAPI\Models\Payloads\GroupsList;
-use SlackPHP\SlackAPI\Models\Payloads\GroupsListResponse;
+use SlackPHP\SlackAPI\Models\Methods\GroupsList;
+use SlackPHP\SlackAPI\Models\Methods\GroupsListResponse;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**

@@ -305,7 +305,7 @@ class File extends MagicGetter
 
     /**
      * @var Comment
-     * @Type("SlackPHP\SlackAPI\Models\Comment")
+     * @Type("SlackPHP\SlackAPI\Models\Objects\Comment")
      */
     protected $initialComment = null;
 
@@ -329,7 +329,7 @@ class File extends MagicGetter
 
     /**
      * @var Reaction
-     * @Type("array<SlackPHP\SlackAPI\Models\Reaction>")
+     * @Type("array<SlackPHP\SlackAPI\Models\Objects\Reaction>")
      */
     protected $reactions = null;
 

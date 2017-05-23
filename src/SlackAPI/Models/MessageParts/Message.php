@@ -31,7 +31,7 @@ class Message extends MagicGetter
 
     /**
      * @var Attachment[]
-     * @Type("array<SlackPHP\SlackAPI\Models\Attachment>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\Attachment>")
      */
     protected $attachments = null;
 

@@ -19,7 +19,7 @@ class GroupsListResponse extends AbstractPayloadResponse
 {
     /**
      * @var Group[]|NULL
-     * @Type("array<SlackPHP\SlackAPI\Models\Group>")
+     * @Type("array<SlackPHP\SlackAPI\Models\Objects\Group>")
      */
     protected $groups = null;
 }

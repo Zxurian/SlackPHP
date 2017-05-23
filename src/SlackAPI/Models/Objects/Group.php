@@ -83,13 +83,13 @@ class Group extends MagicGetter
     
     /**
      * @var Topic
-     * @Type("SlackPHP\SlackAPI\Models\Topic")
+     * @Type("SlackPHP\SlackAPI\Models\Objects\Topic")
      */
     protected $topic = null;
     
     /**
      * @var Purpose
-     * @Type("SlackPHP\SlackAPI\Models\Purpose")
+     * @Type("SlackPHP\SlackAPI\Models\Objects\Purpose")
      */
     protected $purpose = null;
     
@@ -101,7 +101,7 @@ class Group extends MagicGetter
     
     /**
      * @var Message
-     * @Type("SlackPHP\SlackAPI\Models\Message")
+     * @Type("SlackPHP\SlackAPI\Models\MessageParts\Message")
      */
     protected $latest = null;
     

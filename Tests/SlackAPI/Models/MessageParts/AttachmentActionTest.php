@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\SlackAPI\Models;
+namespace Tests\SlackAPI\Models\MessageParts;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\AttachmentAction;
-use SlackPHP\SlackAPI\Models\ActionConfirm;
-use SlackPHP\SlackAPI\Models\ActionOption;
-use SlackPHP\SlackAPI\Models\ActionOptionGroup;
+use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>

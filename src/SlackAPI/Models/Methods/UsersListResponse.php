@@ -19,7 +19,7 @@ class UsersListResponse extends AbstractPayloadResponse
 {
     /**
      * @var User[]|NULL
-     * @Type("array<SlackPHP\SlackAPI\Models\User>")
+     * @Type("array<SlackPHP\SlackAPI\Models\Objects\User>")
      */
     protected $members = null;
 

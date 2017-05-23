@@ -1,4 +1,5 @@
 <?php
+
 namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;

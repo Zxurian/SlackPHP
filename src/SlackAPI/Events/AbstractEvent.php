@@ -3,7 +3,7 @@
 namespace SlackPHP\SlackAPI\Events;
 
 use Symfony\Component\EventDispatcher\Event;
-use SlackPHP\SlackAPI\Models\AbstractModels\AbstractPayload;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 
 /**
  * Class for the events, that save original payload

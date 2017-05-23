@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\SlackAPI\Models;
+namespace Tests\SlackAPI\Models\MessageParts;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Models\AttachmentField;
+use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**

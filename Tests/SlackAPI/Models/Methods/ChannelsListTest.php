@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Payloads;
+namespace Tests\SlackAPI\Models\Methods;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Models\Payloads\ChannelsList;
+use SlackPHP\SlackAPI\Models\Methods\ChannelsList;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**

@@ -96,13 +96,13 @@ class Attachment extends AbstractModel
     
     /**
      * @var AttachmentField[]
-     * @Type("array<SlackPHP\SlackAPI\Models\AttachmentField>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\AttachmentField>")
      */
     protected $fields = [];
     
     /**
      * @var AttachmentAction[]
-     * @Type("array<SlackPHP\SlackAPI\Models\AttachmentAction>")
+     * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction>")
      */
     protected $actions = [];
     

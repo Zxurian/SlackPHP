@@ -1,6 +1,6 @@
 <?php
 
-namespace SlackPHP\SlackAPI\Models;
+namespace SlackPHP\SlackAPI\Models\Objects;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;

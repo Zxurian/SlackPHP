@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\SlackAPI\Models\AbstractModels;
+namespace Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Models\Payloads\ChatUpdate;
+use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**

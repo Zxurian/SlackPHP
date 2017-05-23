@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\SlackAPI\Models;
+namespace Tests\SlackAPI\Models\MessageParts;
 
-use SlackPHP\SlackAPI\Models\Attachment;
+use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\ActionOption;
-use SlackPHP\SlackAPI\Models\AttachmentField;
-use SlackPHP\SlackAPI\Models\AttachmentAction;
+use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
+use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
+use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 
 /**

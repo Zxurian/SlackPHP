@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Payloads;
+namespace Tests\SlackAPI\Models\Methods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\Payloads\GroupsList;
+use SlackPHP\SlackAPI\Models\Methods\GroupsList;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
