@@ -367,7 +367,7 @@ class AttachmentActionTest extends TestCase
     public function testSettingDataSource()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setDataSourse(DataSource::users());
+        $attachmentActionObject->setDataSource(DataSource::users());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $dataSourceProperty = $refAttachmentActionObject->getProperty('dataSource');
         $dataSourceProperty->setAccessible(true);
