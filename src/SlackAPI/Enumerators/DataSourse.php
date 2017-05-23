@@ -6,7 +6,7 @@ use MyCLabs\Enum\Enum;
 
 class DataSourse extends Enum
 {
-    const static = 'static';
+    const staticSourse = 'static';
     const users = 'users';
     const channels = 'channels';
     const conversations = 'conversations';

@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
+use SlackPHP\SlackAPI\Enumerators\Parse;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -101,23 +102,13 @@ class ChatPostMessageTest extends TestCase
     public function testSettingParse()
     {
         $chatPostMessageObject = new ChatPostMessage();
-        $returnedObject = $chatPostMessageObject->setParse($this->dummyString);
+        $returnedObject = $chatPostMessageObject->setParse(Parse::full());
         $refChatPostMessageObject = new \ReflectionObject($chatPostMessageObject);
         $parseProperty = $refChatPostMessageObject->getProperty('parse');
         $parseProperty->setAccessible(true);
         
         $this->assertInstanceOf(ChatPostMessage::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $parseProperty->getValue($chatPostMessageObject));
-    }
-    
-    /**
-     * Test for setting invalid parse
-     */
-    public function testSettingInvalidParse()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setParse(new \stdClass());
+        $this->assertEquals(Parse::full, $parseProperty->getValue($chatPostMessageObject));
     }
     
     /**
