@@ -26,4 +26,19 @@ class ParsedReceivedEventTest extends TestCase
         $this->assertInstanceOf(GroupsListResponse::class, $payloadResponseProperty->getValue($parsedReceivedEventObject));
         $this->assertInstanceOf(ParsedReceivedEvent::class, $returnedObject);
     }
+    
+    /**
+     * Test getting payloadResponse
+     */
+    public function testGetPayloadResponse()
+    {
+        $payloadResponse = new GroupsListResponse();
+        $parsedReceivedEventObject = new ParsedReceivedEvent();
+        $refParsedReceivedEventObject = new \ReflectionObject($parsedReceivedEventObject);
+        $payloadResponseProperty = $refParsedReceivedEventObject->getProperty('payloadResponse');
+        $payloadResponseProperty->setAccessible(true);
+        $payloadResponseProperty->setValue($parsedReceivedEventObject, $payloadResponse);
+        
+        $this->assertInstanceOf(GroupsListResponse::class, $parsedReceivedEventObject->getPayloadResponse());
+    }
 }

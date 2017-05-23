@@ -15,7 +15,7 @@ class AbstractEvent extends Event
     /** 
      * @var AbstractPayload|NULL
      */
-    private $payload = null;
+    protected $payload = null;
     
     /**
      * Setter for the original payload
