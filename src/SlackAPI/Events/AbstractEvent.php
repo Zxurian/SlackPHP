@@ -41,11 +41,11 @@ class AbstractEvent extends Event
     }
     
     /**
-     * Get type of the payload
+     * Get method of Slack API
      * 
      * @return string
      */
-    public function getPayloadType()
+    public function getMethod()
     {
         return get_class($this->payload);
     }
