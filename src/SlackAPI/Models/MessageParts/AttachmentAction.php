@@ -7,7 +7,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Enumerators\Style;
-use SlackPHP\SlackAPI\Enumerators\DataSourse;
+use SlackPHP\SlackAPI\Enumerators\DataSource;
 
 /**
  * Class to create new action for attachment
@@ -233,14 +233,14 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for dataSourse
+     * Setter for dataSource
      *
-     * @param DataSourse $dataSourse
+     * @param DataSource $dataSourse
      * @return AttachmentAction
      */
-    public function setDataSourse(DataSourse $dataSourse)
+    public function setDataSource(DataSource $dataSource)
     {
-        $this->dataSourse = $dataSourse->getValue();
+        $this->dataSource = $dataSource->getValue();
     
         return $this;
     }

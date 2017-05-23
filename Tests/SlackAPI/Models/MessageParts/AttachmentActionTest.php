@@ -8,9 +8,9 @@ use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup;
-use SlackPHP\SlackAPI\Enumerators\DataSourse;
 use SlackPHP\SlackAPI\Enumerators\Style;
 use SlackPHP\SlackAPI\Enumerators\Type;
+use SlackPHP\SlackAPI\Enumerators\DataSource;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -362,16 +362,16 @@ class AttachmentActionTest extends TestCase
     }
     
     /**
-     * Test for setting dataSourse
+     * Test for setting dataSource
      */
-    public function testSettingDataSourse()
+    public function testSettingDataSource()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setDataSourse(DataSourse::users());
+        $attachmentActionObject->setDataSourse(DataSource::users());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
-        $dataSourseProperty = $refAttachmentActionObject->getProperty('dataSourse');
-        $dataSourseProperty->setAccessible(true);
-        $this->assertEquals(DataSourse::users, $dataSourseProperty->getValue($attachmentActionObject));
+        $dataSourceProperty = $refAttachmentActionObject->getProperty('dataSource');
+        $dataSourceProperty->setAccessible(true);
+        $this->assertEquals(DataSource::users, $dataSourceProperty->getValue($attachmentActionObject));
     }
     
     /**

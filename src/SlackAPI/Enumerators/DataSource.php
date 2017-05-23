@@ -4,7 +4,7 @@ namespace SlackPHP\SlackAPI\Enumerators;
 
 use MyCLabs\Enum\Enum;
 
-class DataSourse extends Enum
+class DataSource extends Enum
 {
     const staticSourse = 'static';
     const users = 'users';
