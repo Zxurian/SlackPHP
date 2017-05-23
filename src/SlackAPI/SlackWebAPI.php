@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  */
-class SlackAPI
+class SlackWebAPI
 {
     /**
      * @var string|NULL

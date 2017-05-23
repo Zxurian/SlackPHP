@@ -3,7 +3,7 @@
 namespace Tests\SlackAPI;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\SlackAPI;
+use SlackPHP\SlackAPI\SlackWebAPI;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
@@ -16,9 +16,9 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
- * @covers SlackAPI
+ * @covers SlackWebAPI
  */
-class SlackAPITest extends TestCase
+class SlackWebAPITest extends TestCase
 {
     private $dummyString = 'String';
 
@@ -27,7 +27,7 @@ class SlackAPITest extends TestCase
      */
     public function testConstruct()
     {
-        $slackAPIObject = new SlackAPI($this->dummyString);
+        $slackAPIObject = new SlackWebAPI($this->dummyString);
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $tokenProperty = $refSlackAPIObject->getProperty('token');
         $tokenProperty->setAccessible(true);
@@ -54,7 +54,7 @@ class SlackAPITest extends TestCase
 
         $channelsListPayload = new GroupsList();
         $channelsListPayload->setToken($this->dummyString);
-        $slackAPIObject = new SlackAPI();
+        $slackAPIObject = new SlackWebAPI();
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $clientProperty = $refSlackAPIObject->getProperty('client');
         $clientProperty->setAccessible(true);
