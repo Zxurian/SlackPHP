@@ -3,7 +3,7 @@
 namespace Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Models\Abstracts\ChannelsListResponse;
+use SlackPHP\SlackAPI\Models\Methods\ChannelsListResponse;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
