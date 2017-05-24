@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method returns a list of private channels in the team that the caller is in and archived groups that the caller was in.
@@ -18,7 +19,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
  */
 class GroupsList extends AbstractPayload
 {
-    const method = 'groups.list';
+    const method = Method::groupsList;
     
     /**
      * @var bool

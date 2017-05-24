@@ -179,13 +179,13 @@ class Method extends Enum
      * @param string $method
      * @return bool
      */
-    public function isAvailableToBot(Method $method)
+    public function isAvailableToBot($method)
     {
-        return in_array($method->getValue(), [
+        return in_array($method, [
             self::apiTest,
             self::authTest,
             self::channelsInfo,
-            self::channelsInfo,
+            self::channelsList,
             self::chatMeMessage,
             self::chatPostMessage,
             self::chatUpdate,

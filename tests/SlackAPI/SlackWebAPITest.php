@@ -81,7 +81,7 @@ class SlackWebAPITest extends TestCase
         
         $channelsListPayload = new GroupsList();
         $channelsListPayload->setToken($this->dummyString);
-        $slackAPIObject = new SlackAPI();
+        $slackAPIObject = new SlackWebAPI();
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $clientProperty = $refSlackAPIObject->getProperty('client');
         $clientProperty->setAccessible(true);

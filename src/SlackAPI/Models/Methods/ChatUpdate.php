@@ -6,6 +6,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\Parse;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method updates a message in a channel.
@@ -28,7 +29,7 @@ use SlackPHP\SlackAPI\Enumerators\Parse;
  */
 class ChatUpdate extends AbstractPayload
 {
-    const method = 'chat.update';
+    const method = Method::chatUpdate;
     
     /**
      * @var string

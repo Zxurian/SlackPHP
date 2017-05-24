@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method returns a list of all channels in the team.
@@ -19,7 +20,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
  */
 class ChannelsList extends AbstractPayload
 {
-    const method = 'channels.list';
+    const method = Method::channelsList;
     
     /**
      * @var bool

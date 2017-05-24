@@ -7,6 +7,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\Parse;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method posts a message to a public channel, private channel, or direct message/IM channel.
@@ -34,7 +35,7 @@ use SlackPHP\SlackAPI\Enumerators\Parse;
  */
 class ChatPostMessage extends AbstractPayload
 {
-    const method = 'chat.postMessage';
+    const method = Method::chatPostMessage;
     
     /**
      * @var string

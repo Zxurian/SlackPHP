@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method returns a list of all users in the team.
@@ -18,7 +19,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
  */
 class UsersList extends AbstractPayload
 {
-    const method = 'users.list';
+    const method = Method::usersList;
     
     /**
      * @var bool
