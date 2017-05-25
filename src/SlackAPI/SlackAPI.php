@@ -73,7 +73,7 @@ abstract class SlackAPI
         $this->eventDispatcher->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
         $request = new Request(
             'POST',
-            static::API_URL . $payload->getMethod(),
+            $this->endpoint . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
             http_build_query($preparedPayload)
         );
@@ -91,17 +91,26 @@ abstract class SlackAPI
         }
         
         $responseClassName = $payload->getResponseClass();
-        $payloadResponseObject = $responseClassName::parseResponse($response->getBody()->getContents());
+        $payloadResponse = $responseClassName::parseResponse($response->getBody()->getContents());
         $parsedReceivedEvent = new ParsedReceivedEvent();
         $parsedReceivedEvent
             ->setPayload($payload)
-            ->setPayloadResponse($payloadResponseObject)
+            ->setPayloadResponse($payloadResponse)
         ;
         $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
         
-        return $payloadResponseObject;
+        return $payloadResponse;
     }
     
+    
+    /**
+     * Create instances of classes for use with Slack
+     * 
+     * @param string $className
+     * @param array $arguments
+     * @throws \ErrorException
+     * @return unknown
+     */
     public static function __callstatic($className, $arguments)
     {
         if (substr($className, 0, 6) == 'create') {
@@ -126,21 +135,12 @@ abstract class SlackAPI
                 }
             }
             
-            $apiObject = new $className(...$arguments);
+            $api = new $className(...$arguments);
             
-            if ($clientInArray === null) {
-                $apiObject->setClient(new Client());
-            } else {
-                $apiObject->setClient($clientInArray);
-            }
+            $api->setClient($clientInArray !== null ? $clientInArray : new Client());
+            $api->setEventDispatcher($eventDispatcherInArray !== null ? $eventDispatcherInArray : new EventDispatcher());
             
-            if ($eventDispatcherInArray === null) {
-                $apiObject->setEventDispatcher(new EventDispatcher());
-            } else {
-                $apiObject->setEventDispatcher($eventDispatcherInArray);
-            }
-            
-            return $apiObject;
+            return $api;
         }
         
         trigger_error('Fatal error: Call to undefined method '. static::class .'::'. $className .'()');

@@ -20,7 +20,7 @@ class WebAPI extends SlackAPI
     /**
      * Base URL for Slack API
      */
-    const API_URL = 'https://slack.com/api/';
+    protected $endpoint = 'https://slack.com/api/';
     
    /**
     * @param string|null $token
