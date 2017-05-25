@@ -18,22 +18,37 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  */
-class SlackAPI
+abstract class SlackAPI
 {
     /**
-     * @var ClientInterface|NULL
+     * @var ClientInterface
      */
-    protected static $client = null;
+    protected $client;
     
     /**
-     * @var EventDispatcherInterface|NULL
+     * @var EventDispatcherInterface
      */
-    protected static $eventDispatcher = null;
+    protected $eventDispatcher;
     
     /**
-     * Base URL for Slack API
+     * Setter for client
+     * 
+     * @param ClientInterface $client
      */
-    const API_URL = 'https://slack.com/api/';
+    public function setClient(ClientInterface $client)
+    {
+        $this->client = $client;
+    }
+    
+    /**
+     * Setter for eventDispatcher
+     * 
+     *  @param EventDispatcherInterface $eventDispatcher
+     */
+    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
     
     /**
      * Send payload to Slack API
@@ -55,21 +70,21 @@ class SlackAPI
             ->setPreparedPayload($preparedPayload)
         ;
         
-        self::$eventDispatcher->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
+        $this->eventDispatcher->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
         $request = new Request(
             'POST',
-            self::API_URL . $payload->getMethod(),
+            static::API_URL . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
             http_build_query($preparedPayload)
         );
-        $response = self::$client->send($request);
+        $response = $this->client->send($request);
         
         $receivedEvent = new ReceivedEvent();
         $receivedEvent
             ->setPayload($payload)
             ->setResponse($response)
         ;
-        self::$eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
+        $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
         
         if ($response->getStatusCode() != 200) {
             throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
@@ -82,7 +97,7 @@ class SlackAPI
             ->setPayload($payload)
             ->setPayloadResponse($payloadResponseObject)
         ;
-        self::$eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
+        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
         
         return $payloadResponseObject;
     }
@@ -96,29 +111,38 @@ class SlackAPI
                 throw new \ErrorException('Can’t create instance of '.$className);
             }
             
+            $clientInArray = null;
+            $eventDispatcherInArray = null;
+            
             foreach ($arguments as $key => $argument) {
                 if ($argument instanceof ClientInterface) {
-                    self::$client = $argument;
+                    $clientInArray = $argument;
+                    unset($arguments[$key]);
                 }
                 
                 if ($argument instanceof EventDispatcherInterface) {
-                    self::$eventDispatcher = $argument;
+                    $eventDispatcherInArray = $argument;
+                    unset($arguments[$key]);
                 }
-            }
-            
-            if (self::$client === null) {
-                self::$client = new Client();
-            }
-            
-            if (self::$eventDispatcher === null) {
-                self::$eventDispatcher = new EventDispatcher();
             }
             
             $apiObject = new $className(...$arguments);
             
+            if ($clientInArray === null) {
+                $apiObject->setClient(new Client());
+            } else {
+                $apiObject->setClient($clientInArray);
+            }
+            
+            if ($eventDispatcherInArray === null) {
+                $apiObject->setEventDispatcher(new EventDispatcher());
+            } else {
+                $apiObject->setEventDispatcher($eventDispatcherInArray);
+            }
+            
             return $apiObject;
         }
         
-        trigger_error('Fatal error: Incorrect static call');
+        trigger_error('Fatal error: Call to undefined method '. static::class .'::'. $className .'()');
     }
 }

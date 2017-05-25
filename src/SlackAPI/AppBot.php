@@ -23,16 +23,21 @@ class AppBot extends SlackAPI
     protected $token = null;
     
     /**
+     * Base URL for Slack API
+     */
+    const API_URL = 'https://slack.com/api/';
+    
+    /**
      * @param string|null $token
      * @throws SlackException
      */
-    protected function __construct($token = null) 
+    public function __construct($token = null) 
     {
-        if (!is_scalar($token) && $token !== null) {
+        if ($token !== null && !is_scalar($token)) {
             throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
-        } else {
-            $this->token = (string)$token;
         }
+        
+        $this->token = (string)$token;
     }
     
     /**
@@ -45,7 +50,7 @@ class AppBot extends SlackAPI
     public function send(AbstractPayload $payload) 
     {
         if (!Method::isAvailableToBot($payload->getMethod())) {
-            throw new SlackException('The method provided can’t be used by App Bot', SlackException::INVALID_METHOD);
+            throw new SlackException('The method provided can’t be used by App Bot', SlackException::INVALID_APPBOT_METHOD);
         }
         
         return parent::send($payload);

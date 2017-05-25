@@ -27,5 +27,5 @@ class SlackException extends \Exception
     const MISSING_REQUIRED_FIELD = 115;
     const NOT_INT = 116;
     const OK_STATUS_NOT_RECEIVED = 117;
-    const INVALID_METHOD = 118;
+    const INVALID_APPBOT_METHOD = 118;
 }
