@@ -6,10 +6,7 @@ use SlackPHP\SlackAPI\Enumerators\Method;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
-use GuzzleHttp\ClientInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use GuzzleHttp\Client;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+
 
 /**
  * Class where the calls to Slack API using bot OAuth token are executed from
@@ -21,38 +18,20 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class AppBot extends SlackAPI
 {
     /**
-     * @var string|NULL
+     * @var string|null
      */
     protected $token = null;
     
     /**
-     * Base URL for Slack API
-     */
-    const API_URL = 'https://slack.com/api/';
-    
-    /**
      * @param string|null $token
-     * @param ClientInterface|null $client
-     * @param EventDispatcherInterface|null $eventDispatcher
+     * @throws SlackException
      */
-    protected function __construct($token = null, ClientInterface $client = null, EventDispatcherInterface $eventDispatcher = null) 
+    protected function __construct($token = null) 
     {
-        if (!is_scalar($token) && $token === null) {
+        if (!is_scalar($token) && $token !== null) {
             throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
         } else {
             $this->token = (string)$token;
-        }
-        
-        if ($client === null) {
-            $this->client = new Client();
-        } else {
-            $this->client = $client;
-        }
-        
-        if ($eventDispatcher === null) {
-            $this->eventDispatcher = new EventDispatcher();
-        } else {
-            $this->eventDispatcher = $eventDispatcher;
         }
     }
     
