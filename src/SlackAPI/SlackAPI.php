@@ -41,7 +41,7 @@ class SlackAPI
      * @param string $applicationToken
      * @throws SlackException
      */
-    public function __construct($applicationToken)
+    public function __construct($applicationToken = null)
     {
         if ($applicationToken !== null && !is_scalar($applicationToken)) {
             throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
@@ -101,21 +101,15 @@ class SlackAPI
     /**
      * Creates an instance of AppBot class
      * 
+     * @param string $botToken
      * @return AppBot
      */
-    public function createAppBot()
+    public function createAppBot($botToken)
     {
-        return new AppBot($this);
-    }
-    
-    /**
-     * Creates an instance of WebAPI
-     *
-     * @return WebAPI
-     */
-    public function createWebAPI()
-    {
-        return new WebAPI($this);
+        $appBot = new AppBot($this);
+        $appBot->setBotToken($botToken);
+        
+        return $appBot;
     }
     
     /**
