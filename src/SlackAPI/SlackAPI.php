@@ -43,11 +43,12 @@ class SlackAPI
      */
     public function __construct($applicationToken = null)
     {
-        if ($applicationToken !== null && !is_scalar($applicationToken)) {
-            throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
+        if ($applicationToken !== null) {
+            if (!is_scalar($applicationToken)) {
+                throw new \InvalidArgumentException('Token should be scalar type');
+            }
+            $this->token = (string)$applicationToken;
         }
-        
-        $this->token = (string)$applicationToken;
     }
     
     /**
@@ -71,7 +72,7 @@ class SlackAPI
      */
     public function getEventDispatcher()
     {
-        if ($this->client === null) {
+        if ($this->eventDispatcher === null) {
             $this->eventDispatcher = new EventDispatcher();
         }
         
@@ -132,7 +133,6 @@ class SlackAPI
             ->setPayload($payload)
             ->setPreparedPayload($preparedPayload)
         ;
-
         $this->getEventDispatcher()->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
         $request = new Request(
             'POST',

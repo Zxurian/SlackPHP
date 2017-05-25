@@ -21,6 +21,7 @@ class AppBot
      * @var string
      */
     protected $botToken;
+    
     /**
      * @var SlackAPI
      */
