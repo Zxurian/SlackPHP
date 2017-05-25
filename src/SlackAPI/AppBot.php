@@ -44,13 +44,13 @@ class AppBot
      * Setter for botToken
      * 
      * @param string $botToken
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      * @return AppBot
      */
     public function setBotToken($botToken)
     {
         if (!is_scalar($botToken)) {
-            throw new SlackException('Bot token should be scalar type', SlackException::NOT_SCALAR);
+            throw new \InvalidArgumentException('botToken should be scalar type');
         }
         
         $this->botToken = (string)$botToken;

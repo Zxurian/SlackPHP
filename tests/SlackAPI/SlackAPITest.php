@@ -121,14 +121,14 @@ class SlackAPITest extends TestCase
         $handler = HandlerStack::create($mockHandler);
         $client = new Client(['handler' => $handler]);
 
-        $channelsListPayload = new GroupsList();
-        $channelsListPayload->setToken($this->dummyString);
+        $groupsListPayload = new GroupsList();
+        $groupsListPayload->setToken($this->dummyString);
         $slackAPIObject = new SlackAPI();
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $clientProperty = $refSlackAPIObject->getProperty('client');
         $clientProperty->setAccessible(true);
         $clientProperty->setValue($slackAPIObject, $client);
-        $returnResponseObject = $slackAPIObject->send($channelsListPayload);
+        $returnResponseObject = $slackAPIObject->send($groupsListPayload);
         
         $this->assertEquals(true, $returnResponseObject->getOk());
         $this->assertEquals(1, count($returnResponseObject->getGroups()));
@@ -148,13 +148,13 @@ class SlackAPITest extends TestCase
         $handler = HandlerStack::create($mockHandler);
         $client = new Client(['handler' => $handler]);
         
-        $channelsListPayload = new GroupsList();
-        $channelsListPayload->setToken($this->dummyString);
+        $groupsListPayload = new GroupsList();
+        $groupsListPayload->setToken($this->dummyString);
         $slackAPIObject = new SlackAPI();
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $clientProperty = $refSlackAPIObject->getProperty('client');
         $clientProperty->setAccessible(true);
         $clientProperty->setValue($slackAPIObject, $client);
-        $returnResponseObject = $slackAPIObject->send($channelsListPayload);
+        $returnResponseObject = $slackAPIObject->send($groupsListPayload);
     }
 }
