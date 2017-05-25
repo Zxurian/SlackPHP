@@ -18,26 +18,21 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
 class AppBot extends SlackAPI
 {
     /**
-     * @var string|null
+     * @var SlackAPI
      */
-    protected $token = null;
+    protected $slackAPI;
     
     /**
-     * Base URL for Slack API
+     * Base URL for App Bot
      */
     protected $endpoint = 'https://slack.com/api/';
     
     /**
-     * @param string|null $token
-     * @throws SlackException
+     * @param SlackAPI $slackAPI
      */
-    public function __construct($token = null) 
+    public function __construct(SlackAPI $slackAPI) 
     {
-        if ($token !== null && !is_scalar($token)) {
-            throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
-        }
-        
-        $this->token = (string)$token;
+        $this->slackAPI = $slackAPI;
     }
     
     /**
@@ -53,6 +48,6 @@ class AppBot extends SlackAPI
             throw new SlackException('The method provided can’t be used by App Bot', SlackException::INVALID_APPBOT_METHOD);
         }
         
-        return parent::send($payload);
+        return $this->slackAPI->send($payload, $this->endpoint);
     }
 }

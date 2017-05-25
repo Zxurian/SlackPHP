@@ -179,7 +179,7 @@ class Method extends Enum
      * @param string $method
      * @return bool
      */
-    public function isAvailableToBot($method)
+    public static function isAvailableToBot($method)
     {
         return in_array($method, [
             self::apiTest,

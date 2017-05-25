@@ -18,8 +18,13 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  */
-abstract class SlackAPI
+class SlackAPI
 {
+    /**
+     * @var string|null
+     */
+    protected $token;
+    
     /**
      * @var ClientInterface
      */
@@ -29,6 +34,49 @@ abstract class SlackAPI
      * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
+    
+    const defaultEndpoint = 'https://slack.com/api/';
+    
+    /**
+     * @param string $applicationToken
+     * @throws SlackException
+     */
+    public function __construct($applicationToken)
+    {
+        if ($applicationToken !== null && !is_scalar($applicationToken)) {
+            throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
+        }
+        
+        $this->token = (string)$applicationToken;
+    }
+    
+    /**
+     * Getter for client
+     *
+     * @return ClientInterface
+     */
+    public function getClient()
+    {
+        if ($this->client === null) {
+            $this->client = new Client();
+        }
+        
+        return $this->client;
+    }
+    
+    /**
+     * Getter for eventDispatcher
+     *
+     * @return EventDispatcherInterface
+     */
+    public function getEventDispatcher()
+    {
+        if ($this->client === null) {
+            $this->eventDispatcher = new EventDispatcher();
+        }
+        
+        return $this->eventDispatcher;
+    }
     
     /**
      * Setter for client
@@ -51,12 +99,33 @@ abstract class SlackAPI
     }
     
     /**
+     * Creates an instance of AppBot class
+     * 
+     * @return AppBot
+     */
+    public function createAppBot()
+    {
+        return new AppBot($this);
+    }
+    
+    /**
+     * Creates an instance of WebAPI
+     *
+     * @return WebAPI
+     */
+    public function createWebAPI()
+    {
+        return new WebAPI($this);
+    }
+    
+    /**
      * Send payload to Slack API
      *
      * @param AbstractPayload $payload Payload to send
+     * @param string $endpoint
      * @return AbstractPayloadResponse
      */
-    public function send(AbstractPayload $payload)
+    public function send(AbstractPayload $payload, $endpoint = null)
     {
         if ($payload->getToken() === null) {
             $payload->setToken($this->token);
@@ -69,22 +138,22 @@ abstract class SlackAPI
             ->setPayload($payload)
             ->setPreparedPayload($preparedPayload)
         ;
-        
-        $this->eventDispatcher->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
+
+        $this->getEventDispatcher()->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
         $request = new Request(
             'POST',
-            $this->endpoint . $payload->getMethod(),
+            ($endpoint !== null ? $endpoint : self::defaultEndpoint) . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
             http_build_query($preparedPayload)
         );
-        $response = $this->client->send($request);
+        $response = $this->getClient()->send($request);
         
         $receivedEvent = new ReceivedEvent();
         $receivedEvent
             ->setPayload($payload)
             ->setResponse($response)
         ;
-        $this->eventDispatcher->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
+        $this->getEventDispatcher()->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
         
         if ($response->getStatusCode() != 200) {
             throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
@@ -97,52 +166,8 @@ abstract class SlackAPI
             ->setPayload($payload)
             ->setPayloadResponse($payloadResponse)
         ;
-        $this->eventDispatcher->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
+        $this->getEventDispatcher()->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
         
         return $payloadResponse;
-    }
-    
-    
-    /**
-     * Create instances of classes for use with Slack
-     * 
-     * @param string $className
-     * @param array $arguments
-     * @throws \ErrorException
-     * @return unknown
-     */
-    public static function __callstatic($className, $arguments)
-    {
-        if (substr($className, 0, 6) == 'create') {
-            $className = 'SlackPHP\\SlackAPI\\'.substr($className, 6);
-            
-            if (!class_exists($className)) {
-                throw new \ErrorException('Can’t create instance of '.$className);
-            }
-            
-            $clientInArray = null;
-            $eventDispatcherInArray = null;
-            
-            foreach ($arguments as $key => $argument) {
-                if ($argument instanceof ClientInterface) {
-                    $clientInArray = $argument;
-                    unset($arguments[$key]);
-                }
-                
-                if ($argument instanceof EventDispatcherInterface) {
-                    $eventDispatcherInArray = $argument;
-                    unset($arguments[$key]);
-                }
-            }
-            
-            $api = new $className(...$arguments);
-            
-            $api->setClient($clientInArray !== null ? $clientInArray : new Client());
-            $api->setEventDispatcher($eventDispatcherInArray !== null ? $eventDispatcherInArray : new EventDispatcher());
-            
-            return $api;
-        }
-        
-        trigger_error('Fatal error: Call to undefined method '. static::class .'::'. $className .'()');
     }
 }

@@ -2,36 +2,43 @@
 
 namespace SlackPHP\SlackAPI;
 
-use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
 
 /**
- * Class where the calls with WebAPI are executed from
- * Provide payload to send method for sending it to Slack API
+ * Class where the calls with WebAPI to Slack are executed from
+ * Provide payload to send method for sending it via WebAPI
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  */
 class WebAPI extends SlackAPI
 {
     /**
-     * @var string|null
+     * @var SlackAPI
      */
-    protected $token = null;
+    protected $slackAPI = null;
     
     /**
-     * Base URL for Slack API
+     * Base URL for Web API
      */
     protected $endpoint = 'https://slack.com/api/';
     
    /**
-    * @param string|null $token
-    * @throws SlackException
+    * @param SlackAPI $slackAPI
     */
-    public function __construct($token = null) 
+    public function __construct(SlackAPI $slackAPI) 
     {
-        if ($token !== null && !is_scalar($token)) {
-            throw new SlackException('Token should be scalar type', SlackException::NOT_SCALAR);
-        }
-        
-        $this->token = (string)$token;
+        $this->slackAPI = $slackAPI;
+    }
+    
+    /**
+     * Send payload to Slack
+     * 
+     * @param AbstractPayload $payload
+     * @return AbstractPayloadResponse
+     */
+    public function send(AbstractPayload $payload)
+    {
+        return $this->slackAPI->send($payload, $this->endpoint);
     }
 }
