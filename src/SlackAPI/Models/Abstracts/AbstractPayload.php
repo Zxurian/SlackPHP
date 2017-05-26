@@ -13,7 +13,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * @package SlackAPI
  * @version 0.2
  */
-abstract class AbstractPayload extends AbstractModel
+abstract class AbstractPayload extends AbstractModel implements PayloadInterface
 {
     /**
      * @var string
@@ -67,6 +67,8 @@ abstract class AbstractPayload extends AbstractModel
         if ($this->token === null) {
             throw new SlackException('Every payload must have a token', SlackException::MISSING_REQUIRED_FIELD);
         }
+        
+        $this->validatePayload();
     }
     
     /**

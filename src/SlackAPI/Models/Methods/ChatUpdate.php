@@ -190,12 +190,10 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     
     /**
      * {@inheritDoc}
-     * @see \SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload::validateRequired()
+     * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
-    public function validateRequired()
+    protected function validatePayload()
     {
-        parent::validateRequired();
-        
         if ($this->ts === null) {
             throw new SlackException('chat.update requires a value for "ts"', SlackException::MISSING_REQUIRED_FIELD);
         }
@@ -207,8 +205,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
         if ($this->text === null) {
             throw new SlackException('chat.update requires a value for "text"', SlackException::MISSING_REQUIRED_FIELD);
         }
-        
-        return true;
     }
+
     
 }
