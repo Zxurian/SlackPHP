@@ -4,6 +4,10 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\SerializerBuilder;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use JMS\Serializer\Handler\HandlerRegistry;
+use MyCLabs\Enum\Enum;
+use SlackPHP\SlackAPI\Enumerators\Parse;
+use JMS\Serializer\Annotation\Discriminator;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -12,6 +16,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * @author Zxurian
  * @package SlackAPI
  * @version 0.2
+ * 
  */
 abstract class AbstractPayload extends AbstractModel implements PayloadInterface
 {
@@ -80,6 +85,19 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
     {
         $this->validateRequired($this);
         $serializer = SerializerBuilder::create()
+            ->configureHandlers(function(HandlerRegistry $registry) {
+                $enumHandler = function($visitor, Enum $object, array $type) {
+                    return $object->getValue();
+                };
+                
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\ActionDataSource', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\ActionStyle', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\ActionType', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\Method', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\MrkdwnIn', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\Parse', 'json', $enumHandler);
+                $registry->registerHandler('serialization', 'SlackPHP\SlackAPI\Enumerators\ResponseType', 'json', $enumHandler);
+            })
             ->build()
         ;
         $arrayPayload = $serializer->toArray($this);
@@ -92,4 +110,5 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
         
         return $arrayPayload;
     }
+    
 }
