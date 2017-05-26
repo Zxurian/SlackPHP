@@ -14,5 +14,5 @@ interface PayloadInterface
     /**
      * Check to make sure all requirements are met on the payload
      */
-    protected function validatePayload();
+    public function validatePayload();
 }

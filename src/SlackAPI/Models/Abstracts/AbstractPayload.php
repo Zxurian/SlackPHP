@@ -62,7 +62,7 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
+    public function validateModel()
     {
         if ($this->token === null) {
             throw new SlackException('Every payload must have a token', SlackException::MISSING_REQUIRED_FIELD);
@@ -78,8 +78,10 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
      */
     public function preparePayloadForSlack()
     {
-        $this->validateRequired();
-        $serializer = SerializerBuilder::create()->build();
+        $this->validateRequired($this);
+        $serializer = SerializerBuilder::create()
+            ->build()
+        ;
         $arrayPayload = $serializer->toArray($this);
         
         foreach($arrayPayload as $key => $value) {

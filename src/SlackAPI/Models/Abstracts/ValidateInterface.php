@@ -1,6 +1,6 @@
 <?php
 
-namespace SlackAPI\Models\Abstracts;
+namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
@@ -11,5 +11,5 @@ interface ValidateInterface
      * 
      * @throws SlackException
      */
-    protected function validateModel();
+    public function validateModel();
 }

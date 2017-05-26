@@ -73,6 +73,6 @@ class ChannelsList extends AbstractPayload
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
-    protected function validatePayload(){}
+    public function validatePayload(){}
     
 }

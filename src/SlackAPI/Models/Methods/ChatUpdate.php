@@ -147,7 +147,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
      */
     public function setParse(Parse $parse)
     {
-        $this->parse = $parse->getValue();
+        $this->parse = $parse;
     
         return $this;
     }
@@ -192,7 +192,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
-    protected function validatePayload()
+    public function validatePayload()
     {
         if ($this->ts === null) {
             throw new SlackException('chat.update requires a value for "ts"', SlackException::MISSING_REQUIRED_FIELD);
