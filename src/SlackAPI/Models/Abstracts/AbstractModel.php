@@ -32,5 +32,4 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
             $this->validateModel();
         }
     }
-    
 }
