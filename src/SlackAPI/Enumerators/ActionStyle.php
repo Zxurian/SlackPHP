@@ -4,9 +4,9 @@ namespace SlackPHP\SlackAPI\Enumerators;
 
 use MyCLabs\Enum\Enum;
 
-class Style extends Enum
+class ActionStyle extends Enum
 {
-    const defaultStyle = 'default';
+    const default = 'default';
     const primary = 'primary';
     const danger = 'danger';
 }

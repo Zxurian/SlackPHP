@@ -4,9 +4,10 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
-use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * This method updates a message in a channel.
@@ -27,25 +28,22 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  * @method bool getAsUser()
  * @method bool getMarkdown()
  */
-class ChatUpdate extends AbstractPayload
+class ChatUpdate extends AbstractPayload implements PayloadInterface
 {
     const method = Method::chatUpdate;
     
     /**
      * @var string
-     * @Required
      */
     protected $ts = null;
     
     /**
      * @var string
-     * @Required
      */
     protected $channel = null;
     
     /**
      * @var string
-     * @Required
      */
     protected $text = null;
     
@@ -189,5 +187,25 @@ class ChatUpdate extends AbstractPayload
     
         return $this;
     }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
+     */
+    protected function validatePayload()
+    {
+        if ($this->ts === null) {
+            throw new SlackException('chat.update requires a value for "ts"', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->channel === null) {
+            throw new SlackException('chat.update requries a value for "channel"', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->text === null) {
+            throw new SlackException('chat.update requires a value for "text"', SlackException::MISSING_REQUIRED_FIELD);
+        }
+    }
+
     
 }

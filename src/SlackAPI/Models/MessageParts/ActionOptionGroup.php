@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -23,7 +22,6 @@ class ActionOptionGroup extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $text = null;
     
@@ -65,15 +63,17 @@ class ActionOptionGroup extends AbstractModel
     }
     
     /**
-     * {@inheritdoc}
-     * @see SlackAPI\Models\AbstractModels\AbstractPayload::validateRequired()
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    public function validateRequired()
+    protected function validateModel()
     {
-        parent::validateRequired();
-    
-        if (count($this->options) == 0) {
-            throw new SlackException('Must provide at least one option for group', SlackException::MISSING_REQUIRED_FIELD);
+        if ($this->text === null) {
+            throw new SlackException('text property cannot be null', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if (count($this->options) < 1) {
+            throw new SlackException('options value must contain at least one option', SlackException::NOT_ENOUGH_OPTIONS);
         }
     }
 }

@@ -43,5 +43,11 @@ class GroupsList extends AbstractPayload
         
         return $this;
     }
+    /**
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
+     */
+    protected function validatePayload(){}
+
     
 }

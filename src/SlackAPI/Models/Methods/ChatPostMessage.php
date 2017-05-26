@@ -5,7 +5,6 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
 
@@ -38,12 +37,15 @@ class ChatPostMessage extends AbstractPayload
     const method = Method::chatPostMessage;
     
     /**
+     * Authentication token. Requires scope: chat:write:bot or chat:write:user
+     * 
      * @var string
-     * @Required
      */
     protected $channel = null;
 
     /**
+     * Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See below for more details.
+     * 
      * @var string
      */
     protected $text = null;
@@ -376,12 +378,15 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * {@inheritdoc}
-     * @see SlackAPI\Models\AbstractModels\AbstractPayload::validateRequired()
+     * 
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
-    public function validateRequired()
+    public function validatePayload()
     {
-        parent::validateRequired();
+        if ($this->channel === null) {
+            throw new SlackException('Must provide Channel with a chat.postMessage payload', SlackException::MISSING_REQUIRED_FIELD);
+        }
         
         if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either text or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);

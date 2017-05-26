@@ -3,8 +3,8 @@
 namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Class for confirm action buttons
@@ -30,7 +30,6 @@ class ActionConfirm extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $text = null;
 
@@ -117,4 +116,16 @@ class ActionConfirm extends AbstractModel
     
         return $this;
     }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel()
+    {
+        if ($this->text === null) {
+            throw new SlackException('text property cannot be null', SlackException::MISSING_REQUIRED_FIELD);
+        }
+    }
+
 }

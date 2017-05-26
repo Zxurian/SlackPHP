@@ -3,13 +3,13 @@
 namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
 
 /**
  * Class to create new field for attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#attachment_fields
  * @package SlackAPI
  * @version 0.2
@@ -23,14 +23,12 @@ class AttachmentField extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $title = null;
 
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $value = null;
 
@@ -93,4 +91,11 @@ class AttachmentField extends AbstractModel
         
         return $this;
     }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel(){}
+
 }

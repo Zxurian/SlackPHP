@@ -3,6 +3,7 @@
 namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\SerializerBuilder;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -12,11 +13,10 @@ use JMS\Serializer\SerializerBuilder;
  * @package SlackAPI
  * @version 0.2
  */
-abstract class AbstractPayload extends AbstractModel
+abstract class AbstractPayload extends AbstractModel implements PayloadInterface
 {
     /**
      * @var string
-     * @Required
      */
     protected $token = null;
     
@@ -56,6 +56,19 @@ abstract class AbstractPayload extends AbstractModel
     public function getMethod()
     {
         return static::method;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel()
+    {
+        if ($this->token === null) {
+            throw new SlackException('Every payload must have a token', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        $this->validatePayload();
     }
     
     /**

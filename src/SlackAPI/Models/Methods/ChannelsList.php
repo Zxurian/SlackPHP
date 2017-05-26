@@ -13,7 +13,7 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  * @author Zxurian
  * @see https://api.slack.com/methods/channels.list
  * @package SlackAPI
- * @version 0.1
+ * @version 0.2
  * 
  * @method bool getExcludeArchived()
  * @method bool getExcludeMembers()
@@ -23,14 +23,16 @@ class ChannelsList extends AbstractPayload
     const method = Method::channelsList;
     
     /**
+     * Exclude archived channels from the list
      * @var bool
      */
-    protected $excludeArchived = null;
+    protected $excludeArchived = false;
     
     /**
+     * Exclude the members collection from each channel
      * @var bool
      */
-    protected $excludeMembers = null;
+    protected $excludeMembers = false;
     
     /**
      * Setter for excludeArchived
@@ -67,4 +69,10 @@ class ChannelsList extends AbstractPayload
         
         return $this;
     }
+    /**
+     * {@inheritDoc}
+     * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
+     */
+    protected function validatePayload(){}
+    
 }
