@@ -6,6 +6,7 @@ use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\SerializerBuilder;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use JMS\Serializer\Handler\HandlerRegistry;
+use JMS\Serializer\VisitorInterface;
 
 /**
  * Provides ok, error and warning properties for received Slack payload
@@ -46,12 +47,10 @@ abstract class AbstractPayloadResponse extends MagicGetter
      */
     public static function parseResponse($responseContents)
     {
-        $this->validateRequired($this);
         $serializer = SerializerBuilder::create()
             ->configureHandlers(function(HandlerRegistry $registry) {
-                $enumHandler = function($visitor, $value, array $type) {
-                    var_dump($type);
-                    return $object->getValue();
+                $enumHandler = function(VisitorInterface $visitor, $value, array $class) {
+                    return new $class['name']($value);
                 };
                 
                 $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\ActionDataSource', 'json', $enumHandler);
