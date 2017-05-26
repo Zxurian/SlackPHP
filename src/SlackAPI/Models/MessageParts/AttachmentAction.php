@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Enumerators\ActionType;
 use SlackPHP\SlackAPI\Enumerators\ActionDataSource;
 use SlackPHP\SlackAPI\Enumerators\ActionStyle;
+use JMS\Serializer\Annotation\Accessor;
 
 /**
  * Class to create new action for attachment
@@ -45,7 +46,7 @@ class AttachmentAction extends AbstractModel
 
     /**
      * @var ActionStyle
-     * @Type("string")
+     * @Accessor(getter="getValue")
      */
     protected $style = ActionStyle::default();
 
