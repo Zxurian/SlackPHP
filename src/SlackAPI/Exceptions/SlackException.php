@@ -34,4 +34,5 @@ class SlackException extends \Exception
     const INVALID_RESPONSE_TYPE = 122;
     const MORE_THAN_20_ATTACHMENTS = 123;
     const MORE_THAN_300_CHARACTERS = 124;
+    const MORE_THAN_30_CHARACTERS = 125;
 }

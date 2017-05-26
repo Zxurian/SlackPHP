@@ -144,7 +144,7 @@ class Attachment extends AbstractModel
      * @var string
      * @Type("string")
      */
-    protected $attachmentType = null;
+    protected $attachmentType = 'default';
     
     /**
      * @var array
@@ -522,7 +522,7 @@ class Attachment extends AbstractModel
             throw new SlackException('Can’t use authorIcon if authorName is not provided', SlackException::MISSING_REQUIRED_FIELD);
         }
         
-        if ($this->footer !== null && count($this->footer) > 300) {
+        if ($this->footer !== null && strlen($this->footer) > 300) {
             throw new SlackException('footer should be less that 300 characters', SlackException::MORE_THAN_300_CHARACTERS);
         }
         

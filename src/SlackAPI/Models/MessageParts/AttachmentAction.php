@@ -281,6 +281,10 @@ class AttachmentAction extends AbstractModel
             throw new SlackException('text property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
         }
         
+        if (strlen($this->text) > 30) {
+            throw new SlackException('text property shoud be 30 characters or less', SlackException::MORE_THAN_30_CHARACTERS);
+        }
+        
         if ($this->type === null) {
             throw new SlackException('type property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
         }
