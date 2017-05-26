@@ -7,7 +7,6 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use JMS\Serializer\Handler\HandlerRegistry;
 use MyCLabs\Enum\Enum;
 use SlackPHP\SlackAPI\Enumerators\Parse;
-use JMS\Serializer\Annotation\Discriminator;
 
 /**
  * Abstract class for individual Slack Payloads 
