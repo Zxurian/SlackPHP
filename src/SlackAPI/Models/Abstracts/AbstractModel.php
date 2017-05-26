@@ -16,6 +16,8 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
 {
     /**
      * Validate the model and all children to see if all requirements are met
+     * 
+     * @param AbstractModel @model
      */
     public function validateRequired(AbstractModel $model)
     {
