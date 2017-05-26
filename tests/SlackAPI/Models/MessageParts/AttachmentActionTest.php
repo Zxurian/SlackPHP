@@ -8,9 +8,9 @@ use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
 use SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup;
-use SlackPHP\SlackAPI\Enumerators\Style;
-use SlackPHP\SlackAPI\Enumerators\Type;
-use SlackPHP\SlackAPI\Enumerators\DataSource;
+use SlackPHP\SlackAPI\Enumerators\ActionStyle;
+use SlackPHP\SlackAPI\Enumerators\ActionType;
+use SlackPHP\SlackAPI\Enumerators\ActionDataSource;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -106,13 +106,13 @@ class AttachmentActionTest extends TestCase
     public function testSettingStyle()
     {
         $attachmentActionObject = new AttachmentAction();
-        $returnedObject = $attachmentActionObject->setStyle(Style::danger());
+        $returnedObject = $attachmentActionObject->setStyle(ActionStyle::danger());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $styleProperty = $refAttachmentActionObject->getProperty('style');
         $styleProperty->setAccessible(true);
         
         $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
-        $this->assertEquals(Style::danger, $styleProperty->getValue($attachmentActionObject));
+        $this->assertEquals(ActionStyle::danger, $styleProperty->getValue($attachmentActionObject));
     }
     
     /**
@@ -135,13 +135,13 @@ class AttachmentActionTest extends TestCase
     public function testSettingType()
     {
         $attachmentActionObject = new AttachmentAction();
-        $returnedObject = $attachmentActionObject->setType(Type::button());
+        $returnedObject = $attachmentActionObject->setType(ActionType::button());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $typeProperty = $refAttachmentActionObject->getProperty('type');
         $typeProperty->setAccessible(true);
     
         $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
-        $this->assertEquals(Type::button, $typeProperty->getValue($attachmentActionObject));
+        $this->assertEquals(ActionType::button, $typeProperty->getValue($attachmentActionObject));
     }
     
     /**
@@ -367,11 +367,11 @@ class AttachmentActionTest extends TestCase
     public function testSettingDataSource()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setDataSource(DataSource::users());
+        $attachmentActionObject->setDataSource(ActionDataSource::users());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $dataSourceProperty = $refAttachmentActionObject->getProperty('dataSource');
         $dataSourceProperty->setAccessible(true);
-        $this->assertEquals(DataSource::users, $dataSourceProperty->getValue($attachmentActionObject));
+        $this->assertEquals(ActionDataSource::users, $dataSourceProperty->getValue($attachmentActionObject));
     }
     
     /**
@@ -422,7 +422,7 @@ class AttachmentActionTest extends TestCase
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $attachmentActionObject = new AttachmentAction();
         $attachmentActionObject->setText($this->dummyString)
-            ->setType(Type::button())
+            ->setType(ActionType::button())
         ;
         $attachmentActionObject->validateRequired();
     }
@@ -436,7 +436,7 @@ class AttachmentActionTest extends TestCase
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $attachmentActionObject = new AttachmentAction();
         $attachmentActionObject->setName($this->dummyString)
-            ->setType(Type::button())
+            ->setType(ActionType::button())
         ;
         $attachmentActionObject->validateRequired();
     }

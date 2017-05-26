@@ -48,7 +48,7 @@ class AttachmentAction extends AbstractModel
      * @var ActionStyle
      * @Accessor(getter="getValue")
      */
-    protected $style = ActionStyle::default();
+    protected $style = null;
 
     /**
      * @var ActionType
@@ -90,13 +90,19 @@ class AttachmentAction extends AbstractModel
      * @var ActionDataSource
      * @Type("string")
      */
-    protected $dataSource = ActionDataSource::static();
+    protected $dataSource = null;
     
     /**
      * @var int
      * @Type("integer")
      */
     protected $minQueryLength = 1;
+    
+    public function __construct()
+    {
+        $this->style = ActionStyle::defaultStyle();
+        $this->dataSource = ActionDataSource::staticSource();
+    }
     
     /**
      * Setter for name
@@ -265,7 +271,7 @@ class AttachmentAction extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
+    public function validateModel()
     {
         if ($this->name === null) {
             throw new SlackException('name property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
@@ -292,7 +298,7 @@ class AttachmentAction extends AbstractModel
         }
         
         switch ($this->dataSource->getValue()) {
-            case ActionDataSource::static:
+            case ActionDataSource::staticSource:
                 if (count($this->options) < 1) {
                     throw new SlackException('must provide ActionOptions when using static data source', SlackException::MISSING_REQUIRED_FIELD);
                 }
