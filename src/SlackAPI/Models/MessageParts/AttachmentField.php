@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation\Type;
  * Class to create new field for attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#attachment_fields
  * @package SlackAPI
  * @version 0.2
@@ -95,9 +96,6 @@ class AttachmentField extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
-    {
-        
-    }
+    protected function validateModel(){}
 
 }
