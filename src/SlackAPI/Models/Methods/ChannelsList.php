@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface;
 
 /**
  * This method returns a list of all channels in the team.
@@ -13,12 +14,12 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  * @author Zxurian
  * @see https://api.slack.com/methods/channels.list
  * @package SlackAPI
- * @version 0.1
+ * @version 0.2
  * 
  * @method bool getExcludeArchived()
  * @method bool getExcludeMembers()
  */
-class ChannelsList extends AbstractPayload
+class ChannelsList extends AbstractPayload implements PayloadInterface
 {
     const method = Method::channelsList;
     
@@ -67,4 +68,5 @@ class ChannelsList extends AbstractPayload
         
         return $this;
     }
+    
 }

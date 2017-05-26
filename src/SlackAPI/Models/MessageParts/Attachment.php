@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use JMS\Serializer\Annotation\Type;
@@ -42,7 +41,6 @@ class Attachment extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $fallback = null;
     
@@ -503,15 +501,17 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * {@inheritdoc}
-     * @see SlackAPI\Models\AbstractModels\AbstractModel::validateRequired()
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    public function validateRequired()
+    protected function validateModel()
     {
-        parent::validateRequired();
-    
+        if ($this->fallback === null) {
+            throw new SlackException('fallback property cannot be empty', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
         if (count($this->actions) > 0 && $this->callbackId === null) {
-            throw new SlackException('Must provide callback id, if actions added to attachment payload', SlackException::MISSING_REQUIRED_FIELD);
+            throw new SlackException('Must provide callback_id if using actions', SlackException::MISSING_REQUIRED_FIELD);
         }
     }
 }

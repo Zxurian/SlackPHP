@@ -28,4 +28,8 @@ class SlackException extends \Exception
     const NOT_INT = 116;
     const OK_STATUS_NOT_RECEIVED = 117;
     const INVALID_APPBOT_METHOD = 118;
+    const STRING_TOO_LONG = 119;
+    const NOT_ENOUGH_OPTIONS = 120;
+    const TOO_MANY_OPTIONS = 121;
+    const INVALID_RESPONSE_TYPE = 122;
 }

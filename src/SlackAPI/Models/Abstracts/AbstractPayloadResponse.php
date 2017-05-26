@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\SerializerBuilder;
-use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
@@ -23,7 +22,6 @@ abstract class AbstractPayloadResponse extends MagicGetter
     /**
      * @var bool|NULL
      * @Type("boolean")
-     * @Required
      */
     protected $ok = null;
 

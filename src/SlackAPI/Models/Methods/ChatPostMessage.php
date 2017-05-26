@@ -5,7 +5,6 @@ namespace SlackPHP\SlackAPI\Models\Methods;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use Doctrine\Common\Annotations\Annotation\Required;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
 
@@ -39,7 +38,6 @@ class ChatPostMessage extends AbstractPayload
     
     /**
      * @var string
-     * @Required
      */
     protected $channel = null;
 
@@ -383,9 +381,15 @@ class ChatPostMessage extends AbstractPayload
     {
         parent::validateRequired();
         
+        if ($this->channel === null) {
+            throw new SlackException('Must provide Channel with a chat.postMessage payload', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
         if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either text or at least one attachment when sending a chat.postPayload', SlackException::MISSING_REQUIRED_FIELD);
         }
+        
+        return true;
     }
     
 }

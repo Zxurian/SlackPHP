@@ -4,10 +4,10 @@ namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
-use SlackPHP\SlackAPI\Enumerators\Style;
-use SlackPHP\SlackAPI\Enumerators\DataSource;
+use SlackPHP\SlackAPI\Enumerators\ActionType;
+use SlackPHP\SlackAPI\Enumerators\ActionDataSource;
+use SlackPHP\SlackAPI\Enumerators\ActionStyle;
 
 /**
  * Class to create new action for attachment
@@ -19,14 +19,14 @@ use SlackPHP\SlackAPI\Enumerators\DataSource;
  * 
  * @method string getName()
  * @method string getText()
- * @method string getStyle()
- * @method bool getType()
+ * @method ActionStyle getStyle()
+ * @method ActionType getType()
  * @method ActionOption[] getOptions()
  * @method bool getValue()
  * @method ActionConfirm getConfirm()
  * @method ActionOption[] getSelectedOptions()
  * @method ActionOptionGroup[] getOptionGroups()
- * @method string getDataSource()
+ * @method ActionDataSource getDataSource()
  * @method int getMinQueryLength()
  */
 class AttachmentAction extends AbstractModel
@@ -34,27 +34,24 @@ class AttachmentAction extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $name = null;
 
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $text = null;
 
     /**
-     * @var string
+     * @var ActionStyle
      * @Type("string")
      */
-    protected $style = null;
+    protected $style = ActionStyle::default();
 
     /**
-     * @var string
+     * @var ActionType
      * @Type("string")
-     * @Required
      */
     protected $type = null;
     
@@ -89,16 +86,16 @@ class AttachmentAction extends AbstractModel
     protected $optionGroups = [];
     
     /**
-     * @var string
+     * @var ActionDataSource
      * @Type("string")
      */
-    protected $dataSource = null;
+    protected $dataSource = ActionDataSource::static();
     
     /**
      * @var int
      * @Type("integer")
      */
-    protected $minQueryLength = null;
+    protected $minQueryLength = 1;
     
     /**
      * Setter for name
@@ -142,7 +139,7 @@ class AttachmentAction extends AbstractModel
      * @param Style $style
      * @return AttachmentAction
      */
-    public function setStyle(Style $style)
+    public function setStyle(ActionStyle $style)
     {
         $this->style = $style->getValue();
     
@@ -155,7 +152,7 @@ class AttachmentAction extends AbstractModel
      * @param \SlackPHP\SlackAPI\Enumerators\Type $type
      * @return AttachmentAction
      */
-    public function setType(\SlackPHP\SlackAPI\Enumerators\Type $type)
+    public function setType(ActionType $type)
     {
         $this->type = $type->getValue();
     
@@ -238,7 +235,7 @@ class AttachmentAction extends AbstractModel
      * @param DataSource $dataSourse
      * @return AttachmentAction
      */
-    public function setDataSource(DataSource $dataSource)
+    public function setDataSource(ActionDataSource $dataSource)
     {
         $this->dataSource = $dataSource->getValue();
     
@@ -261,5 +258,57 @@ class AttachmentAction extends AbstractModel
         $this->minQueryLength = $minQueryLength;
     
         return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel()
+    {
+        if ($this->name === null) {
+            throw new SlackException('name property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->text === null) {
+            throw new SlackException('text property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->type === null) {
+            throw new SlackException('type property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if (strlen($this->value) > 2000) {
+            throw new SlackException('value cannot be greater than 2000 characters', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if (count($this->options) > 100) {
+            throw new SlackException('cannot provide more than 100 options', SlackException::TOO_MANY_OPTIONS);
+        }
+        
+        if (count($this->selectedOptions) > 1) {
+            throw new SlackException('cannot provide more than 1 option to selectedOption', SlackException::TOO_MANY_OPTIONS);
+        }
+        
+        switch ($this->dataSource->getValue()) {
+            case ActionDataSource::static:
+                if (count($this->options) < 1) {
+                    throw new SlackException('must provide ActionOptions when using static data source', SlackException::MISSING_REQUIRED_FIELD);
+                }
+                
+                if (count($this->selectedOptions) > 0) {
+                    $foundMatch = false;
+                    foreach ($this->options as $option) {
+                        if ($option->getValue() === $this->selectedOptions[0]->getValue()) {
+                            $foundMatch = true;
+                        }
+                    }
+                    if (!$foundMatch) {
+                        throw new SlackException('selectedOption value must be in list of provided options');
+                    }
+                }
+                break;
+        }
+        
     }
 }

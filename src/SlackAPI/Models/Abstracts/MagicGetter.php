@@ -6,8 +6,9 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
  * Abstract class for magic properties getter
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @package SlackAPI
- * @version 0.1
+ * @version 0.2
  */
 abstract class MagicGetter
 {
@@ -15,6 +16,9 @@ abstract class MagicGetter
      * Magic Method for getting properties
      *
      * @param string $methodName
+     * @param array $arguments
+     * @throws \ErrorException
+     * @return mixed
      */
     public function __call($methodName, $arguments)
     {

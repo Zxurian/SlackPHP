@@ -3,8 +3,8 @@
 namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * Class to create new option for action
@@ -23,14 +23,12 @@ class ActionOption extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $text = null;
     
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $value = null;
     
@@ -92,5 +90,24 @@ class ActionOption extends AbstractModel
         $this->description = (string)$description;
     
         return $this;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel()
+    {
+        if ($this->text === null) {
+            throw new SlackException('text property cannot be null', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->value === null) {
+            throw new SlackException('value property cannot be null', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if (strlen($this->value) > 2000) {
+            throw new SlackException('value property must be 2000 characters or less', SlackException::STRING_TOO_LONG);
+        }
     }
 }

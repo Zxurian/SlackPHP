@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
-use Doctrine\Common\Annotations\Annotation\Required;
 use JMS\Serializer\Annotation\Type;
 
 /**
@@ -23,14 +22,12 @@ class AttachmentField extends AbstractModel
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $title = null;
 
     /**
      * @var string
      * @Type("string")
-     * @Required
      */
     protected $value = null;
 
@@ -93,4 +90,14 @@ class AttachmentField extends AbstractModel
         
         return $this;
     }
+    
+    /**
+     * {@inheritDoc}
+     * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
+     */
+    protected function validateModel()
+    {
+        
+    }
+
 }
