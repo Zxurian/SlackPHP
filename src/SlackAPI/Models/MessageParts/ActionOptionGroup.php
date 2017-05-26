@@ -66,7 +66,7 @@ class ActionOptionGroup extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
+    public function validateModel()
     {
         if ($this->text === null) {
             throw new SlackException('text property cannot be null', SlackException::MISSING_REQUIRED_FIELD);

@@ -504,7 +504,7 @@ class Attachment extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
+    public function validateModel()
     {
         if ($this->fallback === null) {
             throw new SlackException('fallback property cannot be empty', SlackException::MISSING_REQUIRED_FIELD);
@@ -512,6 +512,22 @@ class Attachment extends AbstractModel
         
         if (count($this->actions) > 0 && $this->callbackId === null) {
             throw new SlackException('Must provide callback_id if using actions', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->authorLink !== null && $this->authorName === null) {
+            throw new SlackException('Can’t use authorLink if authorName is not provided', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->authorIcon !== null && $this->authorName === null) {
+            throw new SlackException('Can’t use authorIcon if authorName is not provided', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->footer !== null && count($this->footer) > 300) {
+            throw new SlackException('footer should be less that 300 characters', SlackException::MORE_THAN_300_CHARACTERS);
+        }
+        
+        if ($this->footerIcon !== null && $this->footer === null) {
+            throw new SlackException('Can’t use footerIcon without footer', SlackException::MISSING_REQUIRED_FIELD);
         }
     }
 }

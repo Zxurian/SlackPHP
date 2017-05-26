@@ -12,6 +12,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Client;
 use SlackPHP\SlackAPI\Models\Methods\GroupsListResponse;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\Methods\GroupsMark;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -85,21 +86,22 @@ class AppBotTest extends TestCase
         $this->assertInstanceOf(GroupsListResponse::class, $returnResponseObject);
     }
     
-//     /**
-//      * Test sending invalid unavailable payload
-//      */
-//     public function testSendInvalidPayload()
-//     {
-//         $this->expectException(SlackException::class);
-//         $this->expectExceptionCode(SlackException::INVALID_APPBOT_METHOD);
+    /**
+     * Test sending invalid unavailable payload
+     */
+    public function testSendInvalidPayload()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::INVALID_APPBOT_METHOD);
         
-//         $groupsListPayload = new GroupsList();
-//         $groupsListPayload->setToken($this->dummyString);
-//         $slackAPI = new SlackAPI();
-//         $appBot = new AppBot($slackAPI);
-//         $refGroupsListPayload = new \ReflectionClass($groupsListPayload);
-//         $methodConst = $refGroupsListPayload->getConstant('method');
-//         $methodConst->
-//         $appBot->send($groupsListPayload);
-//     }
+        $groupsMarkPayload = new GroupsMark();
+        $groupsMarkPayload
+            ->setToken($this->dummyString)
+            ->setChannel($this->dummyString)
+            ->setTs($this->dummyString)
+        ;
+        $slackAPI = new SlackAPI();
+        $appBot = new AppBot($slackAPI);
+        $appBot->send($groupsMarkPayload);
+    }
 }

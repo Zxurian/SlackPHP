@@ -15,6 +15,7 @@ use SlackPHP\SlackAPI\Models\Methods\GroupsListResponse;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use SlackPHP\SlackAPI\AppBot;
+use SlackPHP\SlackAPI\Models\Methods\GroupsMark;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -148,13 +149,18 @@ class SlackAPITest extends TestCase
         $handler = HandlerStack::create($mockHandler);
         $client = new Client(['handler' => $handler]);
         
-        $groupsListPayload = new GroupsList();
-        $groupsListPayload->setToken($this->dummyString);
+        $groupsMarkPayload = new GroupsMark();
+        
+        $groupsMarkPayload
+            ->setToken($this->dummyString)
+            ->setChannel($this->dummyString)
+            ->setTs($this->dummyString)
+        ;
         $slackAPIObject = new SlackAPI();
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $clientProperty = $refSlackAPIObject->getProperty('client');
         $clientProperty->setAccessible(true);
         $clientProperty->setValue($slackAPIObject, $client);
-        $returnResponseObject = $slackAPIObject->send($groupsListPayload);
+        $returnResponseObject = $slackAPIObject->send($groupsMarkPayload);
     }
 }

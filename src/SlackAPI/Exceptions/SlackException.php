@@ -32,4 +32,6 @@ class SlackException extends \Exception
     const NOT_ENOUGH_OPTIONS = 120;
     const TOO_MANY_OPTIONS = 121;
     const INVALID_RESPONSE_TYPE = 122;
+    const MORE_THAN_20_ATTACHMENTS = 123;
+    const MORE_THAN_300_CHARACTERS = 124;
 }

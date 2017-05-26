@@ -96,6 +96,6 @@ class AttachmentField extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel(){}
+    public function validateModel(){}
 
 }
