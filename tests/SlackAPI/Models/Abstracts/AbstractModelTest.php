@@ -21,25 +21,11 @@ class AbstractModelTest extends TestCase
     {
         $chatUpdateObject = new ChatUpdate();
         $chatUpdateObject
+            ->setToken($this->dummyString)
             ->setTs($this->dummyString)
             ->setChannel($this->dummyString)
             ->setText($this->dummyString)
         ;
-        $chatUpdateObject->validateRequired();
-    }
-    
-    /**
-     * Test that exception will be thrown if required field is missing
-     */
-    public function testValidateMissingRequired()
-    {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
-        $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject
-            ->setTs($this->dummyString)
-            ->setChannel($this->dummyString)
-        ;
-        $chatUpdateObject->validateRequired();
+        $chatUpdateObject->validateRequired($chatUpdateObject);
     }
 }

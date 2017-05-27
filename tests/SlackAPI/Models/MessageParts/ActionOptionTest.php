@@ -135,24 +135,24 @@ class ActionOptionTest extends TestCase
     /**
      * Test that exception is thrown if required text property is not set
      */
-    public function testValidateRequiredText()
+    public function testValidateModelText()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $actionOptionObject = new ActionOption();
         $actionOptionObject->setValue($this->dummyString);
-        $actionOptionObject->validateRequired();
+        $actionOptionObject->validateModel();
     }
     
     /**
      * Test that exception is thrown if required value property is not set
      */
-    public function testValidateRequiredValue()
+    public function testValidateModelValue()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $actionOptionObject = new ActionOption();
         $actionOptionObject->setText($this->dummyString);
-        $actionOptionObject->validateRequired();
+        $actionOptionObject->validateModel();
     }
 }

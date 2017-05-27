@@ -92,7 +92,7 @@ class ActionOptionGroupTest extends TestCase
     /**
      * Test that exception is thrown, if required text property is not set
      */
-    public function testValidateRequiredText()
+    public function testValidateModelText()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -102,20 +102,20 @@ class ActionOptionGroupTest extends TestCase
         ;
         $actionOptionGroupObject = new ActionOptionGroup();
         $actionOptionGroupObject->addOption($actionOption);
-        $actionOptionGroupObject->validateRequired();
+        $actionOptionGroupObject->validateModel();
     }
     
     /**
      * Test that exception is thrown, if no options added
      */
-    public function testValidateRequiredNoOptions()
+    public function testValidateModelNoOptions()
     {
         $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $this->expectExceptionCode(SlackException::NOT_ENOUGH_OPTIONS);
 
         $actionOptionGroupObject = new ActionOptionGroup();
         $actionOptionGroupObject->setText($this->dummyString);
-        $actionOptionGroupObject->validateRequired();
+        $actionOptionGroupObject->validateModel();
     
     }
 }

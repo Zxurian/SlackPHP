@@ -555,25 +555,25 @@ class ChatPostMessageTest extends TestCase
     /**
      * Test that exception is thrown if required channel property is not set
      */
-    public function testValidateRequiredChannel()
+    public function testValidatePayloadChannel()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setText($this->dummyString);
-        $chatPostMessageObject->validateRequired();
+        $chatPostMessageObject->validatePayload();
     }
     
     /**
      * Test that exception is thrown if both text and attachments property are not set
      */
-    public function testValidateRequiredTextOrAttachments()
+    public function testValidatePayloadTextOrAttachments()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setChannel($this->dummyString);
-        $chatPostMessageObject->validateRequired();
+        $chatPostMessageObject->validatePayload();
     }
     
     /**

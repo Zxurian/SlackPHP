@@ -132,28 +132,4 @@ class AttachmentFieldTest extends TestCase
         
         $this->assertEquals($this->dummyString, $attachmentFieldObject->getShort());
     }
-    
-    /**
-     * Test that exception is thrown if title property is not set
-     */
-    public function testValidateRequiredTitle()
-    {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
-        $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setValue($this->dummyString);
-        $attachmentFieldObject->validateRequired();
-    }
-    
-    /**
-     * Test that exception is thrown if value property is not set
-     */
-    public function testValidateRequiredValue()
-    {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
-        $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setTitle($this->dummyString);
-        $attachmentFieldObject->validateRequired();
-    }
 }

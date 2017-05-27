@@ -772,18 +772,18 @@ class AttachmentTest extends TestCase
     /**
      * Test that exception is thrown, if required fallback option is not set
      */
-    public function testValidateRequiredFallback()
+    public function testValidateModelFallback()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $attachmentObject = new Attachment();
-        $attachmentObject->validateRequired();
+        $attachmentObject->validateModel();
     }
     
     /**
      * Test that exception is thrown, if callbackId is not set, when there is at least one action
      */
-    public function testValidateRequiredNoCallbackIdWithButtons()
+    public function testValidateModelNoCallbackIdWithButtons()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -793,6 +793,6 @@ class AttachmentTest extends TestCase
         $attachmentObject->addAction($attachmentActionObject)
             ->setFallback($this->dummyString)
         ;
-        $attachmentObject->validateRequired();
+        $attachmentObject->validateModel();
     }
 }

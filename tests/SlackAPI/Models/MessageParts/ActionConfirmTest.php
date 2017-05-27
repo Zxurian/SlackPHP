@@ -173,11 +173,11 @@ class ActionConfirmTest extends TestCase
     /**
      * Testing that exception is thrown if required text property is not set
      */
-    public function testValidateRequiredText()
+    public function testValidateModelText()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $actionConfirmObject = new ActionConfirm();
-        $actionConfirmObject->validateRequired();
+        $actionConfirmObject->validateModel();
     }
 }

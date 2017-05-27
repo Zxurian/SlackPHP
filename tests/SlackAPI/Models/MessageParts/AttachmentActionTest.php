@@ -106,13 +106,13 @@ class AttachmentActionTest extends TestCase
     public function testSettingStyle()
     {
         $attachmentActionObject = new AttachmentAction();
-        $returnedObject = $attachmentActionObject->setStyle(ActionStyle::danger());
+        $returnedObject = $attachmentActionObject->setStyle(ActionStyle::dangerStyle());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $styleProperty = $refAttachmentActionObject->getProperty('style');
         $styleProperty->setAccessible(true);
         
         $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
-        $this->assertEquals(ActionStyle::danger, $styleProperty->getValue($attachmentActionObject));
+        $this->assertEquals(ActionStyle::dangerStyle, $styleProperty->getValue($attachmentActionObject));
     }
     
     /**
@@ -367,11 +367,11 @@ class AttachmentActionTest extends TestCase
     public function testSettingDataSource()
     {
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setDataSource(ActionDataSource::users());
+        $attachmentActionObject->setDataSource(ActionDataSource::usersSource());
         $refAttachmentActionObject = new \ReflectionObject($attachmentActionObject);
         $dataSourceProperty = $refAttachmentActionObject->getProperty('dataSource');
         $dataSourceProperty->setAccessible(true);
-        $this->assertEquals(ActionDataSource::users, $dataSourceProperty->getValue($attachmentActionObject));
+        $this->assertEquals(ActionDataSource::usersSource, $dataSourceProperty->getValue($attachmentActionObject));
     }
     
     /**
@@ -416,7 +416,7 @@ class AttachmentActionTest extends TestCase
     /**
      * Test that exception is thrown, if name property is not set
      */
-    public function testValidateRequiredName()
+    public function testValidateModelName()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -424,13 +424,13 @@ class AttachmentActionTest extends TestCase
         $attachmentActionObject->setText($this->dummyString)
             ->setType(ActionType::button())
         ;
-        $attachmentActionObject->validateRequired();
+        $attachmentActionObject->validateModel();
     }
     
     /**
      * Test that exception is thrown, if text property is not set
      */
-    public function testValidateRequiredText()
+    public function testValidateModelText()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -438,13 +438,13 @@ class AttachmentActionTest extends TestCase
         $attachmentActionObject->setName($this->dummyString)
             ->setType(ActionType::button())
         ;
-        $attachmentActionObject->validateRequired();
+        $attachmentActionObject->validateModel();
     }
     
     /**
      * Test that exception is thrown, if type property is not set
      */
-    public function testValidateRequiredType()
+    public function testValidateModelType()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -452,6 +452,6 @@ class AttachmentActionTest extends TestCase
         $attachmentActionObject->setName($this->dummyString)
             ->setText($this->dummyString)
         ;
-        $attachmentActionObject->validateRequired();
+        $attachmentActionObject->validateModel();
     }
 }

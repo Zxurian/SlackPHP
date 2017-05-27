@@ -282,7 +282,7 @@ class ChatUpdateTest extends TestCase
     /**
      * Test that exception is thrown if required ts property is not set
      */
-    public function testValidateRequiredTs()
+    public function testValidatePayloadTs()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -290,13 +290,13 @@ class ChatUpdateTest extends TestCase
         $chatUpdateObject->setChannel($this->dummyString)
             ->setText($this->dummyString)
         ;
-        $chatUpdateObject->validateRequired();
+        $chatUpdateObject->validatePayload();
     }
     
     /**
      * Test that exception is thrown if required channel property is not set
      */
-    public function testValidateRequiredChannel()
+    public function testValidatePayloadChannel()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -304,13 +304,13 @@ class ChatUpdateTest extends TestCase
         $chatUpdateObject->setTs($this->dummyString)
             ->setText($this->dummyString)
         ;
-        $chatUpdateObject->validateRequired();
+        $chatUpdateObject->validatePayload();
     }
     
     /**
      * Test that exception is thrown if required text property is not set
      */
-    public function testValidateRequiredText()
+    public function testValidatePayloadText()
     {
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
@@ -318,7 +318,7 @@ class ChatUpdateTest extends TestCase
         $chatUpdateObject->setTs($this->dummyString)
             ->setChannel($this->dummyString)
         ;
-        $chatUpdateObject->validateRequired();
+        $chatUpdateObject->validatePayload();
     }
     
     /**
