@@ -23,7 +23,6 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * @method string getChannel()
  * @method string getText()
  * @method Attachment[] getAttachments()
- * @method string getParse()
  * @method bool getLinkNames()
  * @method bool getAsUser()
  * @method bool getMarkdown()
@@ -32,66 +31,32 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
 {
     const method = Method::chatUpdate;
     
-    /**
-     * @var string
-     */
+    /** @var string $ts */
     protected $ts = null;
     
-    /**
-     * @var string
-     */
+    /** @var string $channel */
     protected $channel = null;
     
-    /**
-     * @var string
-     */
+    /** @var string $text */
     protected $text = null;
     
-    /**
-     * @var Attachment[]
-     */
+    /** @var Attachment[] $attachments */
     protected $attachments = [];
     
-    /**
-     * @var Parse
-     */
-    protected $parse = null;
+    /** @var string $parse */
+    protected $parse = Parse::FULL;
     
-    /**
-     * @var bool
-     */
-    protected $linkNames = null;
+    /** @var bool $linkNames */
+    protected $linkNames = false;
     
-    /**
-     * @var bool
-     */
+    /** @var bool $asUser */
     protected $asUser = null;
     
-    /**
-     * @var bool
-     */
+    /** @var bool $mrkdwn */
     protected $mrkdwn = null;
     
     /**
-     * Setter for channel, where the message should be updated
-     *
-     * @param string $channel
-     * @throws \InvalidArgumentException
-     * @return ChatUpdate
-     */
-    public function setChannel($channel)
-    {
-        if (!is_scalar($channel)) {
-            throw new \InvalidArgumentException('Channel should be a scalar type');
-        }
-        
-        $this->channel = $channel;
-        
-        return $this;
-    }
-
-    /**
-     * Setter for ts of message, that has to be updated
+     * Timestamp of the message to be updated.
      *
      * @param string $ts
      * @throws \InvalidArgumentException
@@ -104,13 +69,32 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
         }
         
         $this->ts = (string)$ts;
-    
+        
         return $this;
     }
     
     /**
-     * Setter for text
+     * Channel containing the message to be updated.
      *
+     * @param string $channel
+     * @throws \InvalidArgumentException
+     * @return ChatUpdate
+     */
+    public function setChannel($channel)
+    {
+        if (!is_scalar($channel)) {
+            throw new \InvalidArgumentException('Channel should be a scalar type');
+        }
+        
+        $this->channel = (string)$channel;
+        
+        return $this;
+    }
+
+    /**
+     * New text for the message, using the default formatting rules.
+     *
+     * @see https://api.slack.com/docs/formatting
      * @param string $text
      * @throws \InvalidArgumentException
      * @return ChatUpdate
@@ -127,7 +111,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     }
     
     /**
-     * Add new attachment to array
+     * Structured message attachments.
      *
      * @param Attachment $attachment
      * @return ChatUpdate
@@ -140,20 +124,33 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     }
     
     /**
-     * Setter for parse
+     * Getter for Parse Enum
+     * 
+     * @return Parse
+     */
+    public function getParse()
+    {
+        return Parse::{$this->parse}();
+    }
+    
+    /**
+     * Change how messages are treated. Defaults to client, unlike chat.postMessage. See link.
      *
+     * @see https://api.slack.com/methods/chat.update#formatting
      * @param Parse $parse
      * @return ChatUpdate
      */
     public function setParse(Parse $parse)
     {
-        $this->parse = $parse;
+        $this->parse = $parse->getValue();
     
         return $this;
     }
     
     /**
-     * Setter for linkNames
+     * Find and link channel names and usernames.
+     * Defaults to none. This parameter should be used in conjunction with
+     * parse. To set link_names to 1, specify a parse mode of full.
      *
      * @param bool $linkNames
      * @throws \InvalidArgumentException
@@ -171,7 +168,8 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     }
     
     /**
-     * Setter for asUser
+     * Pass true to update the message as the authed user.
+     * Bot users in this context are considered authed users.
      *
      * @param bool $asUser
      * @throws \InvalidArgumentException

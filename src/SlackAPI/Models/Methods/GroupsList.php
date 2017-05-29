@@ -19,15 +19,13 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  */
 class GroupsList extends AbstractPayload
 {
-    const method = Method::groupsList;
+    const METHOD = Method::GROUPS_LIST;
+    
+    /** @var bool $excludeArchived */
+    protected $excludeArchived = false;
     
     /**
-     * @var bool
-     */
-    protected $excludeArchived = null;
-    
-    /**
-     * Set true to not return archived private channels.
+     * Don't return archived private channels.
      * 
      * @param bool $excludeArchived
      * @throws \InvalidArgumentException
@@ -43,11 +41,10 @@ class GroupsList extends AbstractPayload
         
         return $this;
     }
+    
     /**
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
     public function validatePayload(){}
-
-    
 }

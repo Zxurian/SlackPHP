@@ -10,6 +10,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * This method moves the read cursor in a private channel.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/methods/groups.mark
  * @package SlackAPI
  * @version 0.2
@@ -19,21 +20,16 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  */
 class GroupsMark extends AbstractPayload
 {
-    const method = Method::groupsMark;
+    const METHOD = Method::GROUPS_MARK;
     
-    /**
-     * @var string
-     */
+    /** @var string $channel */
     protected $channel = null;
     
-    /**
-     * @var string
-     */
+    /** @var string $ts */
     protected $ts = null;
-
     
     /**
-     * Set the channel where to move the read cursor
+     * Private channel to set reading cursor in.
      *
      * @param string $channel
      * @throws \InvalidArgumentException
@@ -42,16 +38,16 @@ class GroupsMark extends AbstractPayload
     public function setChannel($channel)
     {
         if (!is_scalar($channel)) {
-            throw new \InvalidArgumentException('ExcludeArchived should be a scalar type');
+            throw new \InvalidArgumentException('setChannel should be a scalar type');
         }
     
-        $this->channel = $channel;
+        $this->channel = (string)$channel;
     
         return $this;
     }
     
     /**
-     * Set timestamp of the most recently seen message
+     * Timestamp of the most recently seen message.
      *
      * @param string $ts
      * @throws \InvalidArgumentException
@@ -60,10 +56,10 @@ class GroupsMark extends AbstractPayload
     public function setTs($ts)
     {
         if (!is_scalar($ts)) {
-            throw new \InvalidArgumentException('ExcludeArchived should be a scalar type');
+            throw new \InvalidArgumentException('setTs should be a scalar type');
         }
     
-        $this->ts = $ts;
+        $this->ts = (string)$ts;
     
         return $this;
     }

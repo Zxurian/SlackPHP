@@ -19,11 +19,9 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  */
 class UsersList extends AbstractPayload
 {
-    const method = Method::usersList;
+    const METHOD = Method::USERS_LIST;
     
-    /**
-     * @var bool
-     */
+    /** @var bool $presence*/
     protected $presence = null;
     
     /**
@@ -49,5 +47,4 @@ class UsersList extends AbstractPayload
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */
     public function validatePayload(){}
-
 }

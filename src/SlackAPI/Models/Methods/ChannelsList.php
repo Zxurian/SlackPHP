@@ -7,7 +7,9 @@ use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * This method returns a list of all channels in the team.
- * This includes channels the caller is in, channels they are not currently in, and archived channels but does not include private channels. The number of (non-deactivated) members in each channel is also returned.
+ * This includes channels the caller is in, channels they are not currently
+ * in, and archived channels but does not include private channels. The
+ * number of (non-deactivated) members in each channel is also returned.
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
@@ -20,22 +22,16 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  */
 class ChannelsList extends AbstractPayload
 {
-    const method = Method::channelsList;
+    const METHOD = method::CHANNELS_LIST;
     
-    /**
-     * Exclude archived channels from the list
-     * @var bool
-     */
+    /** @var bool $excludeArchived */
     protected $excludeArchived = false;
     
-    /**
-     * Exclude the members collection from each channel
-     * @var bool
-     */
+    /** @var bool $excludeMembers */
     protected $excludeMembers = false;
     
     /**
-     * Setter for excludeArchived
+     * Exclude archived channels from the list
      * 
      * @param bool $excludeArchived
      * @throws \InvalidArgumentException
@@ -53,7 +49,7 @@ class ChannelsList extends AbstractPayload
     }
     
     /**
-     * Setter for excludeMembers
+     * Exclude the members collection from each channel
      * 
      * @param bool $excludeMembers
      * @throws \InvalidArgumentException
@@ -69,6 +65,7 @@ class ChannelsList extends AbstractPayload
         
         return $this;
     }
+    
     /**
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()

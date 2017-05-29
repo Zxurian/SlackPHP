@@ -19,7 +19,6 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  * 
  * @method string getChannel()
  * @method string getText()
- * @method string getParse()
  * @method bool getLinkNames()
  * @method Attachment[] getAttachments()
  * @method bool getUnfurlLinks()
@@ -34,80 +33,48 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  */
 class ChatPostMessage extends AbstractPayload
 {
-    const method = Method::chatPostMessage;
+    const METHOD = METHOD::CHAT_POST_MESSAGE;
     
-    /**
-     * Authentication token. Requires scope: chat:write:bot or chat:write:user
-     * 
-     * @var string
-     */
+    /** @var string $channel */
     protected $channel = null;
 
-    /**
-     * Channel, private group, or IM channel to send message to. Can be an encoded ID, or a name. See below for more details.
-     * 
-     * @var string
-     */
+    /** @var string $text */
     protected $text = null;
 
-    /**
-     * @var Parse
-     */
-    protected $parse = null;
+    /** @var string $parse */
+    protected $parse = Parse::NONE;
     
-    /**
-     * @var bool
-     */
+    /** @var bool $linkNames */
     protected $linkNames = null;
     
-    /**
-     * @var Attachment[]
-     */
+    /** @var Attachment[] $attachments */
     protected $attachments = [];
     
-    /**
-     * @var bool
-     */
-    protected $unfurlLinks = null;
+    /** @var bool $unfurlLinks */
+    protected $unfurlLinks = false;
     
-    /**
-     * @var bool
-     */
-    protected $unfurlMedia = null;
+    /** @var bool $unfurlMedia */
+    protected $unfurlMedia = true;
     
-    /**
-     * @var string
-     */
+    /** @var string $username */
     protected $username = null;
 
-    /**
-     * @var bool
-     */
+    /** @var bool $asUser */
     protected $asUser = null;
 
-    /**
-     * @var string
-     */
+    /** @var string $iconUrl */
     protected $iconUrl = null;
     
-    /**
-     * @var string
-     */
+    /** @var string $iconEmoji */
     protected $iconEmoji = null;
     
-    /**
-     * @var string
-     */
+    /** @var string $threadTs */
     protected $threadTs = null;
 
-    /**
-     * @var bool
-     */
-    protected $replyBroadcast = null;
+    /** @var bool $replyBroadcast */
+    protected $replyBroadcast = false;
     
-    /**
-     * @var bool
-     */
+    /** @var bool $mrkdwn */
     protected $mrkdwn = null;
     
     /**
@@ -132,7 +99,8 @@ class ChatPostMessage extends AbstractPayload
 
     /**
      * Text of the message to send.
-     * See link for an explanation of formatting. This field is usually required, unless you're providing only attachments instead.
+     * See link for an explanation of formatting. This field is usually
+     * required, unless you're providing only attachments instead.
      * 
      * @see https://api.slack.com/methods/chat.postMessage#formatting
      * @param string $text
@@ -150,6 +118,16 @@ class ChatPostMessage extends AbstractPayload
         return $this;
     }
 
+    /**
+     * Getter for parse value into Enum
+     * 
+     * @return Parse
+     */
+    public function getParse()
+    {
+        return Parse::{$this->parse}();
+    }
+    
     /**
      * Change how messages are treated.
      * Defaults to none. See link.
@@ -283,8 +261,8 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setIconUrl($iconUrl)
     {
-        if (!is_scalar($iconUrl)) {
-            throw new \InvalidArgumentException('IconUrl should be a scalar type');
+        if (!is_scalar($iconUrl) || filter_var($iconUrl, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('IconUrl should be a valid url string');
         }
         
         $this->iconUrl = (string)$iconUrl;
@@ -390,6 +368,18 @@ class ChatPostMessage extends AbstractPayload
         
         if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either text or at least one attachment when sending a chat.postMessage', SlackException::MISSING_REQUIRED_FIELD);
+        }
+        
+        if ($this->asUser === true && $this->username !== null) {
+            throw new SlackException('asUser cannot be set to true if providing username', SlackException::AS_USER_SET_WITH_USERNAME);
+        }
+        
+        if ($this->asUser === true && $this->iconUrl !== null) {
+            throw new SlackException('asUser cannot be set to true if providing icon url', SlackException::AS_USER_SET_WITH_ICON_URL);
+        }
+        
+        if ($this->asUser === true && $this->iconEmoji !== null) {
+            throw new SlackException('asUser cannot be set to true if providing icon emoji', SlackException::AS_USER_SET_WITH_ICON_EMOJI);
         }
     }
     
