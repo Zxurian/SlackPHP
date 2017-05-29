@@ -231,4 +231,76 @@ class Method extends Enum
             self::USERS_SET_PRESENCE,
         ]);
     }
+    
+    /**
+     * Check and see if the method is available to a Custom Bot
+     *
+     * @see https://api.slack.com/bot-users#method_list
+     * @param string $method
+     * @return bool
+     */
+    public function isAvailableToCustomBot()
+    {
+        return in_array($this->getValue(), [
+            self::API_TEST,
+            self::AUTH_REVOKE,
+            self::AUTH_TEST,
+            self::CHANNELS_HISTORY,
+            self::CHANNELS_INFO,
+            self::CHANNELS_LIST,
+            self::CHANNELS_MARK,
+            self::CHANNELS_REPLIES,
+            self::CHANNELS_SET_PURPOSE,
+            self::CHANNELS_SET_TOPIC,
+            self::CHAT_DELETE,
+            self::CHAT_ME_MESSAGE,
+            self::CHAT_POST_MESSAGE,
+            self::CHAT_UPDATE,
+            self::DND_INFO,
+            self::DND_TEAM_INFO,
+            self::EMOJI_LIST,
+            self::FILES_COMMENTS_ADD,
+            self::FILES_COMMENTS_DELETE,
+            self::FILES_COMMENTS_EDIT,
+            self::FILES_DELETE,
+            self::FILES_INFO,
+            self::FILES_UPLOAD,
+            self::GROUPS_CLOSE,
+            self::GROUPS_HISTORY,
+            self::GROUPS_INFO,
+            self::GROUPS_LIST,
+            self::GROUPS_MARK,
+            self::GROUPS_OPEN,
+            self::GROUPS_SET_PURPOSE,
+            self::GROUPS_SET_TOPIC,
+            self::IM_CLOSE,
+            self::IM_HISTORY,
+            self::IM_LIST,
+            self::IM_MARK,
+            self::IM_OPEN,
+            self::MPIM_CLOSE,
+            self::MPIM_HISTORY,
+            self::MPIM_LIST,
+            self::MPIM_MARK,
+            self::MPIM_OPEN,
+            self::OAUTH_ACCESS,
+            self::PINS_ADD,
+            self::PINS_LIST,
+            self::PINS_REMOVE,
+            self::REACTIONS_ADD,
+            self::REACTIONS_GET,
+            self::REACTIONS_LIST,
+            self::REACTIONS_REMOVE,
+            self::RTM_CONNECT,
+            self::RTM_START,
+            self::STARS_ADD,
+            self::STARS_REMOVE,
+            self::TEAM_INFO,
+            self::USERS_GET_PRESENCE,
+            self::USERS_INFO,
+            self::USERS_LIST,
+            self::USERS_SET_ACTIVE,
+            self::USERS_SET_PRESENCE,
+        ]);
+    }
 }
