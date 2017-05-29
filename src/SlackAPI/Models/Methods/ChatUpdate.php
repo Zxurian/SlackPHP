@@ -130,7 +130,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
      */
     public function getParse()
     {
-        return Parse::{$this->parse}();
+        return new Parse($this->parse);
     }
     
     /**

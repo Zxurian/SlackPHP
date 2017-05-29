@@ -39,7 +39,8 @@ class AttachmentField extends AbstractModel
     protected $short = null;
 
     /**
-     * Setter for title
+     * Shown as a bold heading above the value text.
+     * It cannot contain markup and will be escaped for you.
      * 
      * @param string $title
      * @throws \InvalidArgumentException
@@ -48,7 +49,7 @@ class AttachmentField extends AbstractModel
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new \InvalidArgumentException('Title should be scalar type');
+            throw new \InvalidArgumentException('Title should be scalar');
         }
         
         $this->title = (string)$title;
@@ -57,7 +58,9 @@ class AttachmentField extends AbstractModel
     }
 
     /**
-     * Setter for value
+     * The text value of the field.
+     * It may contain standard message markup and must be escaped as normal.
+     * May be multi-line.
      * 
      * @param string $value
      * @throws \InvalidArgumentException
@@ -66,7 +69,7 @@ class AttachmentField extends AbstractModel
     public function setValue($value)
     {
         if (!is_scalar($value)) {
-            throw new \InvalidArgumentException('Value should be scalar type');
+            throw new \InvalidArgumentException('Value should be scalar');
         }
         
         $this->value = (string)$value;
@@ -75,7 +78,7 @@ class AttachmentField extends AbstractModel
     }
 
     /**
-     * Setter for an optional flag indicating whether the value is short enough to be displayed side-by-side with other values.
+     * An optional flag indicating whether the value is short enough to be displayed side-by-side with other values.
      * 
      * @param bool $short
      * @throws \InvalidArgumentException
@@ -84,7 +87,7 @@ class AttachmentField extends AbstractModel
     public function setShort($short)
     {
         if (!is_bool($short)) {
-            throw new \InvalidArgumentException('Short should be boolean type');
+            throw new \InvalidArgumentException('Short should be boolean');
         }
         
         $this->short = $short;

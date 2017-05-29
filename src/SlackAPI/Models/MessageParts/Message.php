@@ -12,6 +12,7 @@ use SlackPHP\SlackAPI\Enumerators\ResponseType;
  * Model of message
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#message
  * @package SlackAPI
  * @version 0.2
@@ -19,7 +20,6 @@ use SlackPHP\SlackAPI\Enumerators\ResponseType;
  * @method string getText()
  * @method Attachment[] getAttachments()
  * @method string getThreadTs()
- * @method string getResponseType()
  * @method bool getReplaceOriginal()
  * @method bool getDeleteOriginal()
  */
@@ -44,7 +44,7 @@ class Message extends AbstractModel
     protected $threadTs = null;
     
     /**
-     * @var ResponseType
+     * @var string
      * @Type("string")
      */
     protected $responseType = null;
@@ -62,11 +62,12 @@ class Message extends AbstractModel
     protected $deleteOriginal = null;
     
     /**
-     * Set the text
+     * The basic text of the message.
+     * Only required if the message contains zero attachments.
      * 
      * @param string $text
      * @throws \InvalidArgumentException
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function setText($text)
     {
@@ -74,16 +75,17 @@ class Message extends AbstractModel
             throw new \InvalidArgumentException('Must provide scalar value for text');
         }
         
-        $this->text = $text;
+        $this->text = (string)$text;
         
         return $this;
     }
     
     /**
-     * Add an attachment
+     * Add an Attachment
+     * Adds additional components to the message. Messages should contain no more than 20 attachments.
      * 
      * @param Attachment $attachment
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function addAttachment(Attachment $attachment)
     {
@@ -93,11 +95,12 @@ class Message extends AbstractModel
     }
     
     /**
-     * Setter for threadTs
+     * When replying to a parent message, this value is the ts value of the parent message to the thread.
+     * See message threading for more context.
      * 
      * @param string $threadTs
      * @throws \InvalidArgumentException
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function setThreadTs($threadTs)
     {
@@ -111,24 +114,41 @@ class Message extends AbstractModel
     }
     
     /**
-     * Setter for responseType
+     * Get the ResponseType Enum
+     * 
+     * @return ResponseType
+     */
+    public function getResponseType()
+    {
+        return new ResponseType($this->responseType);
+    }
+    
+    /**
+     * Set a a value for responeType
+     * This field cannot be specified for a brand new message and must be
+     * used only in response to the execution of message button action or a
+     * slash command response. Once a response_type is set, it cannot be
+     * changed when updating the message.
      * 
      * @param ResponseType $responseType
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function setResponseType(ResponseType $responseType)
     {
-        $this->responseType = $responseType;
+        $this->responseType = $responseType->getValue();
         
         return $this;
     }
     
     /**
-     * Setter for replaceOriginal
+     * Used only when creating messages in response to a button action invocation.
+     * When set to true, the inciting message will be replaced by this
+     * message you're providing. When false, the message you're providing
+     * is considered a brand new message.
      * 
      * @param bool $replaceOriginal
      * @throws \InvalidArgumentException
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function setReplaceOriginal($replaceOriginal)
     {
@@ -142,11 +162,13 @@ class Message extends AbstractModel
     }
     
     /**
-     * Setter for deleteOriginal
+     * Used only when creating messages in response to a button action invocation.
+     * When set to true, the inciting message will be deleted and if a message
+     * is provided, it will be posted as a brand new message.
      * 
      * @param bool $deleteOriginal
      * @throws \InvalidArgumentException
-     * @return \SlackPHP\SlackAPI\Models\MessageParts\Message
+     * @return Message
      */
     public function setDeleteOriginal($deleteOriginal)
     {

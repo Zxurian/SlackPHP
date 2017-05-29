@@ -7,11 +7,13 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Enumerators\AttachmentColor;
 
 /**
  * Class to create Attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#attachment_fields
  * @package SlackAPI
  * @version 0.2
@@ -153,7 +155,10 @@ class Attachment extends AbstractModel
     protected $mrkdwnIn = [];
     
     /**
-     * Setter for fallback
+     * A plaintext message displayed to users using an interface that does not support attachments or interactive messages.
+     * Consider leaving a URL pointing to your service if the potential
+     * message actions are representable outside of Slack. Otherwise, let
+     * folks know what they are missing.
      *
      * @param string $fallback
      * @throws \InvalidArgumentException
@@ -162,7 +167,7 @@ class Attachment extends AbstractModel
     public function setFallback($fallback)
     {
         if (!is_scalar($fallback)) {
-            throw new \InvalidArgumentException('Fallback should be scalar type');
+            throw new \InvalidArgumentException('Fallback should be scalar');
         }
         
         $this->fallback = (string)$fallback;
@@ -171,7 +176,9 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for color
+     * Used to visually distinguish an attachment from other messages.
+     * Accepts hex values or an AttachmentColor enum as documented in attaching
+     * content to messages. Use sparingly and according to best practices.
      *
      * @param string $color
      * @throws \InvalidArgumentException
@@ -179,17 +186,24 @@ class Attachment extends AbstractModel
      */
     public function setColor($color)
     {
-        if (!is_scalar($color)) {
-            throw new \InvalidArgumentException('Color should be scalar type');
+        if (!$color instanceof AttachmentColor) {
+            if (!is_scalar($color)) {
+                throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor enum');
+            }
+            
+            $color = trim($color, '#');
+            if (!ctype_xdigit($color) || (ctype_xdigit($color) && strlen($color) !== 6 && strlen($color) !== 3)) {
+                throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor enum');
+            }
         }
         
-        $this->color = (string)$color;
+        $this->color = $color instanceof AttachmentColor ? $color->getValue() : '#'.$color;
         
         return $this;
     }
     
     /**
-     * Setter for pretext
+     * This is optional text that appears above the message attachment block.
      *
      * @param string $pretext
      * @throws \InvalidArgumentException
@@ -198,7 +212,7 @@ class Attachment extends AbstractModel
     public function setPretext($pretext)
     {
         if (!is_scalar($pretext)) {
-            throw new \InvalidArgumentException('Pretext should be scalar type');
+            throw new \InvalidArgumentException('Pretext should be scalar');
         }
         
         $this->pretext = (string)$pretext;
@@ -207,7 +221,7 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for authorName
+     * Small text used to display the author's name.
      *
      * @param string $authorName
      * @throws \InvalidArgumentException
@@ -216,7 +230,7 @@ class Attachment extends AbstractModel
     public function setAuthorName($authorName)
     {
         if (!is_scalar($authorName)) {
-            throw new \InvalidArgumentException('Author name should be scalar type');
+            throw new \InvalidArgumentException('Author name should be scalar');
         }
         
         $this->authorName = (string)$authorName;
@@ -225,7 +239,8 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for authorLink
+     * A valid URL that will hyperlink the author_name text mentioned above.
+     * Will only work if author_name is present.
      *
      * @param string $authorLink
      * @throws \InvalidArgumentException
@@ -233,8 +248,8 @@ class Attachment extends AbstractModel
      */
     public function setAuthorLink($authorLink)
     {
-        if (!is_scalar($authorLink)) {
-            throw new \InvalidArgumentException('Author link should be scalar type');
+        if (!is_scalar($authorLink) || filter_var($authorLink, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Author link should be a valid URL');
         }
         
         $this->authorLink = (string)$authorLink;
@@ -243,7 +258,8 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for authorIcon
+     * A valid URL that displays a small 16x16px image to the left of the author_name text.
+     * Will only work if author_name is present.
      *
      * @param string $authorIcon
      * @throws \InvalidArgumentException
@@ -251,8 +267,8 @@ class Attachment extends AbstractModel
      */
     public function setAuthorIcon($authorIcon)
     {
-        if (!is_scalar($authorIcon)) {
-            throw new \InvalidArgumentException('Author icon should be scalar type');
+        if (!is_scalar($authorIcon) || filter_var($authorIcon, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Author icon should be a valid URL');
         }
         
         $this->authorIcon = (string)$authorIcon;
@@ -261,7 +277,7 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for title
+     * The title is displayed as larger, bold text near the top of a message attachment.
      * 
      * @param string $title
      * @throws \InvalidArgumentException
@@ -270,7 +286,7 @@ class Attachment extends AbstractModel
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new \InvalidArgumentException('Title should be scalar type');
+            throw new \InvalidArgumentException('Title should be scalar');
         }
         
         $this->title = (string)$title;
@@ -279,7 +295,7 @@ class Attachment extends AbstractModel
     }
 
     /**
-     * Setter for titleLink
+     * By passing a valid URL in the title_link parameter, the title text will be hyperlinked.
      * 
      * @param string $titleLink
      * @throws \InvalidArgumentException
@@ -287,8 +303,8 @@ class Attachment extends AbstractModel
      */
     public function setTitleLink($titleLink)
     {
-        if (!is_scalar($titleLink)) {
-            throw new \InvalidArgumentException('Title link should be scalar type');
+        if (!is_scalar($titleLink) || filter_var($titleLink, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Title link should be a valid URL');
         }
         
         $this->titleLink = (string)$titleLink;
@@ -297,7 +313,10 @@ class Attachment extends AbstractModel
     }
 
     /**
-     * Setter for text
+     * This is the main text in a message attachment, and can contain standard message markup.
+     * The content will automatically collapse if it contains 700+ characters
+     * or 5+ linebreaks, and will display a "Show more..." link to expand the
+     * content. Links posted in the text field will not unfurl.
      *
      * @param string $text
      * @throws \InvalidArgumentException
@@ -306,7 +325,7 @@ class Attachment extends AbstractModel
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new \InvalidArgumentException('Text should be scalar type');
+            throw new \InvalidArgumentException('Text should be scalar');
         }
         
         $this->text = (string)$text;
@@ -315,7 +334,7 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Add new AttachmentField to Array
+     * Add new Attachmen tField
      *
      * @param AttachmentField $field
      * @return Attachment
@@ -328,7 +347,7 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Add new AttachmentAction to Array
+     * Add new Attachment Action
      *
      * @param AttachmentAction $field
      * @throws SlackException
@@ -346,7 +365,10 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for imageUrl
+     * A valid URL to an image file that will be displayed inside a message attachment.
+     * We currently support the following formats: GIF, JPEG, PNG, and BMP.
+     * Large images will be resized to a maximum width of 400px or a maximum
+     * height of 500px, while still maintaining the original aspect ratio.
      * 
      * @param string $imageUrl
      * @throws \InvalidArgumentException
@@ -354,8 +376,8 @@ class Attachment extends AbstractModel
      */
     public function setImageUrl($imageUrl)
     {
-        if (!is_scalar($imageUrl)) {
-            throw new \InvalidArgumentException('Image url should be scalar type');
+        if (!is_scalar($imageUrl) || filter_var($imageUrl, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Image url should be a valid URL');
         }
         
         $this->imageUrl = (string)$imageUrl;
@@ -364,7 +386,12 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for thumbUrl
+     * A valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment.
+     * We currently support the following formats: GIF, JPEG, PNG, and BMP.
+     * The thumbnail's longest dimension will be scaled down to 75px while
+     * maintaining the aspect ratio of the image. The filesize of the image
+     * must also be less than 500 KB. For best results, please use images
+     * that are already 75px by 75px.
      * 
      * @param string $thumbUrl
      * @throws \InvalidArgumentException
@@ -372,8 +399,8 @@ class Attachment extends AbstractModel
      */
     public function setThumbUrl($thumbUrl)
     {
-        if (!is_scalar($thumbUrl)) {
-            throw new \InvalidArgumentException('Thumb url should be scalar type');
+        if (!is_scalar($thumbUrl) || filter_var($thumbUrl, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Thumb url should be a valid URL');
         }
         
         $this->thumbUrl = (string)$thumbUrl;
@@ -382,7 +409,9 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for footer
+     * Add some brief text to help contextualize and identify an attachment.
+     * Limited to 300 characters, and may be truncated further when displayed
+     * to users in environments with limited screen real estate.
      * 
      * @param string $footer
      * @throws \InvalidArgumentException
@@ -391,7 +420,7 @@ class Attachment extends AbstractModel
     public function setFooter($footer)
     {
         if (!is_scalar($footer)) {
-            throw new \InvalidArgumentException('Footer should be scalar type');
+            throw new \InvalidArgumentException('Footer should be scalar');
         }
         
         $this->footer = (string)$footer;
@@ -400,7 +429,10 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for footerIcon
+     * To render a small icon beside your footer text, provide a publicly accessible URL string in the footer_icon field.
+     * You must also provide a footer for the field to be recognized. We'll
+     * render what you provide at 16px by 16px. It's best to use an image
+     * that is similarly sized.
      * 
      * @param string $footerIcon
      * @throws \InvalidArgumentException
@@ -408,8 +440,8 @@ class Attachment extends AbstractModel
      */
     public function setFooterIcon($footerIcon)
     {
-        if (!is_scalar($footerIcon)) {
-            throw new \InvalidArgumentException('Footer icon should be scalar type');
+        if (!is_scalar($footerIcon) || filter_var($footerIcon, FILTER_VALIDATE_URL) === false) {
+            throw new \InvalidArgumentException('Footer icon should be a valid URL');
         }
         
         $this->footerIcon = (string)$footerIcon;
@@ -418,25 +450,25 @@ class Attachment extends AbstractModel
     }
     
     /**
-     * Setter for ts
+     * By providing the ts field with an integer value in "epoch time", the attachment will display an additional timestamp value as part of the attachment's footer.
      * 
-     * @param string $ts
+     * @param \DateTime $ts
      * @throws \InvalidArgumentException
      * @return Attachment
      */
-    public function setTs($ts)
+    public function setTs(\DateTime $ts)
     {
-        if (!is_scalar($ts)) {
-            throw new \InvalidArgumentException('Ts should be scalar type');
-        }
-        
-        $this->ts = (string)$ts;
+        $this->ts = $ts->format('U');
         
         return $this;
     }
     
     /**
-     * Setter for callbackId
+     * The provided string will act as a unique identifier for the collection of buttons within the attachment.
+     * It will be sent back to your message button action URL with each
+     * invoked action. This field is required when the attachment contains
+     * message buttons. It is key to identifying the interaction you're
+     * working with.
      *
      * @param string $callbackId
      * @throws \InvalidArgumentException
@@ -445,28 +477,10 @@ class Attachment extends AbstractModel
     public function setCallbackId($callbackId)
     {
         if (!is_scalar($callbackId)) {
-            throw new \InvalidArgumentException('Callback id should be scalar type');
+            throw new \InvalidArgumentException('Callback id should be scalar');
         }
         
         $this->callbackId = (string)$callbackId;
-    
-        return $this;
-    }
-    
-    /**
-     * Setter for attachmentType
-     *
-     * @param string $attachmentType
-     * @throws \InvalidArgumentException
-     * @return Attachment
-     */
-    public function setAttachmentType($attachmentType)
-    {
-        if (!is_scalar($attachmentType)) {
-            throw new \InvalidArgumentException('Attachment type should be scalar type');
-        }
-        
-        $this->attachmentType = (string)$attachmentType;
     
         return $this;
     }

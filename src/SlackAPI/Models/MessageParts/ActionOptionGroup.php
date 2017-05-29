@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\Type;
  * Class to create new option group in action
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#option_groups_to_place_within_message_menu_actions
  * @package SlackAPI
  * @version 0.2
@@ -32,7 +33,7 @@ class ActionOptionGroup extends AbstractModel
     protected $options = [];
     
     /**
-     * Setter for text
+     * A short, user-facing string to label this option to users
      * 
      * @param string $text
      * @throws \InvalidArgumentException
@@ -41,7 +42,7 @@ class ActionOptionGroup extends AbstractModel
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new \InvalidArgumentException('Text should be scalar type');
+            throw new \InvalidArgumentException('Text should be scalar');
         }
         
         $this->text = (string)$text;
@@ -50,7 +51,8 @@ class ActionOptionGroup extends AbstractModel
     }
     
     /**
-     * Add option to group
+     * The individual options to appear in this message menu, provided as an array of option fields.
+     * Required when data_source is default or otherwise unspecified.
      * 
      * @param ActionOption $option
      * @return ActionOptionGroup

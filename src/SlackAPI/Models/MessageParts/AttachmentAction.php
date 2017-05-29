@@ -8,26 +8,23 @@ use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Enumerators\ActionType;
 use SlackPHP\SlackAPI\Enumerators\ActionDataSource;
 use SlackPHP\SlackAPI\Enumerators\ActionStyle;
-use JMS\Serializer\Annotation\Accessor;
 
 /**
  * Class to create new action for attachment
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#action_fields
  * @package SlackAPI
  * @version 0.2
  * 
  * @method string getName()
  * @method string getText()
- * @method ActionStyle getStyle()
- * @method ActionType getType()
  * @method ActionOption[] getOptions()
  * @method bool getValue()
  * @method ActionConfirm getConfirm()
  * @method ActionOption[] getSelectedOptions()
  * @method ActionOptionGroup[] getOptionGroups()
- * @method ActionDataSource getDataSource()
  * @method int getMinQueryLength()
  */
 class AttachmentAction extends AbstractModel
@@ -45,13 +42,13 @@ class AttachmentAction extends AbstractModel
     protected $text = null;
 
     /**
-     * @var ActionStyle
-     * @Accessor(getter="getValue")
+     * @var string
+     * @Type("string")
      */
     protected $style = null;
 
     /**
-     * @var ActionType
+     * @var string
      * @Type("string")
      */
     protected $type = null;
@@ -87,7 +84,7 @@ class AttachmentAction extends AbstractModel
     protected $optionGroups = [];
     
     /**
-     * @var ActionDataSource
+     * @var string
      * @Type("string")
      */
     protected $dataSource = null;
@@ -105,7 +102,11 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for name
+     * Provide a string to give this specific action a name.
+     * The name will be returned to your Action URL along with the message's
+     * callback_id when this action is invoked. Use it to identify this
+     * particular response path. If multiple actions share the same name, only
+     * one of them can be in a triggered state.
      * 
      * @param string $name
      * @throws \InvalidArgumentException
@@ -114,7 +115,7 @@ class AttachmentAction extends AbstractModel
     public function setName($name)
     {
         if (!is_scalar($name)) {
-            throw new \InvalidArgumentException('Name should be scalar type');
+            throw new \InvalidArgumentException('Name should be scalar');
         }
         
         $this->name = (string)$name;
@@ -123,7 +124,9 @@ class AttachmentAction extends AbstractModel
     }
 
     /**
-     * Setter for text
+     * The user-facing label for the message button or menu representing this action.
+     * Cannot contain markup. Best to keep these short and decisive. Use a
+     * maximum of 30 characters or so for best results across form factors.
      * 
      * @param string $text
      * @throws \InvalidArgumentException
@@ -132,7 +135,7 @@ class AttachmentAction extends AbstractModel
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new \InvalidArgumentException('Text should be scalar type');
+            throw new \InvalidArgumentException('Text should be scalar');
         }
         
         $this->text = (string)$text;
@@ -141,20 +144,17 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for style
-     *
-     * @param Style $style
-     * @return AttachmentAction
+     * Get the type as an Enum
+     * 
+     * @return \SlackPHP\SlackAPI\Enumerators\ActionType
      */
-    public function setStyle(ActionStyle $style)
+    public function getType()
     {
-        $this->style = $style->getValue();
-    
-        return $this;
+        return new ActionType($this->type);
     }
     
     /**
-     * Setter for type
+     * Provide button when this action is a message button or provide select when the action is a message menu.
      *
      * @param \SlackPHP\SlackAPI\Enumerators\Type $type
      * @return AttachmentAction
@@ -167,7 +167,11 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for value
+     * Provide a string identifying this specific action.
+     * It will be sent to your Action URL along with the name and attachment's
+     * callback_id. If providing multiple actions with the same name, value
+     * can be strategically used to differentiate intent. Your value may
+     * contain up to 2000 characters.
      *
      * @param string $value
      * @throws \InvalidArgumentException
@@ -179,13 +183,20 @@ class AttachmentAction extends AbstractModel
             throw new \InvalidArgumentException('Value should be scalar type');
         }
         
+        if (strlen($value) > 2000) {
+            throw new SlackException('Value cannot contain more than 2000 characters');
+        }
+        
         $this->value = (string)$value;
     
         return $this;
     }
     
     /**
-     * Setter for confirm
+     * Set the confirmation hash
+     * If you provide a hash of confirmation fields, your button or menu will
+     * pop up a dialog with your indicated text and choices, giving them one
+     * last chance to avoid a destructive action or other undesired outcome.
      *
      * @param ActionConfirm $confirm
      * @return AttachmentAction
@@ -198,33 +209,73 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Add new ActionOption to Array
+     * Get style as Enum
+     * 
+     * @return ActionStyle
+     */
+    public function getStyle()
+    {
+        return new ActionStyle($this->style);
+    }
+    
+    /**
+     * Used only with message buttons.
+     * This decorates buttons with extra visual importance, which is
+     * especially useful when providing logical default action or
+     * highlighting a destructive activity.
+     *
+     * @param ActionStyle $style
+     * @return AttachmentAction
+     */
+    public function setStyle(ActionStyle $style)
+    {
+        $this->style = $style->getValue();
+        
+        return $this;
+    }
+    
+    /**
+     * Used only with message menus.
+     * The individual options to appear in this menu, provided as an array of
+     * option fields. Required when data_source is static or otherwise
+     * unspecified. A maximum of 100 options can be provided in each menu.
      * 
      * @param ActionOption $option
      * @return AttachmentAction
      */
     public function addOption(ActionOption $option)
     {
+        if (count($this->options) >= 100) {
+            throw new SlackException('Cannot add more than 100 options', SlackException::TOO_MANY_OPTIONS);
+        }
+        
         $this->options[] = $option;
         
         return $this;
     }
     
     /**
-     * Add new Selected Option to Array
+     * If provided, the first element of this array will be set as the pre-selected option for this menu. 
      *
      * @param ActionOption $selectedOption
      * @return AttachmentAction
      */
     public function addSelectedOption(ActionOption $selectedOption)
     {
+        if (count($this->selectedOptions) >= 1) {
+            throw new SlackException('Cannot provide more than 1 option to selectedOption', SlackException::TOO_MANY_OPTIONS);
+        }
+        
         $this->selectedOptions[] = $selectedOption;
     
         return $this;
     }
     
     /**
-     * Add new Options group to Array
+     * Used only with message menus.
+     * An alternate, semi-hierarchal way to list available options. Provide an
+     * array of option group definitions. This replaces and supersedes the
+     * options array.
      *
      * @param ActionOptionGroup $optionGroups
      * @return AttachmentAction
@@ -237,9 +288,22 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for dataSource
+     * Get data source as Enum
+     * 
+     * @return ActionDataSource
+     */
+    public function getDataSource()
+    {
+        return new ActionDataSource($this->dataSource);
+    }
+    
+    /**
+     * Sets the Data Source
+     * Our clever default behavior is default, which means the menu's options
+     * are provided directly in the posted message under options. Defaults to
+     * static. Example: "channels"
      *
-     * @param DataSource $dataSourse
+     * @param ActionDataSource $dataSourse
      * @return AttachmentAction
      */
     public function setDataSource(ActionDataSource $dataSource)
@@ -250,7 +314,10 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Setter for minQueryLength
+     * Only applies when data_source is set to external.
+     * If present, Slack will wait till the specified number of characters are
+     * entered before sending a request to your app's external suggestions API
+     * endpoint. Defaults to 1.
      *
      * @param int $minQueryLength
      * @throws SlackException
@@ -281,24 +348,8 @@ class AttachmentAction extends AbstractModel
             throw new SlackException('text property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
         }
         
-        if (strlen($this->text) > 30) {
-            throw new SlackException('text property shoud be 30 characters or less', SlackException::MORE_THAN_30_CHARACTERS);
-        }
-        
         if ($this->type === null) {
             throw new SlackException('type property is required in AttachmentAction', SlackException::MISSING_REQUIRED_FIELD);
-        }
-        
-        if (strlen($this->value) > 2000) {
-            throw new SlackException('value cannot be greater than 2000 characters', SlackException::MISSING_REQUIRED_FIELD);
-        }
-        
-        if (count($this->options) > 100) {
-            throw new SlackException('cannot provide more than 100 options', SlackException::TOO_MANY_OPTIONS);
-        }
-        
-        if (count($this->selectedOptions) > 1) {
-            throw new SlackException('cannot provide more than 1 option to selectedOption', SlackException::TOO_MANY_OPTIONS);
         }
         
         switch ($this->dataSource->getValue()) {

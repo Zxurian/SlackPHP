@@ -10,6 +10,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * Class for confirm action buttons
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/docs/interactive-message-field-guide#confirmation_fields
  * @package SlackAPI
  * @version 0.2
@@ -37,16 +38,16 @@ class ActionConfirm extends AbstractModel
      * @var string
      * @Type("string")
      */
-    protected $okText = null;
+    protected $okText = 'Okay';
     
     /**
      * @var string
      * @Type("string")
      */
-    protected $dismissText = null;
+    protected $dismissText = 'Cancel';
 
     /**
-     * Setter for title
+     * Title the pop up window. Please be brief.
      * 
      * @param string $title
      * @throws \InvalidArgumentException
@@ -55,7 +56,7 @@ class ActionConfirm extends AbstractModel
     public function setTitle($title)
     {
         if (!is_scalar($title)) {
-            throw new \InvalidArgumentException('Title should be scalar type');
+            throw new \InvalidArgumentException('Title should be scalar');
         }
         
         $this->title = (string)$title;
@@ -64,7 +65,8 @@ class ActionConfirm extends AbstractModel
     }
 
     /**
-     * Setter for text
+     * Describe in detail the consequences of the action and contextualize your button text choices.
+     * Use a maximum of 30 characters or so for best results across form factors.
      * 
      * @param string $text
      * @throws \InvalidArgumentException
@@ -73,7 +75,7 @@ class ActionConfirm extends AbstractModel
     public function setText($text)
     {
         if (!is_scalar($text)) {
-            throw new \InvalidArgumentException('Text should be scalar type');
+            throw new \InvalidArgumentException('Text should be scalar');
         }
         
         $this->text = (string)$text;
@@ -82,7 +84,8 @@ class ActionConfirm extends AbstractModel
     }
 
     /**
-     * Setter for okText
+     * The text label for the button to continue with an action.
+     * Keep it short. Defaults to Okay.
      *
      * @param string $okText
      * @throws \InvalidArgumentException
@@ -91,7 +94,7 @@ class ActionConfirm extends AbstractModel
     public function setOkText($okText)
     {
         if (!is_scalar($okText)) {
-            throw new \InvalidArgumentException('Ok text should be scalar type');
+            throw new \InvalidArgumentException('Ok text should be scalar');
         }
         
         $this->okText = (string)$okText;
@@ -100,7 +103,8 @@ class ActionConfirm extends AbstractModel
     }
     
     /**
-     * Setter for dismissText
+     * The text label for the button to cancel the action.
+     * Keep it short. Defaults to Cancel.
      *
      * @param string $dismissText
      * @throws \InvalidArgumentException
@@ -109,7 +113,7 @@ class ActionConfirm extends AbstractModel
     public function setDismissText($dismissText)
     {
         if (!is_scalar($dismissText)) {
-            throw new \InvalidArgumentException('Dismiss text should be scalar type');
+            throw new \InvalidArgumentException('Dismiss text should be scalar');
         }
         
         $this->dismissText = (string)$dismissText;

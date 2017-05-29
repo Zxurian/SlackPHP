@@ -125,7 +125,7 @@ class ChatPostMessage extends AbstractPayload
      */
     public function getParse()
     {
-        return Parse::{$this->parse}();
+        return new Parse($this->parse);
     }
     
     /**
