@@ -7,6 +7,10 @@ use JMS\Serializer\SerializerBuilder;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
+use JMS\Serializer\EventDispatcher\Events;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
+use MyCLabs\Enum\Enum;
+use JMS\Serializer\EventDispatcher\PreDeserializeEvent;
 
 /**
  * Provides ok, error and warning properties for received Slack payload
@@ -48,18 +52,21 @@ abstract class AbstractPayloadResponse extends MagicGetter
     public static function parseResponse($responseContents)
     {
         $serializer = SerializerBuilder::create()
+            ->configureListeners(function(EventDispatcher $dispatcher) {
+                $dispatcher->addListener(Events::PRE_DESERIALIZE,
+                    function(PreDeserializeEvent $event) {
+                        if (is_a($event->getType()['name'], 'MyClabs\Enum\Enum', true)) {
+                            $event->setType('MyClabs\Enum\Enum');
+                        }
+                    }
+                );
+            })
             ->configureHandlers(function(HandlerRegistry $registry) {
-                $enumHandler = function(VisitorInterface $visitor, $value, array $class) {
-                    return new $class['name']($value);
-                };
-                
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\ActionDataSource', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\ActionStyle', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\ActionType', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\Method', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\MrkdwnIn', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\Parse', 'json', $enumHandler);
-                $registry->registerHandler('deserialization', 'SlackPHP\SlackAPI\Enumerators\ResponseType', 'json', $enumHandler);
+                $registry->registerHandler('deserialization', 'MyClabs\Enum\Enum', 'json',
+                    function(VisitorInterface $visitor, $value, array $class) {
+                        return new $class['name']($value);
+                    }
+                );
             })
             ->build()
         ;
