@@ -21,7 +21,7 @@ class UsersList extends AbstractPayload
 {
     const METHOD = Method::USERS_LIST;
     
-    /** @var bool $presence*/
+    /** @var bool|null */
     protected $presence = null;
     
     /**

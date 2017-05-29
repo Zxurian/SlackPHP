@@ -23,37 +23,43 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
  * @method string getChannel()
  * @method string getText()
  * @method Attachment[] getAttachments()
+ * @method Parse getParse()
  * @method bool getLinkNames()
  * @method bool getAsUser()
  * @method bool getMarkdown()
  */
 class ChatUpdate extends AbstractPayload implements PayloadInterface
 {
-    const method = Method::chatUpdate;
+    const METHOD = Method::CHAT_UPDATE;
     
-    /** @var string $ts */
+    /** @var string|null */
     protected $ts = null;
     
-    /** @var string $channel */
+    /** @var string|null */
     protected $channel = null;
     
-    /** @var string $text */
+    /** @var string|null */
     protected $text = null;
     
-    /** @var Attachment[] $attachments */
+    /** @var Attachment[] */
     protected $attachments = [];
     
-    /** @var string $parse */
-    protected $parse = Parse::FULL;
+    /** @var Parse */
+    protected $parse;
     
-    /** @var bool $linkNames */
+    /** @var bool */
     protected $linkNames = false;
     
-    /** @var bool $asUser */
+    /** @var bool|null */
     protected $asUser = null;
     
-    /** @var bool $mrkdwn */
+    /** @var bool|null */
     protected $mrkdwn = null;
+    
+    public function __construct()
+    {
+        $this->parse = Parse::FULL();
+    }
     
     /**
      * Timestamp of the message to be updated.
@@ -124,16 +130,6 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     }
     
     /**
-     * Getter for Parse Enum
-     * 
-     * @return Parse
-     */
-    public function getParse()
-    {
-        return new Parse($this->parse);
-    }
-    
-    /**
      * Change how messages are treated. Defaults to client, unlike chat.postMessage. See link.
      *
      * @see https://api.slack.com/methods/chat.update#formatting
@@ -142,7 +138,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
      */
     public function setParse(Parse $parse)
     {
-        $this->parse = $parse->getValue();
+        $this->parse = $parse;
     
         return $this;
     }

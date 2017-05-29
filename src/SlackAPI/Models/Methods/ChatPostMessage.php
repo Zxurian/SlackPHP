@@ -7,6 +7,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * This method posts a message to a public channel, private channel, or direct message/IM channel.
@@ -19,6 +20,7 @@ use SlackPHP\SlackAPI\Enumerators\Method;
  * 
  * @method string getChannel()
  * @method string getText()
+ * @method Parse getParse()
  * @method bool getLinkNames()
  * @method Attachment[] getAttachments()
  * @method bool getUnfurlLinks()
@@ -35,47 +37,52 @@ class ChatPostMessage extends AbstractPayload
 {
     const METHOD = METHOD::CHAT_POST_MESSAGE;
     
-    /** @var string $channel */
+    /** @var string|null */
     protected $channel = null;
 
-    /** @var string $text */
+    /** @var string|null $text */
     protected $text = null;
 
-    /** @var string $parse */
-    protected $parse = Parse::NONE;
+    /** @var Parse $parse */
+    protected $parse;
     
-    /** @var bool $linkNames */
+    /** @var bool|null */
     protected $linkNames = null;
     
-    /** @var Attachment[] $attachments */
+    /** @var Attachment[] */
     protected $attachments = [];
     
-    /** @var bool $unfurlLinks */
+    /** @var bool */
     protected $unfurlLinks = false;
     
-    /** @var bool $unfurlMedia */
+    /** @var bool */
     protected $unfurlMedia = true;
     
-    /** @var string $username */
+    /** @var string|null */
     protected $username = null;
 
-    /** @var bool $asUser */
+    /** @var bool|null */
     protected $asUser = null;
 
-    /** @var string $iconUrl */
+    /** @var string|null */
     protected $iconUrl = null;
     
-    /** @var string $iconEmoji */
+    /** @var string|null */
     protected $iconEmoji = null;
     
-    /** @var string $threadTs */
+    /** @var string|null */
     protected $threadTs = null;
 
-    /** @var bool $replyBroadcast */
+    /** @var bool */
     protected $replyBroadcast = false;
     
-    /** @var bool $mrkdwn */
+    /** @var bool|null */
     protected $mrkdwn = null;
+    
+    public function __construct()
+    {
+        $this->parse = Parse::FULL();
+    }
     
     /**
      * Channel, private group, or IM channel to send message to.
@@ -119,16 +126,6 @@ class ChatPostMessage extends AbstractPayload
     }
 
     /**
-     * Getter for parse value into Enum
-     * 
-     * @return Parse
-     */
-    public function getParse()
-    {
-        return new Parse($this->parse);
-    }
-    
-    /**
      * Change how messages are treated.
      * Defaults to none. See link.
      * 
@@ -138,7 +135,7 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setParse(Parse $parse)
     {
-        $this->parse = $parse->getValue();
+        $this->parse = $parse;
         
         return $this;
     }
@@ -383,4 +380,21 @@ class ChatPostMessage extends AbstractPayload
         }
     }
     
+    /**
+     * Create a ChatPostMessage from a Message model
+     * 
+     * @param Message $message
+     * @return ChatPostMessage
+     */
+    static function createFromMessage(Message $message)
+    {
+        $chatPostMessage = new self();
+        $chatPostMessage
+            ->setText($message->getText())
+            ->addAttachment($message->getAttachments())
+            ->setThreadTs($message->getThreadTs())
+        ;
+        
+        return $chatPostMessage;
+    }
 }

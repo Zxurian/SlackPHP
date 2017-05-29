@@ -21,7 +21,7 @@ class GroupsList extends AbstractPayload
 {
     const METHOD = Method::GROUPS_LIST;
     
-    /** @var bool $excludeArchived */
+    /** @var bool */
     protected $excludeArchived = false;
     
     /**

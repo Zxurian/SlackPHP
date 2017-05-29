@@ -22,10 +22,10 @@ class GroupsMark extends AbstractPayload
 {
     const METHOD = Method::GROUPS_MARK;
     
-    /** @var string $channel */
+    /** @var string */
     protected $channel = null;
     
-    /** @var string $ts */
+    /** @var string */
     protected $ts = null;
     
     /**

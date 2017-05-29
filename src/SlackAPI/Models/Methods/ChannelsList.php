@@ -24,10 +24,10 @@ class ChannelsList extends AbstractPayload
 {
     const METHOD = method::CHANNELS_LIST;
     
-    /** @var bool $excludeArchived */
+    /** @var bool */
     protected $excludeArchived = false;
     
-    /** @var bool $excludeMembers */
+    /** @var bool */
     protected $excludeMembers = false;
     
     /**
