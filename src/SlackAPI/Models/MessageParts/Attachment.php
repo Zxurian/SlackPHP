@@ -536,10 +536,6 @@ class Attachment extends AbstractModel
             throw new SlackException('Can’t use authorIcon if authorName is not provided', SlackException::MISSING_REQUIRED_FIELD);
         }
         
-        if ($this->footer !== null && strlen($this->footer) > 300) {
-            throw new SlackException('footer should be less that 300 characters', SlackException::MORE_THAN_300_CHARACTERS);
-        }
-        
         if ($this->footerIcon !== null && $this->footer === null) {
             throw new SlackException('Can’t use footerIcon without footer', SlackException::MISSING_REQUIRED_FIELD);
         }

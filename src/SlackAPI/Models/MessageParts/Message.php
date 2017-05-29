@@ -185,7 +185,7 @@ class Message extends AbstractModel
      * {@inheritDoc}
      * @see \SlackAPI\Models\Abstracts\ValidateInterface::validateModel()
      */
-    protected function validateModel()
+    public function validateModel()
     {
         if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either text or Message', SlackException::MISSING_REQUIRED_FIELD);
