@@ -6,7 +6,7 @@ use MyCLabs\Enum\Enum;
 
 class ActionStyle extends Enum
 {
-    const defaultStyle = 'default';
-    const primaryStyle = 'primary';
-    const dangerStyle = 'danger';
+    const DEFAULT_STYLE = 'default';
+    const PRIMARY_STYLE = 'primary';
+    const DANGER_STYLE = 'danger';
 }

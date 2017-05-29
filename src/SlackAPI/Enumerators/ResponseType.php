@@ -6,6 +6,6 @@ use MyCLabs\Enum\Enum;
 
 class ResponseType extends Enum
 {
-    const inChannel = 'in_channel';
-    const ephemeral = 'ephemeral';
+    const IN_CHANNEL = 'in_channel';
+    const EPHEMERAL = 'ephemeral';
 }

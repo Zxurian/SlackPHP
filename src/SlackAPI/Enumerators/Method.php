@@ -3,229 +3,232 @@
 namespace SlackPHP\SlackAPI\Enumerators;
 
 use MyCLabs\Enum\Enum;
+
 /**
  * Enumerator for methods from Slack API
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/methods
+ * @version 0.2
  */
 class Method extends Enum
 {
     #api
-    const apiTest = 'api.test';
+    const API_TEST = 'api.test';
     
     #auth
-    const authRevoke = 'auth.revoke';
-    const authTest = 'auth.test';
+    const AUTH_REVOKE = 'auth.revoke';
+    const AUTH_TEST = 'auth.test';
     
     #bots
-    const botsInfo = 'bots.info';
+    const BOTS_INFO = 'bots.info';
     
     #channels
-    const channelsArchive = 'channels.archive';
-    const channelsCreate = 'channels.create';
-    const channelsHistory = 'channels.history';
-    const channelsInfo = 'channels.info';
-    const channelsInvite = 'channels.invite';
-    const channelsJoin = 'channels.join';
-    const channelsKick = 'channels.kick';
-    const channelsLeave = 'channels.leave';
-    const channelsList = 'channels.list';
-    const channelsMark = 'channels.mark';
-    const channelsRename = 'channels.rename';
-    const channelsReplies = 'channels.replies';
-    const channelsSetPerpose = 'channels.setPurpose';
-    const channelsSetTopic = 'channels.setTopic';
-    const channelsUnarchive = 'channels.unarchive';
+    const CHANNELS_ARCHIVE = 'channels.archive';
+    const CHANNELS_CREATE = 'channels.create';
+    const CHANNELS_HISTORY = 'channels.history';
+    const CHANNELS_INFO = 'channels.info';
+    const CHANNELS_INVITE = 'channels.invite';
+    const CHANNELS_JOIN = 'channels.join';
+    const CHANNELS_KICK = 'channels.kick';
+    const CHANNELS_LEAVE = 'channels.leave';
+    const CHANNELS_LIST = 'channels.list';
+    const CHANNELS_MARK = 'channels.mark';
+    const CHANNELS_RENAME = 'channels.rename';
+    const CHANNELS_REPLIES = 'channels.replies';
+    const CHANNELS_SET_PURPOSE = 'channels.setPurpose';
+    const CHANNELS_SET_TOPIC = 'channels.setTopic';
+    const CHANNELS_UNARCHIVE = 'channels.unarchive';
     
     #chat
-    const chatDelete = 'chat.delete';
-    const chatMeMessage = 'chat.meMessage';
-    const chatPostMessage = 'chat.postMessage';
-    const chatUnfurl = 'chat.unfurl';
-    const chatUpdate = 'chat.update';
+    const CHAT_DELETE = 'chat.delete';
+    const CHAT_ME_MESSAGE = 'chat.meMessage';
+    const CHAT_POST_MESSAGE = 'chat.postMessage';
+    const CHAT_UNFURL = 'chat.unfurl';
+    const CHAT_UPDATE = 'chat.update';
     
     #dnd
-    const dndEndDnd = 'dnd.endDnd';
-    const dndEndSnooze = 'dnd.endSnooze';
-    const dndInfo = 'dnd.info';
-    const dndSetSnooze = 'dnd.setSnooze';
-    const dndTeamInfo = 'dnd.teamInfo';
+    const DND_END_DND = 'dnd.endDnd';
+    const DND_END_SNOOZE = 'dnd.endSnooze';
+    const DND_INFO = 'dnd.info';
+    const DND_SET_SNOOZE = 'dnd.setSnooze';
+    const DND_TEAM_INFO = 'dnd.teamInfo';
     
     #emoji
-    const emojiList = 'emojiList';
+    const EMOJI_LIST = 'emojiList';
     
     #files.comments
-    const filesCommentsAdd = 'files.comments.add';
-    const filesCommentsDelete = 'files.comments.delete';
-    const filesCommentsEdit = 'files.comments.edit';
+    const FILES_COMMENTS_ADD = 'files.comments.add';
+    const FILES_COMMENTS_DELETE = 'files.comments.delete';
+    const FILES_COMMENTS_EDIT = 'files.comments.edit';
     
     #files
-    const filesDelete = 'files.delete';
-    const filesInfo = 'files.info';
-    const filesList = 'files.list';
-    const filesRevokePublicURL = 'files.revokePublicURL';
-    const filesSharedPublicURL = 'files.sharedPublicURL';
-    const filesUpload = 'files.upload';
+    const FILES_DELETE = 'files.delete';
+    const FILES_INFO = 'files.info';
+    const FILES_LIST = 'files.list';
+    const FILES_REVOKE_PUBLIC_URL = 'files.revokePublicURL';
+    const FILES_SHARED_PUBLIC_URL = 'files.sharedPublicURL';
+    const FILES_UPLOAD = 'files.upload';
     
     #groups
-    const groupsArchive = 'groups.archive';
-    const groupsClose = 'groups.close';
-    const groupsCreate = 'groups.create';
-    const groupsCreateChild = 'groups.createChild';
-    const groupsHistory = 'groups.history';
-    const groupsInfo = 'groups.info';
-    const groupsInvite = 'groups.invite';
-    const groupsKick = 'groups.kick';
-    const groupsLeave = 'groups.leave';
-    const groupsList = 'groups.list';
-    const groupsMark = 'groups.mark';
-    const groupsOpen = 'groups.open';
-    const groupsRename = 'groups.rename';
-    const groupsReplies = 'groups.replies';
-    const groupsSetPurpose = 'groups.setPurpose';
-    const groupsSetTopic = 'groups.setTopic';
-    const groupsUnarchive = 'groups.unarchive';
+    const GROUPS_ARCHIVE = 'groups.archive';
+    const GROUPS_CLOSE = 'groups.close';
+    const GROUPS_CREATE = 'groups.create';
+    const GROUPS_CREATE_CHILD = 'groups.createChild';
+    const GROUPS_HISTORY = 'groups.history';
+    const GROUPS_INFO = 'groups.info';
+    const GROUPS_INVITE = 'groups.invite';
+    const GROUPS_KICK = 'groups.kick';
+    const GROUPS_LEAVE = 'groups.leave';
+    const GROUPS_LIST = 'groups.list';
+    const GROUPS_MARK = 'groups.mark';
+    const GROUPS_OPEN = 'groups.open';
+    const GROUPS_RENAME = 'groups.rename';
+    const GROUPS_REPLIES = 'groups.replies';
+    const GROUPS_SET_PURPOSE = 'groups.setPurpose';
+    const GROUPS_SET_TOPIC = 'groups.setTopic';
+    const GROUPS_UNARCHIVE = 'groups.unarchive';
     
     #im
-    const imClose = 'im.close';
-    const imHistory = 'im.history';
-    const imList = 'im.list';
-    const imMark = 'im.mark';
-    const imOpen = 'im.open';
-    const imReplies = 'im.replies';
+    const IM_CLOSE = 'im.close';
+    const IM_HISTORY = 'im.history';
+    const IM_LIST = 'im.list';
+    const IM_MARK = 'im.mark';
+    const IM_OPEN = 'im.open';
+    const IM_REPLIES = 'im.replies';
     
     #mpim
-    const mpimClose = 'mpim.close';
-    const mpimHistory = 'mpim.history';
-    const mpimList = 'mpim.list';
-    const mpimMark = 'mpim.mark';
-    const mpimOpen = 'mpim.open';
-    const mpimReplies = 'mpim.replies';
+    const MPIM_CLOSE = 'mpim.close';
+    const MPIM_HISTORY = 'mpim.history';
+    const MPIM_LIST = 'mpim.list';
+    const MPIM_MARK = 'mpim.mark';
+    const MPIM_OPEN = 'mpim.open';
+    const MPIM_REPLIES = 'mpim.replies';
     
     #oauth
-    const oauthAccess = 'oauth.access';
+    const OAUTH_ACCESS = 'oauth.access';
     
     #pins
-    const pinsAdd = 'pins.add';
-    const pinsList = 'pins.list';
-    const pinsRemove = 'pins.remove';
+    const PINS_ADD = 'pins.add';
+    const PINS_LIST = 'pins.list';
+    const PINS_REMOVE = 'pins.remove';
     
     #reactions
-    const reactionsAdd = 'reactions.add';
-    const reactionsGet = 'reactions.get';
-    const reactionsList = 'reactions.list';
-    const reactionsRemove = 'reactions.remove';
+    const REACTIONS_ADD = 'reactions.add';
+    const REACTIONS_GET = 'reactions.get';
+    const REACTIONS_LIST = 'reactions.list';
+    const REACTIONS_REMOVE = 'reactions.remove';
     
     #reminders
-    const remindersAdd = 'reminders.add';
-    const remindersComplete = 'reminders.complete';
-    const remindersDelete = 'reminders.delete';
-    const remindersInfo = 'reminders.info';
-    const remindersList = 'reminders.list';
+    const REMINDERS_ADD = 'reminders.add';
+    const REMINDERS_COMPLETE = 'reminders.complete';
+    const REMINDERS_DELETE = 'reminders.delete';
+    const REMINDERS_INFO = 'reminders.info';
+    const REMINDERS_LIST = 'reminders.list';
     
     #rtm
-    const rtmConnect = 'rtm.connect';
-    const rtmStart = 'rtm.start';
+    const RTM_CONNECT = 'rtm.connect';
+    const RTM_START = 'rtm.start';
     
     #search
-    const searchAll = 'search.all';
-    const searchFiles = 'search.files';
-    const searchMessages = 'search.messages';
+    const SEARCH_ALL = 'search.all';
+    const SEARCH_FILES = 'search.files';
+    const SEARCH_MESSAGES = 'search.messages';
     
     #stars
-    const starsAdd = 'stars.add';
-    const starsList = 'stars.list';
-    const starsRemove = 'stars.remove';
+    const STARS_ADD = 'stars.add';
+    const STARS_LIST = 'stars.list';
+    const STARS_REMOVE = 'stars.remove';
     
     #team
-    const teamAccessLogs = 'team.accessLogs';
-    const teamBillableInfo = 'team.billableInfo';
-    const teamInfo = 'team.info';
-    const teamIntegrationLogs = 'team.integrationLogs';
+    const TEAM_ACCESS_LOGS = 'team.accessLogs';
+    const TEAM_BILLABLE_INFO = 'team.billableInfo';
+    const TEAM_INFO = 'team.info';
+    const TEAM_INTEGRATION_LOGS = 'team.integrationLogs';
     
     #team.profile
-    const teamProfileGet = 'team.profile.get';
+    const TEAM_PROFILE_GET = 'team.profile.get';
     
     #usergroups
-    const usergroupsCreate = 'usergroups.create';
-    const usergroupsDisable = 'usergroups.disable';
-    const usergroupsEnable = 'usergroups.enable';
-    const usergroupsList = 'usergroups.list';
-    const usergroupsUpdate = 'usergroups.update';
+    const USERGROUPS_CREATE = 'usergroups.create';
+    const USERGROUPS_DISABLE = 'usergroups.disable';
+    const USERGROUPS_ENABLE = 'usergroups.enable';
+    const USERGROUPS_LIST = 'usergroups.list';
+    const USERGROUPS_UPDATE = 'usergroups.update';
     
     #usergroups.users
-    const usergroupsUsersList = 'usergroups.users.list';
-    const usergroupsUsersUpdate = 'usergroups.users.update';
+    const USERGROUPS_USERS_LIST = 'usergroups.users.list';
+    const USERGROUPS_USERS_UPDATE = 'usergroups.users.update';
     
     #users
-    const usersDeletePhoto = 'users.deletePhoto';
-    const usersGetPresence = 'users.getPresence';
-    const usersIdentity = 'users.identity';
-    const usersInfo = 'users.info';
-    const usersList = 'users.list';
-    const usersSetActive = 'users.setActive';
-    const usersSetPhoto = 'users.setPhoto';
-    const usersSetPresence = 'users.setPresence';
+    const USERS_DELETE_PHOTO = 'users.deletePhoto';
+    const USERS_GET_PRESENCE = 'users.getPresence';
+    const USERS_IDENTITY = 'users.identity';
+    const USERS_INFO = 'users.info';
+    const USERS_LIST = 'users.list';
+    const USERS_SET_ACTIVE = 'users.setActive';
+    const USERS_SET_PHOTO = 'users.setPhoto';
+    const USERS_SET_PRESENCE = 'users.setPresence';
     
     #users.profile
-    const usersProfileGet = 'users.profile.get';
-    const usersProfileSet = 'users.profile.set';
+    const USERS_PROFILE_GET = 'users.profile.get';
+    const USERS_PROFILE_SET = 'users.profile.set';
     
     /**
-     * Validate method if it can be used with App Bot
+     * Check and see if the method is available to an App Bot
      * 
      * @see https://api.slack.com/bot-users#method_list
      * @param string $method
      * @return bool
      */
-    public static function isAvailableToBot($method)
+    public static function isAvailableToBot()
     {
-        return in_array($method, [
-            self::apiTest,
-            self::authTest,
-            self::channelsInfo,
-            self::channelsList,
-            self::chatMeMessage,
-            self::chatPostMessage,
-            self::chatUpdate,
-            self::dndInfo,
-            self::dndTeamInfo,
-            self::filesCommentsAdd,
-            self::filesCommentsDelete,
-            self::filesCommentsEdit,
-            self::filesDelete,
-            self::filesInfo,
-            self::filesUpload,
-            self::groupsInfo,
-            self::groupsList,
-            self::imClose,
-            self::imHistory,
-            self::imList,
-            self::imMark,
-            self::imOpen,
-            self::mpimClose,
-            self::mpimHistory,
-            self::mpimList,
-            self::mpimMark,
-            self::mpimOpen,
-            self::oauthAccess,
-            self::pinsAdd,
-            self::pinsRemove,
-            self::reactionsAdd,
-            self::reactionsGet,
-            self::reactionsList,
-            self::reactionsRemove,
-            self::rtmConnect,
-            self::rtmStart,
-            self::starsAdd,
-            self::starsRemove,
-            self::teamInfo,
-            self::usersGetPresence,
-            self::usersInfo,
-            self::usersList,
-            self::usersSetActive,
-            self::usersSetPresence,
+        return in_array($this->getValue(), [
+            self::API_TEST,
+            self::AUTH_TEST,
+            self::CHANNELS_INFO,
+            self::CHANNELS_LIST,
+            self::CHAT_ME_MESSAGE,
+            self::CHAT_POST_MESSAGE,
+            self::CHAT_UPDATE,
+            self::DND_INFO,
+            self::DND_TEAM_INFO,
+            self::FILES_COMMENTS_ADD,
+            self::FILES_COMMENTS_DELETE,
+            self::FILES_COMMENTS_EDIT,
+            self::FILES_DELETE,
+            self::FILES_INFO,
+            self::FILES_UPLOAD,
+            self::GROUPS_INFO,
+            self::GROUPS_LIST,
+            self::IM_CLOSE,
+            self::IM_HISTORY,
+            self::IM_LIST,
+            self::IM_MARK,
+            self::IM_OPEN,
+            self::MPIM_CLOSE,
+            self::MPIM_HISTORY,
+            self::MPIM_LIST,
+            self::MPIM_MARK,
+            self::MPIM_OPEN,
+            self::OAUTH_ACCESS,
+            self::PINS_ADD,
+            self::PINS_REMOVE,
+            self::REACTIONS_ADD,
+            self::REACTIONS_GET,
+            self::REACTIONS_LIST,
+            self::REACTIONS_REMOVE,
+            self::RTM_CONNECT,
+            self::RTM_START,
+            self::STARS_ADD,
+            self::STARS_REMOVE,
+            self::TEAM_INFO,
+            self::USERS_GET_PRESENCE,
+            self::USERS_INFO,
+            self::USERS_LIST,
+            self::USERS_SET_ACTIVE,
+            self::USERS_SET_PRESENCE,
         ]);
     }
 }

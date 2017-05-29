@@ -6,7 +6,7 @@ use MyCLabs\Enum\Enum;
 
 class MrkdwnIn extends Enum
 {
-    const pretext = 'pretext';
-    const text = 'text';
-    const fields = 'fields';
+    const PRETEXT = 'pretext';
+    const TEXT = 'text';
+    const FIELDS = 'fields';
 }

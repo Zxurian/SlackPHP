@@ -6,6 +6,6 @@ use MyCLabs\Enum\Enum;
 
 class ActionType extends Enum
 {
-    const button = 'button';
-    const select = 'select';
+    const BUTTON = 'button';
+    const SELECT = 'select';
 }
