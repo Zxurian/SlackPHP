@@ -179,7 +179,6 @@ class Method extends Enum
      * Check and see if the method is available to an App Bot
      * 
      * @see https://api.slack.com/bot-users#method_list
-     * @param string $method
      * @return bool
      */
     public static function isAvailableToBot()
@@ -236,7 +235,6 @@ class Method extends Enum
      * Check and see if the method is available to a Custom Bot
      *
      * @see https://api.slack.com/bot-users#method_list
-     * @param string $method
      * @return bool
      */
     public function isAvailableToCustomBot()
