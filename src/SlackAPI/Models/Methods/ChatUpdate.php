@@ -205,10 +205,6 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
         if ($this->text === null) {
             throw new SlackException('chat.update requires a value for "text"', SlackException::MISSING_REQUIRED_FIELD);
         }
-        
-        if (count($this->attachments) > 20) {
-            throw new SlackException('There can’t be more than 20 attachments in message', SlackException::MORE_THAN_20_ATTACHMENTS);
-        }
     }
 
     

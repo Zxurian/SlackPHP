@@ -391,10 +391,6 @@ class ChatPostMessage extends AbstractPayload
         if ($this->text === null && count($this->attachments) == 0) {
             throw new SlackException('Must provide either text or at least one attachment when sending a chat.postMessage', SlackException::MISSING_REQUIRED_FIELD);
         }
-        
-        if (count($this->attachments) > 20) {
-            throw new SlackException('There can’t be more than 20 attachments in message when sending with chat.postMessage', SlackException::MORE_THAN_20_ATTACHMENTS);
-        }
     }
     
 }
