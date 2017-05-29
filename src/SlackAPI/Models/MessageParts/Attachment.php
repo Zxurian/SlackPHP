@@ -186,15 +186,17 @@ class Attachment extends AbstractModel
      */
     public function setColor($color)
     {
-        if (!$color instanceof AttachmentColor) {
-            if (!is_scalar($color)) {
-                throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor enum');
-            }
-            
-            $color = trim($color, '#');
-            if (!ctype_xdigit($color) || (ctype_xdigit($color) && strlen($color) !== 6 && strlen($color) !== 3)) {
-                throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor enum');
-            }
+        if ($color instanceof AttachmentColor) {
+            $color = $color->getValue();
+        }
+        
+        if (!is_scalar($color)) {
+            throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor enum');
+        }
+        
+        $color = trim($color, '#');
+        if (!ctype_xdigit($color) || (ctype_xdigit($color) && strlen($color) !== 6 && strlen($color) !== 3)) {
+            throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor Enum');
         }
         
         $this->color = $color instanceof AttachmentColor ? $color->getValue() : '#'.$color;

@@ -15,7 +15,7 @@ use MyCLabs\Enum\Enum;
  */
 class AttachmentColor extends Enum
 {
-    const GOOD = 'good';
-    const WARNING = 'warning';
-    const DANGER = 'danger';
+    const GOOD = '2FA44F';
+    const WARNING = 'DE9E31';
+    const DANGER = 'D50200';
 }
