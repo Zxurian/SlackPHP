@@ -2,6 +2,8 @@
 
 namespace SlackPHP\SlackAPI\Models\Abstracts;
 
+use SlackPHP\SlackAPI\Exceptions\SlackException;
+
 /**
  * Interface for Payloads
  * 
@@ -12,7 +14,9 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 interface PayloadInterface
 {
     /**
-     * Check to make sure all requirements are met on the payload
+     * Validate the Payload
+     * 
+     * @throws SlackException
      */
     public function validatePayload();
 }

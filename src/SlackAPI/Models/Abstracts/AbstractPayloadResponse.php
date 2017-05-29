@@ -26,25 +26,25 @@ use JMS\Serializer\EventDispatcher\PreDeserializeEvent;
 abstract class AbstractPayloadResponse extends MagicGetter
 {
     /**
-     * @var bool|NULL
+     * @var bool|null
      * @Type("boolean")
      */
     protected $ok = null;
 
     /**
-     * @var string|NULL
+     * @var string|null
      * @Type("string")
      */
     protected $error = null;
     
     /**
-     * @var string|NULL
+     * @var string|null
      * @Type("string")
      */
     protected $warning = null;
     
     /**
-     * Deserializes the responce from Slack API
+     * Deserializes the response from Slack Web API and instantiates a 
      *
      * @param string $responseContents
      * @return AbstractPayloadResponse
@@ -52,29 +52,16 @@ abstract class AbstractPayloadResponse extends MagicGetter
     public static function parseResponse($responseContents)
     {
         $serializer = SerializerBuilder::create()
-            ->configureListeners(function(EventDispatcher $dispatcher) {
-                $dispatcher->addListener(Events::PRE_DESERIALIZE,
-                    function(PreDeserializeEvent $event) {
-                        if (is_a($event->getType()['name'], 'MyClabs\Enum\Enum', true)) {
-                            $event->setType('MyClabs\Enum\Enum');
-                        }
-                    }
-                );
-            })
             ->configureHandlers(function(HandlerRegistry $registry) {
-                $registry->registerHandler('deserialization', 'MyClabs\Enum\Enum', 'json',
-                    function(VisitorInterface $visitor, $value, array $class) {
-                        return new $class['name']($value);
+                $registry->registerHandle('deserialization', 'MyCLabsEnum', 'json',
+                    function(VisitorInterface $visitor, $data, array $type) {
+                        return new $type['params'][0]($data);
                     }
                 );
             })
             ->build()
         ;
         $payloadResponseObject = $serializer->deserialize($responseContents, static::class, 'json');
-        
-        if (!is_bool($payloadResponseObject->getOk())) {
-            throw new SlackException('Ok status property not received with slack api response JSON payload', SlackException::OK_STATUS_NOT_RECEIVED);
-        }
         
         return $payloadResponseObject;
     }

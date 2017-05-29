@@ -19,16 +19,16 @@ use MyCLabs\Enum\Enum;
  * @package SlackAPI
  * @version 0.2
  * 
+ * @method string getToken()
  */
 abstract class AbstractPayload extends AbstractModel implements PayloadInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string|null */
     protected $token = null;
     
     /**
-     * Setter for token
+     * Authentication token.
+     * Required for all payloads
      *
      * @param string $token
      * @throws \InvalidArgumentException
@@ -37,7 +37,7 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
     public function setToken($token)
     {
         if (!is_scalar($token)) {
-            throw new \InvalidArgumentException('Token should be a scalar type');
+            throw new \InvalidArgumentException('Token should be a scalar');
         }
         
         $this->token = $token;
@@ -62,7 +62,7 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
      */
     public function getMethod()
     {
-        return static::method;
+        return static::METHOD;
     }
 
     /**
@@ -79,13 +79,15 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
     }
     
     /**
-     * Validate and prepare payload as single level array for sending to slack
+     * Validate and prepare payload as single level array for sending to Slack’s API
      * 
      * @return array
      */
-    public function preparePayloadForSlack()
+    public function preparePayloadForWebAPI()
     {
+        // Validate the payload to make sure it has all the necessary requirements
         $this->validateRequired($this);
+        
         $serializer = SerializerBuilder::create()
             ->configureListeners(function(EventDispatcher $dispatcher) {
                 $dispatcher->addListener(Events::PRE_SERIALIZE,

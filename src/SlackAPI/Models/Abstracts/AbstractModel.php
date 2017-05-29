@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\ValidateInterface;
-use MyCLabs\Enum\Enum;
 
 /**
  * Abstract class for Models
@@ -23,7 +22,7 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     public function validateRequired(AbstractModel $model)
     {
         foreach(get_object_vars($model) as $property => $value) {
-            if (is_object($value) && !$value instanceof Enum) {
+            if ($value instanceof AbstractModel) {
                 $value->validateRequired($value);
             }
         }
