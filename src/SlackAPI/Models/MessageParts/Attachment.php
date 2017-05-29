@@ -199,7 +199,7 @@ class Attachment extends AbstractModel
             throw new \InvalidArgumentException('Color should either be a hex value or an AttachmentColor Enum');
         }
         
-        $this->color = $color instanceof AttachmentColor ? $color->getValue() : '#'.$color;
+        $this->color = '#'.$color;
         
         return $this;
     }
