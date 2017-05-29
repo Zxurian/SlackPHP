@@ -23,13 +23,13 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 class ActionConfirm extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $title = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $text = null;

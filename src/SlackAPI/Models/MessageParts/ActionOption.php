@@ -22,19 +22,19 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 class ActionOption extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $text = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $value = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $description = null;

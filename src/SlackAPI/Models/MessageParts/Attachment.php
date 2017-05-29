@@ -36,7 +36,7 @@ use SlackPHP\SlackAPI\Enumerators\AttachmentColor;
  * @method string getTs()
  * @method string getCallbackId()
  * @method string getAttachmentType()
- * @method string getMrkdwnIn()
+ * @method MrkdwnIn[] getMrkdwnIn()
  */
 class Attachment extends AbstractModel
 {
@@ -508,8 +508,8 @@ class Attachment extends AbstractModel
         }
         
         foreach ($mrkdwnIn as $value) {
-            if (!in_array($value->getValue(), $this->mrkdwnIn)) {
-                $this->mrkdwnIn[] = $value->getValue();
+            if (!array_key_exists($value->getValue(), $this->mrkdwnIn)) {
+                $this->mrkdwnIn[$value->getValue()] = $value;
             }
         }
         

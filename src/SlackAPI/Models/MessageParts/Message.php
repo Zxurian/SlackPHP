@@ -26,7 +26,7 @@ use SlackPHP\SlackAPI\Enumerators\ResponseType;
 class Message extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $text = null;
@@ -38,25 +38,25 @@ class Message extends AbstractModel
     protected $attachments = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $threadTs = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $responseType = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $replaceOriginal = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $deleteOriginal = null;

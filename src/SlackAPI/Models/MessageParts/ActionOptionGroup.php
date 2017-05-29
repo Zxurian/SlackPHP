@@ -21,7 +21,7 @@ use JMS\Serializer\Annotation\Type;
 class ActionOptionGroup extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $text = null;

@@ -21,19 +21,19 @@ use JMS\Serializer\Annotation\Type;
 class AttachmentField extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $title = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $value = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $short = null;

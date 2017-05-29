@@ -20,47 +20,50 @@ use SlackPHP\SlackAPI\Enumerators\ActionStyle;
  * 
  * @method string getName()
  * @method string getText()
+ * @method ActionStyle getStyle()
+ * @method ActionType getType()
  * @method ActionOption[] getOptions()
  * @method bool getValue()
  * @method ActionConfirm getConfirm()
  * @method ActionOption[] getSelectedOptions()
  * @method ActionOptionGroup[] getOptionGroups()
+ * @method ActionDataSource getDataSource()
  * @method int getMinQueryLength()
  */
 class AttachmentAction extends AbstractModel
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $name = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $text = null;
 
     /**
-     * @var string
-     * @Type("string")
+     * @var ActionStyle
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\Enumerators\ActionStyle>")
      */
     protected $style = null;
 
     /**
-     * @var string
-     * @Type("string")
+     * @var ActionType|null
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\Enumerators\ActionType>")
      */
     protected $type = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $value = null;
     
     /**
-     * @var ActionConfirm
+     * @var ActionConfirm|null
      * @Type("SlackPHP\SlackAPI\Models\MessageParts\ActionConfirm")
      */
     protected $confirm = null;
@@ -84,8 +87,8 @@ class AttachmentAction extends AbstractModel
     protected $optionGroups = [];
     
     /**
-     * @var string
-     * @Type("string")
+     * @var ActionDataSource
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\Enumerators\ActionDataSource>")
      */
     protected $dataSource = null;
     
@@ -97,8 +100,8 @@ class AttachmentAction extends AbstractModel
     
     public function __construct()
     {
-        $this->style = ActionStyle::defaultStyle();
-        $this->dataSource = ActionDataSource::staticSource();
+        $this->style = ActionStyle::DEFAULT_STYLE();
+        $this->dataSource = ActionDataSource::STATIC_SOURCE();
     }
     
     /**
@@ -144,24 +147,14 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Get the type as an Enum
-     * 
-     * @return \SlackPHP\SlackAPI\Enumerators\ActionType
-     */
-    public function getType()
-    {
-        return new ActionType($this->type);
-    }
-    
-    /**
      * Provide button when this action is a message button or provide select when the action is a message menu.
      *
-     * @param \SlackPHP\SlackAPI\Enumerators\Type $type
+     * @param ActionType $type
      * @return AttachmentAction
      */
     public function setType(ActionType $type)
     {
-        $this->type = $type->getValue();
+        $this->type = $type;
     
         return $this;
     }
@@ -209,16 +202,6 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Get style as Enum
-     * 
-     * @return ActionStyle
-     */
-    public function getStyle()
-    {
-        return new ActionStyle($this->style);
-    }
-    
-    /**
      * Used only with message buttons.
      * This decorates buttons with extra visual importance, which is
      * especially useful when providing logical default action or
@@ -229,7 +212,7 @@ class AttachmentAction extends AbstractModel
      */
     public function setStyle(ActionStyle $style)
     {
-        $this->style = $style->getValue();
+        $this->style = $style;
         
         return $this;
     }
@@ -288,16 +271,6 @@ class AttachmentAction extends AbstractModel
     }
     
     /**
-     * Get data source as Enum
-     * 
-     * @return ActionDataSource
-     */
-    public function getDataSource()
-    {
-        return new ActionDataSource($this->dataSource);
-    }
-    
-    /**
      * Sets the Data Source
      * Our clever default behavior is default, which means the menu's options
      * are provided directly in the posted message under options. Defaults to
@@ -308,7 +281,7 @@ class AttachmentAction extends AbstractModel
      */
     public function setDataSource(ActionDataSource $dataSource)
     {
-        $this->dataSource = $dataSource->getValue();
+        $this->dataSource = $dataSource;
     
         return $this;
     }
