@@ -11,6 +11,7 @@ use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use MyCLabs\Enum\Enum;
 use JMS\Serializer\EventDispatcher\PreDeserializeEvent;
+use SlackPHP\SlackAPI\Serialization\Deserializer;
 
 /**
  * Provides ok, error and warning properties for received Slack payload
@@ -51,17 +52,7 @@ abstract class AbstractPayloadResponse extends MagicGetter
      */
     public static function parseResponse($responseContents)
     {
-        $serializer = SerializerBuilder::create()
-            ->configureHandlers(function(HandlerRegistry $registry) {
-                $registry->registerHandle('deserialization', 'MyCLabsEnum', 'json',
-                    function(VisitorInterface $visitor, $data, array $type) {
-                        return new $type['params'][0]($data);
-                    }
-                );
-            })
-            ->build()
-        ;
-        $payloadResponseObject = $serializer->deserialize($responseContents, static::class, 'json');
+        $payloadResponseObject = Deserializer::deserialize($responseContents, static::class, 'json');
         
         return $payloadResponseObject;
     }

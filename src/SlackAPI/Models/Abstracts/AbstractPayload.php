@@ -11,6 +11,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\VisitorInterface;
 use MyCLabs\Enum\Enum;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\Serialization\Serializer;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -89,26 +90,7 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
         // Validate the payload to make sure it has all the necessary requirements
         $this->validateRequired($this);
         
-        $serializer = SerializerBuilder::create()
-            ->configureListeners(function(EventDispatcher $dispatcher) {
-                $dispatcher->addListener(Events::PRE_SERIALIZE,
-                    function(PreSerializeEvent $event) {
-                        if ($event->getObject() instanceof Enum) {
-                            $event->setType('MyClabs\Enum\Enum');
-                        }
-                    }
-                );
-            })
-            ->configureHandlers(function(HandlerRegistry $registry) {
-                $registry->registerHandler('serialization', 'MyClabs\Enum\Enum', 'json', 
-                    function(VisitorInterface $visitor, Enum $object, array $type) {
-                        return $object->getValue();
-                    }
-                );
-            })
-            ->build()
-        ;
-        $arrayPayload = $serializer->toArray($this);
+        $arrayPayload = Serializer::toArray($this);
         
         foreach($arrayPayload as $key => $value) {
             if (is_array($value)) {
