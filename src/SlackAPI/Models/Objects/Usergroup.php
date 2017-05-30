@@ -34,105 +34,105 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 class Usergroup extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $id;
+    protected $id = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $teamId;
+    protected $teamId = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
-    protected $isUsergroup;
+    protected $isUsergroup = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $name;
+    protected $name = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $description;
+    protected $description = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $handle;
+    protected $handle = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
-    protected $isExternal;
+    protected $isExternal = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
-    protected $dateCreate;
+    protected $dateCreate = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
-    protected $dateUpdate;
+    protected $dateUpdate = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
-    protected $dateDelete;
+    protected $dateDelete = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $autoType;
+    protected $autoType = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $createdBy;
+    protected $createdBy = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $updatedBy;
+    protected $updatedBy = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $deletedBy;
+    protected $deletedBy = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("SlackPHP\SlackAPI\Models\Objects\Prefs")
      */
-    protected $prefs;
+    protected $prefs = null;
     
     /**
      * @var string[]
      * @Type("array<string>")
      */
-    protected $users;
+    protected $users = [];
     
     /**
      * @var int
      * @Type("integer")
      */
-    protected $userCount;
+    protected $userCount = null;
     
 }
