@@ -6,13 +6,21 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
 use JMS\Serializer\Serializer;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 class Deserializer
 {
     /** @var \JMS\Serializer\Serializer */
     private static $deserializer = null;
     
-    private function __construct(){}
+    private function __construct()
+    {
+        AnnotationRegistry::registerAutoloadNamespace(
+            'Doctrine',
+            'vendor/doctrine'
+        );
+        AnnotationRegistry::registerLoader('class_exists');
+    }
     
     private function __clone(){}
     
