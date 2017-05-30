@@ -3,17 +3,13 @@
 namespace SlackPHP\SlackAPI\Serialization;
 
 use JMS\Serializer\SerializerBuilder;
-use JMS\Serializer\EventDispatcher\Events;
-use JMS\Serializer\EventDispatcher\EventDispatcher;
-use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use SecurityLib\Enum;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
 use JMS\Serializer\Serializer;
 
 class Deserializer
 {
-    /** @var Serializer */
+    /** @var \JMS\Serializer\Serializer */
     private static $deserializer = null;
     
     private function __construct(){}
@@ -25,7 +21,7 @@ class Deserializer
     /**
      * Get the Deserializer Singleton
      * 
-     * @return Serializer
+     * @return \JMS\Serializer\Serializer
      */
     private static function getDeserializer()
     {
@@ -53,7 +49,7 @@ class Deserializer
      */
     public static function __callstatic($name, $arguments)
     {
-        static::getDeserializer()->{$name}(...$arguments);
+        return static::getDeserializer()->{$name}(...$arguments);
     }
     
 }

@@ -9,11 +9,10 @@ use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use SecurityLib\Enum;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
-use JMS\Serializer\Serializer;
 
 class Serializer
 {
-    /** @var Serializer */
+    /** @var \JMS\Serializer\Serializer */
     private static $serializer = null;
     
     private function __construct(){}
@@ -25,7 +24,7 @@ class Serializer
     /**
      * Get the Serializer Singleton
      * 
-     * @return Serializer
+     * @return \JMS\Serializer\Serializer
      */
     private static function getSerializer()
     {
@@ -35,13 +34,13 @@ class Serializer
                     $dispatcher->addListener(Events::PRE_SERIALIZE,
                         function(PreSerializeEvent $event) {
                             if ($event->getObject() instanceof Enum) {
-                                $event->setType('MyClabs\Enum\Enum');
+                                $event->setType('MyCLabsEnum');
                             }
                         }
                         );
                 })
                 ->configureHandlers(function(HandlerRegistry $registry) {
-                    $registry->registerHandler('serialization', 'MyClabs\Enum\Enum', 'array',
+                    $registry->registerHandler('serialization', 'MyCLabsEnum', 'array',
                         function(VisitorInterface $visitor, Enum $object, array $type) {
                             return $object->getValue();
                         }
