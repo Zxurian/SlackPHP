@@ -9,6 +9,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
  * Model of reaction
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/file
  * @package SlackAPI
  * @version 0.2
@@ -20,19 +21,19 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 class Reaction extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $name = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $count = null;
 
     /**
-     * @var array
+     * @var array|null
      * @Type("array<string>")
      */
     protected $users = null;

@@ -9,6 +9,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
  * Model of purpose
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/channel
  * @package SlackAPI
  * @version 0.2
@@ -20,19 +21,19 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 class Purpose extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $value = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $creator = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $lastSet = null;

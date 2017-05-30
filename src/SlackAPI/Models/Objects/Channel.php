@@ -12,6 +12,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Message;
  * Model of channel
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/channel
  * @package SlackAPI
  * @version 0.2
@@ -35,43 +36,43 @@ use SlackPHP\SlackAPI\Models\MessageParts\Message;
 class Channel extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $id = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $name = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isChannel = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $created = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $creator = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isArchived = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isGeneral = null;
@@ -80,46 +81,46 @@ class Channel extends MagicGetter
      * @var string[]
      * @Type("array<string>")
      */
-    protected $members = null;
+    protected $members = [];
     
     /**
-     * @var Topic
+     * @var Topic|null
      * @Type("SlackPHP\SlackAPI\Models\Objects\Topic")
      */
     protected $topic = null;
     
     /**
-     * @var Purpose
+     * @var Purpose|null
      * @Type("SlackPHP\SlackAPI\Models\Objects\Purpose")
      */
     protected $purpose = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isMember = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $lastRead = null;
     
     /**
-     * @var Message
+     * @var Message|null
      * @Type("SlackPHP\SlackAPI\Models\MessageParts\Message")
      */
     protected $latest = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $unreadCount = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $unreadCountDisplay = null;

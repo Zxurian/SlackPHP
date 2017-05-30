@@ -9,6 +9,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
  * Model of profile
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/user
  * @package SlackAPI
  * @version 0.2
@@ -32,91 +33,91 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 class Profile extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $avatarHash = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $statusEmoji = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $statusText = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $firstName = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $lastName = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $realName= null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $email = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $skype = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $phone = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image24 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image32 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image48 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image72 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image192 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $image512= null;

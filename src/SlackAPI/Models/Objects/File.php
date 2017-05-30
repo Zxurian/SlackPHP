@@ -10,6 +10,7 @@ use SlackPHP\SlackAPI\Models\Objects\Reaction;
  * Model of file
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/file
  * @package SlackAPI
  * @version 0.2
@@ -35,8 +36,8 @@ use SlackPHP\SlackAPI\Models\Objects\Reaction;
  * @method string getThumb80()
  * @method string getThumb360()
  * @method string getThumb360Gif()
- * @method int get360W()
- * @method int get360H()
+ * @method int getThumb360W()
+ * @method int getThumb360H()
  * @method string getThumb480()
  * @method int getThumb480W()
  * @method int getThumb480H()
@@ -51,260 +52,260 @@ use SlackPHP\SlackAPI\Models\Objects\Reaction;
  * @method bool getIsPublic()
  * @method bool getPublicUrlShared()
  * @method bool getDisplayAsBot()
- * @method array getChannels()
- * @method array getGroups()
- * @method array getIms()
+ * @method string[] getChannels()
+ * @method string[] getGroups()
+ * @method string[] getIms()
  * @method Comment getInitialComment()
  * @method int getNumStars()
  * @method bool getIsStarred()
- * @method array getPinnedTo()
+ * @method string[] getPinnedTo()
  * @method Reaction[] getReactions()
  * @method int getCommentsCount()
  */
 class File extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $id = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $created = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $timestamp = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $name = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $title = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $mimetype = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $filetype = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $prettyType = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $user= null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $mode = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $editable = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isExternal = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $externalType = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $username = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $size = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $urlPrivate = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $urlPrivateDownload = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $thumb64 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $thumb80 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $thumb360 = null;
-
+    
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
-    protected $thumb360H = null;
+    protected $thumb360Gif = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $thumb360W = null;
-
+    
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $thumb360H = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $thumb480 = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $thumb480W = null;
-
+    
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $thumb480H = null;
-
+    
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $thumb160 = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $permalink = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $permalinkPublic = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $editLink = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $preview = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $previewHighlight = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $lines = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $linesMore = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isPublic = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $publicUrlShared = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $displayAsBot = null;
 
     /**
-     * @var array
+     * @var string[]
      * @Type("array<string>")
      */
-    protected $channels = null;
+    protected $channels = [];
 
     /**
-     * @var array
+     * @var string[]
      * @Type("array<string>")
      */
-    protected $groups = null;
+    protected $groups = [];
 
     /**
-     * @var array
+     * @var string[]
      * @Type("array<string>")
      */
-    protected $ims = null;
+    protected $ims = [];
 
     /**
-     * @var Comment
+     * @var Comment|null
      * @Type("SlackPHP\SlackAPI\Models\Objects\Comment")
      */
     protected $initialComment = null;
@@ -322,10 +323,10 @@ class File extends MagicGetter
     protected $isStarred = null;
 
     /**
-     * @var array
+     * @var string[]
      * @Type("array<string>")
      */
-    protected $pinnedTo = null;
+    protected $pinnedTo = [];
 
     /**
      * @var Reaction

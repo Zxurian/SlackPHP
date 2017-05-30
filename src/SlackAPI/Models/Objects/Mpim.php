@@ -10,6 +10,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Message;
  * Model of mpim
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/mpim
  * @package SlackAPI
  * @version 0.2
@@ -20,7 +21,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\Message;
  * @method bool getIsGroup()
  * @method int getCreated()
  * @method string getCreator()
- * @method array getMembers()
+ * @method string[] getMembers()
  * @method string getLastRead()
  * @method Message getLatest()
  * @method int getUnreadCount()
@@ -65,7 +66,7 @@ class Mpim extends MagicGetter
     protected $creator = null;
 
     /**
-     * @var array
+     * @var string[]
      * @Type("array<string>")
      */
     protected $members = null;

@@ -10,6 +10,7 @@ use SlackPHP\SlackAPI\Models\Objects\Profile;
  * Model of user
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/user
  * @package SlackAPI
  * @version 0.2
@@ -31,78 +32,79 @@ use SlackPHP\SlackAPI\Models\Objects\Profile;
 class User extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $id = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $name = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $deleted = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $color = null;
+    
     /**
-     * @var Profile
+     * @var Profile|null
      * @Type("SlackPHP\SlackAPI\Models\Objects\Profile")
      */
     protected $profile = null;
+    
     /**
-    /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isAdmin = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isOwner = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isPrimaryOwner = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isRestricted = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isUltraRestricted = null;
     
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $updated = null;
     
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $has2fa = null;
     
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $twoFactorType = null;

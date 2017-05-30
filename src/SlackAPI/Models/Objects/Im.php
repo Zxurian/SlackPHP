@@ -9,6 +9,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
  * Model of im
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @see https://api.slack.com/types/im
  * @package SlackAPI
  * @version 0.2
@@ -22,31 +23,31 @@ use SlackPHP\SlackAPI\Models\Abstracts\MagicGetter;
 class Im extends MagicGetter
 {
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $id = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isIm = null;
 
     /**
-     * @var string
+     * @var string|null
      * @Type("string")
      */
     protected $user = null;
 
     /**
-     * @var int
+     * @var int|null
      * @Type("integer")
      */
     protected $created = null;
 
     /**
-     * @var bool
+     * @var bool|null
      * @Type("boolean")
      */
     protected $isUserDeleted = null;
