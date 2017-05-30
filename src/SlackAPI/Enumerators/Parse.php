@@ -8,4 +8,5 @@ class Parse extends Enum
 {
     const FULL = 'full';
     const NONE = 'none';
+    const CLIENT = 'client';
 }
