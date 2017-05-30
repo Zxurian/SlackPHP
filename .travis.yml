@@ -1,13 +1,8 @@
 language: php
 php:
   - '5.6'
-addons:
-  code_climate:
-    repo_token: eed316b784ee9b95451ed4e68a7f87c7dbc4eb3e930dde8273b7100891274616
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 script: 
   - vendor/bin/phpunit
-after_success:
-  - vendor/bin/test-reporter
