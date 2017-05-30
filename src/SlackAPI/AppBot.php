@@ -29,7 +29,7 @@ class AppBot extends SlackAPI
      */
     public function send(AbstractPayload $payload) 
     {
-        if (!$payload->getMethod()->isAvailableToBot()) {
+        if (!$payload->getMethod()->isAvailableToAppBot()) {
             throw new SlackException('The payload method provided can’t be used by App Bot', SlackException::INVALID_APPBOT_METHOD);
         }
         
