@@ -32,7 +32,7 @@ class Deserializer
         if (static::$deserializer === null) {
             static::$deserializer = SerializerBuilder::create()
                 ->configureHandlers(function(HandlerRegistry $registry) {
-                    $registry->registerHandle('deserialization', 'MyCLabsEnum', 'json',
+                    $registry->registerHandler('deserialization', 'MyCLabsEnum', 'json',
                         function(VisitorInterface $visitor, $data, array $type) {
                             return new $type['params'][0]($data);
                         }

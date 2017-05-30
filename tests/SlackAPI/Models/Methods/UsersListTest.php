@@ -5,9 +5,11 @@ namespace Tests\SlackAPI\Models\Methods;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\UsersList;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers UsersList
  */
 class UsersListTest extends TestCase
@@ -36,7 +38,7 @@ class UsersListTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $usersListObject = new UsersList();
-        $usersListObject->setPresence(new \stdClass());
+        $usersListObject->setPresence(null);
     }
     
     /**
@@ -68,6 +70,6 @@ class UsersListTest extends TestCase
     {
         $usersListObject = new UsersList();
     
-        $this->assertEquals('users.list', $usersListObject->getMethod());
+        $this->assertEquals(Method::USERS_LIST(), $usersListObject->getMethod());
     }
 }

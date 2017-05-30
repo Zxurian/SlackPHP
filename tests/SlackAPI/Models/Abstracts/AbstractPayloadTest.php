@@ -4,9 +4,11 @@ namespace Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers AbstractPayload
  */
 class AbstractPayloadTest extends TestCase
@@ -34,7 +36,7 @@ class AbstractPayloadTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setToken(new \stdClass());
+        $chatUpdateObject->setToken(null);
     }
     
     public function testGetResponseClass()
@@ -51,7 +53,7 @@ class AbstractPayloadTest extends TestCase
     {
         $chatUpdateObject = new ChatUpdate();
         
-        $this->assertEquals(ChatUpdate::method, $chatUpdateObject->getMethod());
+        $this->assertEquals(Method::CHAT_UPDATE(), $chatUpdateObject->getMethod());
     }
     
     /**
@@ -59,22 +61,5 @@ class AbstractPayloadTest extends TestCase
      */
     public function testPreparePayloadForSlack()
     {
-        $array = [
-            'token'         =>  $this->dummyString,
-            'ts'            =>  $this->dummyString,
-            'channel'       =>  $this->dummyString,
-            'text'          =>  $this->dummyString,
-            'attachments'   =>  '[]',
-        ];
-        $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject
-            ->setToken($this->dummyString)
-            ->setTs($this->dummyString)
-            ->setChannel($this->dummyString)
-            ->setText($this->dummyString)
-        ;
-        
-        $preparedPayload = $chatUpdateObject->preparePayloadForSlack();
-        $this->assertEquals($array, $preparedPayload);
     }
 }

@@ -64,7 +64,7 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
      */
     public function getMethod()
     {
-        return Method::{static::METHOD}();
+        return new Method(static::METHOD);
     }
 
     /**

@@ -3,14 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\Annotation\Type;
-use JMS\Serializer\SerializerBuilder;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
-use JMS\Serializer\Handler\HandlerRegistry;
-use JMS\Serializer\VisitorInterface;
-use JMS\Serializer\EventDispatcher\Events;
-use JMS\Serializer\EventDispatcher\EventDispatcher;
-use MyCLabs\Enum\Enum;
-use JMS\Serializer\EventDispatcher\PreDeserializeEvent;
 use SlackPHP\SlackAPI\Serialization\Deserializer;
 
 /**

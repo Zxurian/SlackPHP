@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers ActionConfirm
  */
 class ActionConfirmTest extends TestCase
@@ -36,7 +37,7 @@ class ActionConfirmTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
-        $actionConfirm->setTitle(new \stdClass());
+        $actionConfirm->setTitle(null);
     }
     
     /**
@@ -75,7 +76,7 @@ class ActionConfirmTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
-        $actionConfirm->setText(new \stdClass());
+        $actionConfirm->setText(null);
     }
     
     /**
@@ -114,7 +115,7 @@ class ActionConfirmTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
-        $actionConfirm->setOkText(new \stdClass());
+        $actionConfirm->setOkText(null);
     }
     
     /**
@@ -153,7 +154,7 @@ class ActionConfirmTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionConfirm = new ActionConfirm();
-        $actionConfirm->setDismissText(new \stdClass());
+        $actionConfirm->setDismissText(null);
     }
     
     /**

@@ -7,9 +7,11 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Enumerators\Parse;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers ChatPostMessage
  */
 class ChatPostMessageTest extends TestCase
@@ -17,6 +19,8 @@ class ChatPostMessageTest extends TestCase
     private $dummyString = 'string';
     
     private $dummyBool = true;
+    
+    private $testUrl = 'https://test.com';
     
     /**
      * Test for setting channel
@@ -40,7 +44,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setChannel(new \stdClass());
+        $chatPostMessageObject->setChannel(null);
     }
     
     /**
@@ -79,7 +83,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setText(new \stdClass());
+        $chatPostMessageObject->setText(null);
     }
     
     /**
@@ -102,13 +106,13 @@ class ChatPostMessageTest extends TestCase
     public function testSettingParse()
     {
         $chatPostMessageObject = new ChatPostMessage();
-        $returnedObject = $chatPostMessageObject->setParse(Parse::full());
+        $returnedObject = $chatPostMessageObject->setParse(Parse::FULL());
         $refChatPostMessageObject = new \ReflectionObject($chatPostMessageObject);
         $parseProperty = $refChatPostMessageObject->getProperty('parse');
         $parseProperty->setAccessible(true);
         
         $this->assertInstanceOf(ChatPostMessage::class, $returnedObject);
-        $this->assertEquals(Parse::full, $parseProperty->getValue($chatPostMessageObject));
+        $this->assertEquals(Parse::FULL(), $parseProperty->getValue($chatPostMessageObject));
     }
     
     /**
@@ -147,7 +151,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setLinkNames(new \stdClass());
+        $chatPostMessageObject->setLinkNames(null);
     }
     
     /**
@@ -223,7 +227,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setUnfurlLinks(new \stdClass());
+        $chatPostMessageObject->setUnfurlLinks(null);
     }
     
     /**
@@ -262,7 +266,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setUnfurlMedia(new \stdClass());
+        $chatPostMessageObject->setUnfurlMedia(null);
     }
     
     /**
@@ -301,7 +305,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setUsername(new \stdClass());
+        $chatPostMessageObject->setUsername(null);
     }
     
     /**
@@ -340,7 +344,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setAsUser(new \stdClass());
+        $chatPostMessageObject->setAsUser(null);
     }
     
     /**
@@ -363,13 +367,13 @@ class ChatPostMessageTest extends TestCase
     public function testSettingIconUrl()
     {
         $chatPostMessageObject = new ChatPostMessage();
-        $returnedObject = $chatPostMessageObject->setIconUrl($this->dummyString);
+        $returnedObject = $chatPostMessageObject->setIconUrl($this->testUrl);
         $refChatPostMessageObject = new \ReflectionObject($chatPostMessageObject);
         $iconUrlProperty = $refChatPostMessageObject->getProperty('iconUrl');
         $iconUrlProperty->setAccessible(true);
     
         $this->assertInstanceOf(ChatPostMessage::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $iconUrlProperty->getValue($chatPostMessageObject));
+        $this->assertEquals($this->testUrl, $iconUrlProperty->getValue($chatPostMessageObject));
     }
     
     /**
@@ -379,7 +383,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setIconUrl(new \stdClass());
+        $chatPostMessageObject->setIconUrl('foeijhw');
     }
     
     /**
@@ -418,7 +422,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setIconEmoji(new \stdClass());
+        $chatPostMessageObject->setIconEmoji(null);
     }
     
     /**
@@ -457,7 +461,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setThreadTs(new \stdClass());
+        $chatPostMessageObject->setThreadTs(null);
     }
     
     /**
@@ -496,7 +500,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setReplyBroadcast(new \stdClass());
+        $chatPostMessageObject->setReplyBroadcast(null);
     }
     
     /**
@@ -535,7 +539,7 @@ class ChatPostMessageTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatPostMessageObject = new ChatPostMessage();
-        $chatPostMessageObject->setMrkdwn(new \stdClass());
+        $chatPostMessageObject->setMrkdwn(null);
     }
     
     /**
@@ -593,6 +597,6 @@ class ChatPostMessageTest extends TestCase
     {
         $chatPostMessageObject = new ChatPostMessage();
     
-        $this->assertEquals('chat.postMessage', $chatPostMessageObject->getMethod());
+        $this->assertEquals(Method::CHAT_POST_MESSAGE(), $chatPostMessageObject->getMethod());
     }
 }

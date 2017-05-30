@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers ActionOption
  */
 class ActionOptionTest extends TestCase
@@ -37,7 +38,7 @@ class ActionOptionTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
-        $actionOption->setText(new \stdClass());
+        $actionOption->setText(null);
     }
     
     /**
@@ -76,7 +77,7 @@ class ActionOptionTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
-        $actionOption->setValue(new \stdClass());
+        $actionOption->setValue(null);
     }
     
     /**
@@ -115,7 +116,7 @@ class ActionOptionTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $actionOption = new ActionOption();
-        $actionOption->setDescription(new \stdClass());
+        $actionOption->setDescription(null);
     }
     
     /**

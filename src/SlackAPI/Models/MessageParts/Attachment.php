@@ -33,7 +33,7 @@ use SlackPHP\SlackAPI\Enumerators\AttachmentColor;
  * @method string getThumbUrl()
  * @method string getFooter()
  * @method string getFooterIcon()
- * @method string getTs()
+ * @method integer getTs()
  * @method string getCallbackId()
  * @method string getAttachmentType()
  * @method MrkdwnIn[] getMrkdwnIn()
@@ -131,8 +131,8 @@ class Attachment extends AbstractModel
     protected $footerIcon = null;
     
     /**
-     * @var string
-     * @Type("string")
+     * @var int
+     * @Type("integer")
      */
     protected $ts = null;
 

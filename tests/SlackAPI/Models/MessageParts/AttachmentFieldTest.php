@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers AttachmentField
  */
 class AttachmentFieldTest extends TestCase
@@ -38,7 +39,7 @@ class AttachmentFieldTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setTitle(new \stdClass());
+        $attachmentFieldObject->setTitle(null);
     }
     
     /**
@@ -77,7 +78,7 @@ class AttachmentFieldTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setValue(new \stdClass());
+        $attachmentFieldObject->setValue(null);
     }
     
     /**
@@ -116,7 +117,7 @@ class AttachmentFieldTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentFieldObject = new AttachmentField();
-        $attachmentFieldObject->setShort(new \stdClass());
+        $attachmentFieldObject->setShort(null);
     }
     
     /**

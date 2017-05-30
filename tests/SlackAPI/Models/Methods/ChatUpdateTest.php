@@ -7,9 +7,11 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Enumerators\Parse;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers ChatUpdate
  */
 class ChatUpdateTest extends TestCase
@@ -40,7 +42,7 @@ class ChatUpdateTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setChannel(new \stdClass());
+        $chatUpdateObject->setChannel(null);
     }
     
     /**
@@ -79,7 +81,7 @@ class ChatUpdateTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setTs(new \stdClass());
+        $chatUpdateObject->setTs(null);
     }
     
     /**
@@ -118,7 +120,7 @@ class ChatUpdateTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setText(new \stdClass());
+        $chatUpdateObject->setText(null);
     }
     
     /**
@@ -178,13 +180,13 @@ class ChatUpdateTest extends TestCase
     public function testSettingParse()
     {
         $chatUpdateObject = new ChatUpdate();
-        $returnedObject = $chatUpdateObject->setParse(Parse::full());
+        $returnedObject = $chatUpdateObject->setParse(Parse::FULL());
         $refChatUpdateObject = new \ReflectionObject($chatUpdateObject);
         $parseProperty = $refChatUpdateObject->getProperty('parse');
         $parseProperty->setAccessible(true);
     
         $this->assertInstanceOf(ChatUpdate::class, $returnedObject);
-        $this->assertEquals(Parse::full, $parseProperty->getValue($chatUpdateObject));
+        $this->assertEquals(Parse::FULL(), $parseProperty->getValue($chatUpdateObject));
     }
     
     /**
@@ -223,7 +225,7 @@ class ChatUpdateTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setLinkNames(new \stdClass());
+        $chatUpdateObject->setLinkNames(null);
     }
     
     /**
@@ -262,7 +264,7 @@ class ChatUpdateTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject->setAsUser(new \stdClass());
+        $chatUpdateObject->setAsUser(null);
     }
     
     /**
@@ -338,6 +340,6 @@ class ChatUpdateTest extends TestCase
     {
         $chatUpdateObject = new ChatUpdate();
     
-        $this->assertEquals('chat.update', $chatUpdateObject->getMethod());
+        $this->assertEquals(Method::CHAT_UPDATE(), $chatUpdateObject->getMethod());
     }
 }

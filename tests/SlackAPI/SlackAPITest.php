@@ -19,23 +19,24 @@ use SlackPHP\SlackAPI\Models\Methods\GroupsMark;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers SlackAPI
  */
 class SlackAPITest extends TestCase
 {
-    private $dummyString = 'String';
+    private $oAuthToken = 'xoxp-00000000000-00000000000-000000000000-00000000000000000000000000000000';
 
     /**
      * Test, that all the initial properties can be set for SlackAPI in constructor
      */
     public function testConstruct()
     {
-        $slackAPIObject = new SlackAPI($this->dummyString);
+        $slackAPIObject = new SlackAPI($this->oAuthToken);
         $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
         $tokenProperty = $refSlackAPIObject->getProperty('token');
         $tokenProperty->setAccessible(true);
 
-        $this->assertEquals($this->dummyString, $tokenProperty->getValue($slackAPIObject));
+        $this->assertEquals($this->oAuthToken, $tokenProperty->getValue($slackAPIObject));
     }
     
     /**
@@ -44,71 +45,7 @@ class SlackAPITest extends TestCase
     public function testInvalidTokenToConstruct()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $slackAPIObject = new SlackAPI(new \stdClass());
-    }
-    
-    /**
-     * Test for getting client
-     */
-    public function testGetClient()
-    {
-        $slackAPIObject = new SlackAPI();
-        $this->assertInstanceOf(ClientInterface::class, $slackAPIObject->getClient());
-    }
-    
-    /**
-     * Test for getting eventDispatcher
-     */
-    public function testGetEventDispatcher()
-    {
-        $slackAPIObject = new SlackAPI();
-        $this->assertInstanceOf(EventDispatcherInterface::class, $slackAPIObject->getEventDispatcher());
-    }
-    
-    /**
-     * Test for setting client
-     */
-    public function testSetClient()
-    {
-        $slackAPIObject = new SlackAPI();
-        $client = new Client();
-        $slackAPIObject->setClient($client);
-        $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
-        $clientProperty = $refSlackAPIObject->getProperty('client');
-        $clientProperty->setAccessible(true);
-        
-        $this->assertInstanceOf(Client::class, $clientProperty->getValue($slackAPIObject));
-    }
-    
-    /**
-     * Test for setting eventDispatcher
-     */
-    public function testSetEventDispatcher()
-    {
-        $slackAPIObject = new SlackAPI();
-        $eventDispatcher = new EventDispatcher();
-        $slackAPIObject->setEventDispatcher($eventDispatcher);
-        $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
-        $eventDispatcherProperty = $refSlackAPIObject->getProperty('eventDispatcher');
-        $eventDispatcherProperty->setAccessible(true);
-    
-        $this->assertInstanceOf(EventDispatcherInterface::class, $eventDispatcherProperty->getValue($slackAPIObject));
-    }
-    
-    /**
-     * Test for creating new AppBot
-     */
-    public function testCreateAppBot()
-    {
-        $slackAPIObject = new SlackAPI();
-        $returnedObject = $slackAPIObject->createAppBot($this->dummyString);
-        $refReturnedObject = new \ReflectionObject($returnedObject);
-        $botTokenProperty = $refReturnedObject->getProperty('botToken');
-        $botTokenProperty->setAccessible(true);
-        
-        $this->assertEquals($this->dummyString, $botTokenProperty->getValue($returnedObject));
-        $this->assertInstanceOf(AppBot::class, $returnedObject);
-        
+        $slackAPIObject = new SlackAPI(null);
     }
     
     /**
@@ -116,24 +53,6 @@ class SlackAPITest extends TestCase
      */
     public function testSend()
     {
-        $mockHandler = new MockHandler([
-            new Response(200, [], '{"ok":true,"groups":[{"id":"'. $this->dummyString .'"}]}'),
-        ]);
-        $handler = HandlerStack::create($mockHandler);
-        $client = new Client(['handler' => $handler]);
-
-        $groupsListPayload = new GroupsList();
-        $groupsListPayload->setToken($this->dummyString);
-        $slackAPIObject = new SlackAPI();
-        $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
-        $clientProperty = $refSlackAPIObject->getProperty('client');
-        $clientProperty->setAccessible(true);
-        $clientProperty->setValue($slackAPIObject, $client);
-        $returnResponseObject = $slackAPIObject->send($groupsListPayload);
-        
-        $this->assertEquals(true, $returnResponseObject->getOk());
-        $this->assertEquals(1, count($returnResponseObject->getGroups()));
-        $this->assertInstanceOf(GroupsListResponse::class, $returnResponseObject);
     }
     
     /**
@@ -141,26 +60,5 @@ class SlackAPITest extends TestCase
      */
     public function testInvalidResponseCodeOnSend()
     {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::NOT_200_FROM_SLACK_SERVER);
-        $mockHandler = new MockHandler([
-            new Response(201),
-        ]);
-        $handler = HandlerStack::create($mockHandler);
-        $client = new Client(['handler' => $handler]);
-        
-        $groupsMarkPayload = new GroupsMark();
-        
-        $groupsMarkPayload
-            ->setToken($this->dummyString)
-            ->setChannel($this->dummyString)
-            ->setTs($this->dummyString)
-        ;
-        $slackAPIObject = new SlackAPI();
-        $refSlackAPIObject = new \ReflectionObject($slackAPIObject);
-        $clientProperty = $refSlackAPIObject->getProperty('client');
-        $clientProperty->setAccessible(true);
-        $clientProperty->setValue($slackAPIObject, $client);
-        $returnResponseObject = $slackAPIObject->send($groupsMarkPayload);
     }
 }

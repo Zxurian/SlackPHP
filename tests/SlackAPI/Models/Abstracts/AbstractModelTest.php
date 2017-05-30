@@ -5,9 +5,11 @@ namespace Tests\SlackAPI\Models\Abstracts;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers AbstractModel
  */
 class AbstractModelTest extends TestCase
@@ -19,13 +21,10 @@ class AbstractModelTest extends TestCase
      */
     public function testValidateRequired()
     {
-        $chatUpdateObject = new ChatUpdate();
-        $chatUpdateObject
-            ->setToken($this->dummyString)
-            ->setTs($this->dummyString)
-            ->setChannel($this->dummyString)
-            ->setText($this->dummyString)
-        ;
-        $chatUpdateObject->validateRequired($chatUpdateObject);
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        
+        $stub->validateRequired($stub);
+        
+        $this->assertTrue(true);
     }
 }

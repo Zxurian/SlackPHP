@@ -4,10 +4,11 @@ namespace Tests\SlackAPI\Models\Methods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChannelsList;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers ChannelList
  */
 class ChannelsListTest extends TestCase
@@ -36,7 +37,7 @@ class ChannelsListTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $channelsListObject = new ChannelsList();
-        $channelsListObject->setExcludeArchived(new \stdClass());
+        $channelsListObject->setExcludeArchived(null);
     }
     
     /**
@@ -75,7 +76,7 @@ class ChannelsListTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $channelsListObject = new ChannelsList();
-        $channelsListObject->setExcludeMembers(new \stdClass());
+        $channelsListObject->setExcludeMembers(null);
     }
     
     /**
@@ -109,6 +110,6 @@ class ChannelsListTest extends TestCase
     {
         $channelsListObject = new ChannelsList();
         
-        $this->assertEquals('channels.list', $channelsListObject->getMethod());
+        $this->assertEquals(Method::CHANNELS_LIST, $channelsListObject->getMethod());
     }
 }

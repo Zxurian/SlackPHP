@@ -17,7 +17,13 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Transport
 {
     /** @var Client */
+    static $defaultClient;
+    
+    /** @var Client */
     private $client;
+    
+    /** @var EventDispatcher */
+    static $defaultEventDispatcher;
     
     /** @var EventDispatcher */
     private $eventDispatcher;
@@ -56,11 +62,11 @@ class Transport
      */
     private function getStaticClient()
     {
-        if (self::$client === null) {
-            self::$client = new Client();
+        if (static::$defaultClient=== null) {
+            static::$defaultClient= new Client();
         }
         
-        return self::$client;
+        return static::$defaultClient;
     }
     
     /**
@@ -97,10 +103,10 @@ class Transport
      */
     private function getStaticEventDispatcher()
     {
-        if (self::$eventDispatcher === null) {
-            self::$eventDispatcher = new EventDispatcher();
+        if (static::$defaultEventDispatcher=== null) {
+            static::$defaultEventDispatcher= new EventDispatcher();
         }
         
-        return self::$eventDispatcher;
+        return static::$defaultEventDispatcher;
     }
 }

@@ -5,18 +5,20 @@ namespace Tests\SlackAPI\Models\MessageParts;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Models\MessageParts\ActionOption;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers Attachment
  */
 class AttachmentTest extends TestCase
 {
     private $dummyString = 'string';
+    
+    private $testUrl = 'http://test.com';
     
     /**
      * Test for setting fallback
@@ -40,7 +42,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setFallback(new \stdClass());
+        $attachmentObject->setFallback(null);
     }
     
     /**
@@ -62,14 +64,15 @@ class AttachmentTest extends TestCase
      */
     public function testSettingColor()
     {
+        $color = '#F09518';
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setColor($this->dummyString);
+        $returnedObject = $attachmentObject->setColor($color);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $colorProperty = $refAttachmentObject->getProperty('color');
         $colorProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $colorProperty->getValue($attachmentObject));
+        $this->assertEquals($color, $colorProperty->getValue($attachmentObject));
     }
     
     /**
@@ -79,7 +82,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setColor(new \stdClass());
+        $attachmentObject->setColor(null);
     }
     
     /**
@@ -118,7 +121,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setPretext(new \stdClass());
+        $attachmentObject->setPretext(null);
     }
     
     /**
@@ -157,7 +160,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setAuthorName(new \stdClass());
+        $attachmentObject->setAuthorName(null);
     }
     
     /**
@@ -180,13 +183,13 @@ class AttachmentTest extends TestCase
     public function testSettingAuthorLink()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setAuthorLink($this->dummyString);
+        $returnedObject = $attachmentObject->setAuthorLink($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $authorLinkProperty = $refAttachmentObject->getProperty('authorLink');
         $authorLinkProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $authorLinkProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $authorLinkProperty->getValue($attachmentObject));
     }
     
     /**
@@ -196,7 +199,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setAuthorLink(new \stdClass());
+        $attachmentObject->setAuthorLink(null);
     }
     
     /**
@@ -219,13 +222,13 @@ class AttachmentTest extends TestCase
     public function testSettingAuthorIcon()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setAuthorIcon($this->dummyString);
+        $returnedObject = $attachmentObject->setAuthorIcon($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $authorIconProperty = $refAttachmentObject->getProperty('authorIcon');
         $authorIconProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $authorIconProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $authorIconProperty->getValue($attachmentObject));
     }
     
     /**
@@ -235,7 +238,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setAuthorIcon(new \stdClass());
+        $attachmentObject->setAuthorIcon(null);
     }
     
     /**
@@ -274,7 +277,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setTitle(new \stdClass());
+        $attachmentObject->setTitle(null);
     }
     
     /**
@@ -297,13 +300,13 @@ class AttachmentTest extends TestCase
     public function testSettingTitleLink()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setTitleLink($this->dummyString);
+        $returnedObject = $attachmentObject->setTitleLink($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $titleLinkProperty = $refAttachmentObject->getProperty('titleLink');
         $titleLinkProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $titleLinkProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $titleLinkProperty->getValue($attachmentObject));
     }
     
     /**
@@ -313,7 +316,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setTitleLink(new \stdClass());
+        $attachmentObject->setTitleLink(null);
     }
     
     /**
@@ -352,7 +355,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setText(new \stdClass());
+        $attachmentObject->setText(null);
     }
     
     /**
@@ -463,13 +466,13 @@ class AttachmentTest extends TestCase
     public function testSettingImageUrl()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setImageUrl($this->dummyString);
+        $returnedObject = $attachmentObject->setImageUrl($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $imageUrlProperty = $refAttachmentObject->getProperty('imageUrl');
         $imageUrlProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $imageUrlProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $imageUrlProperty->getValue($attachmentObject));
     }
     
     /**
@@ -479,7 +482,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setImageUrl(new \stdClass());
+        $attachmentObject->setImageUrl(null);
     }
     
     /**
@@ -502,13 +505,13 @@ class AttachmentTest extends TestCase
     public function testSettingThumbUrl()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setThumbUrl($this->dummyString);
+        $returnedObject = $attachmentObject->setThumbUrl($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $thumbUrlProperty = $refAttachmentObject->getProperty('thumbUrl');
         $thumbUrlProperty->setAccessible(true);
     
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $thumbUrlProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $thumbUrlProperty->getValue($attachmentObject));
     }
     
     /**
@@ -518,7 +521,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setThumbUrl(new \stdClass());
+        $attachmentObject->setThumbUrl(null);
     }
     
     /**
@@ -557,7 +560,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setFooter(new \stdClass());
+        $attachmentObject->setFooter(null);
     }
     
     /**
@@ -580,13 +583,13 @@ class AttachmentTest extends TestCase
     public function testSettingFooterIcon()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setFooterIcon($this->dummyString);
+        $returnedObject = $attachmentObject->setFooterIcon($this->testUrl);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $footerIconProperty = $refAttachmentObject->getProperty('footerIcon');
         $footerIconProperty->setAccessible(true);
     
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $footerIconProperty->getValue($attachmentObject));
+        $this->assertEquals($this->testUrl, $footerIconProperty->getValue($attachmentObject));
     }
     
     /**
@@ -596,7 +599,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setFooterIcon(new \stdClass());
+        $attachmentObject->setFooterIcon(null);
     }
     
     /**
@@ -618,24 +621,15 @@ class AttachmentTest extends TestCase
      */
     public function testSettingTs()
     {
+        $dt = new \DateTime();
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setTs($this->dummyString);
+        $returnedObject = $attachmentObject->setTs($dt);
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $tsProperty = $refAttachmentObject->getProperty('ts');
         $tsProperty->setAccessible(true);
     
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $tsProperty->getValue($attachmentObject));
-    }
-    
-    /**
-     * Testing setting invalid ts
-     */
-    public function testSettingInvalidTs()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $attachmentObject = new Attachment();
-        $attachmentObject->setTs(new \stdClass());
+        $this->assertEquals($dt->format('U'), $tsProperty->getValue($attachmentObject));
     }
     
     /**
@@ -643,13 +637,14 @@ class AttachmentTest extends TestCase
      */
     public function testGetTs()
     {
+        $dt = new \DateTime();
         $attachmentObject = new Attachment();
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $tsProperty = $refAttachmentObject->getProperty('ts');
         $tsProperty->setAccessible(true);
-        $tsProperty->setValue($attachmentObject, $this->dummyString);
+        $tsProperty->setValue($attachmentObject, $dt->format('U'));
     
-        $this->assertEquals($this->dummyString, $attachmentObject->getTs());
+        $this->assertEquals($dt->format('U'), $attachmentObject->getTs());
     }
     
     /**
@@ -674,7 +669,7 @@ class AttachmentTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
-        $attachmentObject->setCallbackId(new \stdClass());
+        $attachmentObject->setCallbackId(null);
     }
     
     /**
@@ -689,31 +684,6 @@ class AttachmentTest extends TestCase
         $callbackIdProperty->setValue($attachmentObject, $this->dummyString);
     
         $this->assertEquals($this->dummyString, $attachmentObject->getCallbackId());
-    }
-    
-    /**
-     * Test for setting attachment type
-     */
-    public function testSettingAttachmentType()
-    {
-        $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->setAttachmentType($this->dummyString);
-        $refAttachmentObject = new \ReflectionObject($attachmentObject);
-        $attachmentTypeProperty = $refAttachmentObject->getProperty('attachmentType');
-        $attachmentTypeProperty->setAccessible(true);
-    
-        $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $attachmentTypeProperty->getValue($attachmentObject));
-    }
-    
-    /**
-     * Test for setting invalid atatchment type
-     */
-    public function testSettingInvalidAttachmentType()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $attachmentObject = new Attachment();
-        $attachmentObject->setAttachmentType(new \stdClass());
     }
     
     /**
@@ -736,13 +706,13 @@ class AttachmentTest extends TestCase
     public function testAddingMrkdwnIn()
     {
         $attachmentObject = new Attachment();
-        $returnedObject = $attachmentObject->addMrkdwnIn(MrkdwnIn::pretext());
+        $returnedObject = $attachmentObject->addMrkdwnIn(MrkdwnIn::PRETEXT());
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $mrkdwnInProperty = $refAttachmentObject->getProperty('mrkdwnIn');
         $mrkdwnInProperty->setAccessible(true);
         
         $this->assertInstanceOf(Attachment::class, $returnedObject);
-        $this->assertEquals([MrkdwnIn::pretext()], $mrkdwnInProperty->getValue($attachmentObject));
+        $this->assertEquals([MrkdwnIn::PRETEXT => MrkdwnIn::PRETEXT()], $mrkdwnInProperty->getValue($attachmentObject));
     }
     
     /**
@@ -764,9 +734,9 @@ class AttachmentTest extends TestCase
         $refAttachmentObject = new \ReflectionObject($attachmentObject);
         $mrkdwnInProperty = $refAttachmentObject->getProperty('mrkdwnIn');
         $mrkdwnInProperty->setAccessible(true);
-        $mrkdwnInProperty->setValue($attachmentObject, [MrkdwnIn::pretext()]);
+        $mrkdwnInProperty->setValue($attachmentObject, [MrkdwnIn::PRETEXT()]);
         
-        $this->assertEquals([MrkdwnIn::pretext()], $attachmentObject->getMrkdwnIn());
+        $this->assertEquals([MrkdwnIn::PRETEXT()], $attachmentObject->getMrkdwnIn());
     }
     
     /**

@@ -5,9 +5,11 @@ namespace Tests\SlackAPI\Models\Methods;
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\GroupsList;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers GroupsList
  */
 class GroupsListTest extends TestCase
@@ -36,7 +38,7 @@ class GroupsListTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $groupsListObject = new GroupsList();
-        $groupsListObject->setExcludeArchived(new \stdClass());
+        $groupsListObject->setExcludeArchived(null);
     }
     
     /**
@@ -70,6 +72,6 @@ class GroupsListTest extends TestCase
     {
         $groupsListObject = new GroupsList();
     
-        $this->assertEquals('groups.list', $groupsListObject->getMethod());
+        $this->assertEquals(Method::GROUPS_LIST(), $groupsListObject->getMethod());
     }
 }

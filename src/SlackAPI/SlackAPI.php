@@ -17,6 +17,7 @@ use SlackPHP\SlackAPI\Models\Transport;
  * @package SlackAPI
  * @version 0.3
  * 
+ * @method string getToken()
  */
 class SlackAPI extends Transport
 {

@@ -13,13 +13,19 @@ use GuzzleHttp\Client;
 use SlackPHP\SlackAPI\Models\Methods\GroupsListResponse;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Methods\GroupsMark;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers AppBot
  */
 class AppBotTest extends TestCase
 {
+    private $testOAuthToken= 'xoxp-00000000000-00000000000-000000000000-00000000000000000000000000000000';
+    
+    private $testOAuthToken2 = 'xoxp-11111111111-00000000000-000000000000-00000000000000000000000000000000';
+    
     private $dummyString = 'String';
     
     /**
@@ -27,40 +33,9 @@ class AppBotTest extends TestCase
      */
     public function testConstruct()
     {
-        $slackAPI = new SlackAPI();
-        $appBot = new AppBot($slackAPI);
-        $refAppBot = new \ReflectionObject($appBot);
-        $slackAPIProperty = $refAppBot->getProperty('slackAPI');
-        $slackAPIProperty->setAccessible(true);
+        $appBot = new AppBot($this->testOAuthToken);
         
-        $this->assertInstanceOf(SlackAPI::class, $slackAPIProperty->getValue($appBot));
-    }
-    
-    /**
-     * Test for setting botToken
-     */
-    public function testSettingBotToken()
-    {
-        $slackAPI = new SlackAPI();
-        $appBot = new AppBot($slackAPI);
-        $returnedObject = $appBot->setBotToken($this->dummyString);
-        $refAppBot = new \ReflectionObject($appBot);
-        $botTokenProperty = $refAppBot->getProperty('botToken');
-        $botTokenProperty->setAccessible(true);
-        
-        $this->assertEquals($this->dummyString, $botTokenProperty->getValue($appBot));
-        $this->assertInstanceOf(AppBot::class, $returnedObject);
-    }
-    
-    /**
-     * Test for setting invalid botToken
-     */
-    public function testSettingInvalidBotToken()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $slackAPI = new SlackAPI();
-        $appBot = new AppBot($slackAPI);
-        $returnedObject = $appBot->setBotToken(new \stdClass());
+        $this->assertInstanceOf(AppBot::class, $appBot);
     }
     
     /**
@@ -68,22 +43,6 @@ class AppBotTest extends TestCase
      */
     public function testSend()
     {
-        $mockHandler = new MockHandler([
-            new Response(200, [], '{"ok":true,"groups":[{"id":"'. $this->dummyString .'"}]}'),
-        ]);
-        $handler = HandlerStack::create($mockHandler);
-        $client = new Client(['handler' => $handler]);
-        
-        $groupsListPayload = new GroupsList();
-        $groupsListPayload->setToken($this->dummyString);
-        $slackAPI = new SlackAPI();
-        $slackAPI->setClient($client);
-        $appBot = new AppBot($slackAPI);
-        $returnResponseObject = $appBot->send($groupsListPayload);
-        
-        $this->assertEquals(true, $returnResponseObject->getOk());
-        $this->assertEquals(1, count($returnResponseObject->getGroups()));
-        $this->assertInstanceOf(GroupsListResponse::class, $returnResponseObject);
     }
     
     /**
@@ -94,14 +53,12 @@ class AppBotTest extends TestCase
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::INVALID_APPBOT_METHOD);
         
-        $groupsMarkPayload = new GroupsMark();
-        $groupsMarkPayload
-            ->setToken($this->dummyString)
-            ->setChannel($this->dummyString)
-            ->setTs($this->dummyString)
-        ;
-        $slackAPI = new SlackAPI();
-        $appBot = new AppBot($slackAPI);
+        $methodEnum = $this->createMock(Method::class);
+        $methodEnum->method('isAvailableToBot')->willReturn(false);
+        $groupsMarkPayload = $this->createMock(GroupsMark::class);
+        $groupsMarkPayload->method('getMethod')->willReturn($methodEnum);
+        
+        $appBot = new AppBot($this->testOAuthToken);
         $appBot->send($groupsMarkPayload);
     }
 }
