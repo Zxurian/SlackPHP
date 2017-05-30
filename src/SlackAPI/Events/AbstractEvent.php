@@ -20,10 +20,10 @@ class AbstractEvent extends Event
     /**
      * Setter for the original payload
      * 
-     * @param AbstractPayload $payload
+     * @param mixed $payload
      * @return AbstractEvent
      */
-    public function setPayload(AbstractPayload $payload)
+    public function setPayload($payload)
     {
         $this->payload = $payload;
         
@@ -38,15 +38,5 @@ class AbstractEvent extends Event
     public function getPayload()
     {
         return $this->payload;
-    }
-    
-    /**
-     * Get method of Slack API
-     * 
-     * @return string
-     */
-    public function getMethod()
-    {
-        return get_class($this->payload);
     }
 }

@@ -24,10 +24,10 @@ class RequestEvent extends AbstractEvent
     /**
      * Setter for the preparedPayload
      * 
-     * @param array $payload
+     * @param mixed $payload
      * @return AbstractEvent
      */
-    public function setPreparedPayload(array $preparedPayload)
+    public function setPreparedPayload($preparedPayload)
     {
         $this->preparedPayload = $preparedPayload;
         
