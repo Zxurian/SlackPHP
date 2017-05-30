@@ -27,7 +27,7 @@ class Serializer
      * 
      * @return Serializer
      */
-    public static function getSerializer()
+    private static function getSerializer()
     {
         if (static::$serializer === null) {
             static::$serializer = SerializerBuilder::create()

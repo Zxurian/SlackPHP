@@ -27,7 +27,7 @@ class Deserializer
      * 
      * @return Serializer
      */
-    public static function getDeserializer()
+    private static function getDeserializer()
     {
         if (static::$deserializer === null) {
             static::$deserializer = SerializerBuilder::create()
