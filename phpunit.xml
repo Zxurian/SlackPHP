@@ -8,7 +8,10 @@
             <directory suffix=".php">./tests/SlackAPI/</directory>
         </testsuite>
         <testsuite name="DeepLink">
-        	<directory suffix=".php">./tests/DeepLink/</directory>
+            <directory suffix=".php">./tests/DeepLink/</directory>
         </testsuite>
     </testsuites>
+    <logging>
+        <log type="coverage-clover" target="clover.xml"/>
+    </logging>
 </phpunit>
