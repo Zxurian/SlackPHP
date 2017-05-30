@@ -12,39 +12,29 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
  * @see https://api.slack.com/docs/deep-linking#search
+ * @version 0.3
+ * @package DeepLink
  */
 class Search extends DeepLink implements LinkInterface
 {
     const BASE = 'search';
 
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $teamId = null;
     
-    /**
-     * @var string
-     */
+    /** @var string */
     private $query = null;
     
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime */
     private $sort = null;
     
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $highlight = null;
     
-    /**
-     * @var int
-     */
+    /** @var int */
     private $count = null;
     
-    /**
-     * @var int
-     */
+    /** @var int */
     private $page = null;
     
     /**
@@ -56,7 +46,7 @@ class Search extends DeepLink implements LinkInterface
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Team id should be scalar');
         }
         
         $this->teamId = (string)$teamId;
@@ -73,7 +63,7 @@ class Search extends DeepLink implements LinkInterface
     public function setQuery($query)
     {
         if (!is_scalar($query)) {
-            throw new DeepLinkException('Query should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Query should be scalar');
         }
         
         $this->query = (string)$query;
@@ -103,7 +93,7 @@ class Search extends DeepLink implements LinkInterface
     public function setHighlight($highlight)
     {
         if (!is_bool($highlight)) {
-            throw new DeepLinkException('Highlight should be boolean type', DeepLinkException::NOT_BOOLEAN);
+            throw new \InvalidArgumentException('Highlight should be a boolean');
         }
         
         $this->highlight = $highlight;
@@ -120,7 +110,7 @@ class Search extends DeepLink implements LinkInterface
     public function setCount($count)
     {
         if (!is_int($count)) {
-            throw new DeepLinkException('Count should be integer type', DeepLinkException::NOT_INTEGER);
+            throw new \InvalidArgumentException('Count should be an integer');
         }
         
         $this->count = $count;
@@ -137,7 +127,7 @@ class Search extends DeepLink implements LinkInterface
     public function setPage($page)
     {
         if (!is_int($page)) {
-            throw new DeepLinkException('page should be integer type', DeepLinkException::NOT_INTEGER);
+            throw new \InvalidArgumentException('page should be an integer');
         }
         
         $this->page = $page;

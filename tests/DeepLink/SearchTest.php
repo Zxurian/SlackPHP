@@ -27,7 +27,7 @@ final class SearchTest extends TestCase
     
     public function testInvalidTeamId()
     {
-        $this->expectException(DeepLinkException::class, null, DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $Search = new Search();
         $Search->setTeamId([]);
@@ -50,7 +50,7 @@ final class SearchTest extends TestCase
     
     public function testInvalidQuery()
     {
-        $this->expectException(DeepLinkException::class, null, DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $Search = new Search();
         $Search->setQuery([]);
@@ -88,7 +88,7 @@ final class SearchTest extends TestCase
     
     public function testInvalidHighlight()
     {
-        $this->expectException(DeepLinkException::class, null, DeepLinkException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         
         $Search = new Search();
         $Search->setHighlight('few');
@@ -111,7 +111,7 @@ final class SearchTest extends TestCase
     
     public function testInvalidCount()
     {
-        $this->expectException(DeepLinkException::class, null, DeepLinkException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         
         $Search = new Search();
         $Search->setCount('few');
@@ -134,7 +134,7 @@ final class SearchTest extends TestCase
     
     public function testInvalidPage()
     {
-        $this->expectException(DeepLinkException::class, null, DeepLinkException::NOT_BOOLEAN);
+        $this->expectException(\InvalidArgumentException::class);
         
         $Search = new Search();
         $Search->setPage('few');

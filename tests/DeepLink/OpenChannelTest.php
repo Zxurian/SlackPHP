@@ -5,7 +5,7 @@ use SlackPHP\DeepLink\OpenChannel;
 use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
 /**
- * @author zxurian
+ * @author Zxurian
  * @covers OpenChannel
  */
 final class OpenChannelTest extends TestCase
@@ -42,22 +42,25 @@ final class OpenChannelTest extends TestCase
     
     public function testInvalidTeamId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenChannel = new OpenChannel();
-        $OpenChannel->setTeamId([]);
+        $OpenChannel->setTeamId(null);
     }
     
     public function testInvalidChannelId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenChannel = new OpenChannel();
-        $OpenChannel->setChannelId([]);
+        $OpenChannel->setChannelId(null);
     }
     
     public function testMissingChannel()
     {
+        $this->expectException(DeepLinkException::class);
+        $this->expectExceptionCode(DeepLinkException::CHANNEL_ID_NOT_SET);
+        
         $OpenChannel = new OpenChannel();
         $OpenChannel->setTeamId('T12345');
         
@@ -67,8 +70,11 @@ final class OpenChannelTest extends TestCase
     
     public function testMissingTeam()
     {
+        $this->expectException(DeepLinkException::class);
+        $this->expectExceptionCode(DeepLinkException::TEAM_ID_NOT_SET);
+        
         $OpenChannel = new OpenChannel();
-        $OpenChannel->setTeamId('C12345');
+        $OpenChannel->setChannelId('C12345');
         
         $this->expectException(DeepLinkException::class, '', DeepLinkException::TEAM_ID_NOT_SET);
         $OpenChannel->getQueryParameters();

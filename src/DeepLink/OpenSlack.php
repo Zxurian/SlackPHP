@@ -11,14 +11,15 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
+ * @version 0.3
+ * @package DeepLink
+ * @see https://api.slack.com/docs/deep-linking#open_slack
  */
 class OpenSlack extends DeepLink implements LinkInterface
 {
     const BASE = 'open';
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $teamId = null;
     
     /**
@@ -30,7 +31,7 @@ class OpenSlack extends DeepLink implements LinkInterface
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Team id should be scalar');
         }
         
         $this->teamId = (string)$teamId;

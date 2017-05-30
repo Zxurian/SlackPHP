@@ -11,19 +11,18 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
+ * @package DeepLink
+ * @version 0.3
+ * @see https://api.slack.com/docs/deep-linking#open_a_channel
  */
 class OpenChannel extends DeepLink implements LinkInterface
 {
     const BASE = 'channel';
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $teamId = null;
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $channelId = null;
     
     /**
@@ -35,7 +34,7 @@ class OpenChannel extends DeepLink implements LinkInterface
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Team ID should be scalar');
         }
         
         $this->teamId = (string)$teamId;
@@ -52,7 +51,7 @@ class OpenChannel extends DeepLink implements LinkInterface
     public function setChannelId($channelId)
     {
         if (!is_scalar($channelId)) {
-            throw new DeepLinkException('Channel id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Channel ID should be scalar');
         }
         
         $this->channelId = (string)$channelId;
@@ -70,11 +69,11 @@ class OpenChannel extends DeepLink implements LinkInterface
         $return = [];
         
         if ($this->teamId === null) {
-            throw new DeepLinkException('Team id is not set', DeepLinkException::TEAM_ID_NOT_SET);
+            throw new DeepLinkException('Team ID is not set', DeepLinkException::TEAM_ID_NOT_SET);
         }
         
         if ($this->channelId === null) {
-            throw new DeepLinkException('Channel id is not set', DeepLinkException::CHANNEL_ID_NOT_SET);
+            throw new DeepLinkException('Channel ID is not set', DeepLinkException::CHANNEL_ID_NOT_SET);
         }
         
         return [
