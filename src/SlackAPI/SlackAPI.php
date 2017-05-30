@@ -2,165 +2,108 @@
 
 namespace SlackPHP\SlackAPI;
 
-use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
-use GuzzleHttp\ClientInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use SlackPHP\SlackAPI\Events\RequestEvent;
 use GuzzleHttp\Psr7\Request;
-use SlackPHP\SlackAPI\Events\ReceivedEvent;
+use SlackPHP\SlackAPI\Events;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\SlackAPI\Events\ParsedReceivedEvent;
-use GuzzleHttp\Client;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use SlackPHP\SlackAPI\Exceptions\WebAPIException;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
+use SlackPHP\SlackAPI\Models\Transport;
 
 /**
- * Class where the creayion of Slack API objects is done
+ * Main class for sending and processing Slack requests
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @package SlackAPI
+ * @version 0.3
+ * 
  */
-class SlackAPI
+class SlackAPI extends Transport
 {
-    /**
-     * @var string|null
-     */
+    /** @var string */
     protected $token;
     
-    /**
-     * @var ClientInterface
-     */
-    protected $client;
+    const WEB_API_ENDPOINT = 'https://slack.com/api/';
     
     /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
-    
-    const defaultEndpoint = 'https://slack.com/api/';
-    
-    /**
+     * Provide your Application OAuth token
+     * 
      * @param string $applicationToken
-     * @throws SlackException
+     * @throws \InvalidArgumentException
      */
-    public function __construct($applicationToken = null)
+    public function __construct($applicationToken)
     {
-        if ($applicationToken !== null) {
-            if (!is_scalar($applicationToken)) {
-                throw new \InvalidArgumentException('Token should be scalar type');
-            }
-            $this->token = (string)$applicationToken;
-        }
-    }
-    
-    /**
-     * Getter for client
-     *
-     * @return ClientInterface
-     */
-    public function getClient()
-    {
-        if ($this->client === null) {
-            $this->client = new Client();
+        if (!is_scalar($applicationToken)) {
+            throw new \InvalidArgumentException('Token should be scalar');
         }
         
-        return $this->client;
-    }
-    
-    /**
-     * Getter for eventDispatcher
-     *
-     * @return EventDispatcherInterface
-     */
-    public function getEventDispatcher()
-    {
-        if ($this->eventDispatcher === null) {
-            $this->eventDispatcher = new EventDispatcher();
-        }
-        
-        return $this->eventDispatcher;
-    }
-    
-    /**
-     * Setter for client
-     * 
-     * @param ClientInterface $client
-     */
-    public function setClient(ClientInterface $client)
-    {
-        $this->client = $client;
-    }
-    
-    /**
-     * Setter for eventDispatcher
-     * 
-     *  @param EventDispatcherInterface $eventDispatcher
-     */
-    public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
-    
-    /**
-     * Creates an instance of AppBot class
-     * 
-     * @param string $botToken
-     * @return AppBot
-     */
-    public function createAppBot($botToken)
-    {
-        $appBot = new AppBot($this);
-        $appBot->setBotToken($botToken);
-        
-        return $appBot;
+        $this->token = (string)$applicationToken;
     }
     
     /**
      * Send payload to Slack API
      *
      * @param AbstractPayload $payload Payload to send
-     * @param string $endpoint
      * @return AbstractPayloadResponse
      */
-    public function send(AbstractPayload $payload, $endpoint = null)
+    public function send(AbstractPayload $payload)
     {
+        // If there's no token on the payload, use the Application token
         if ($payload->getToken() === null) {
             $payload->setToken($this->token);
         }
         
-        $preparedPayload = $payload->preparePayloadForSlack();
+        // Get an array of parameters from the payload
+        $preparedPayload = $payload->preparePayloadForWebAPI();
         
-        $requestEvent = new RequestEvent();
+        // Trigger an event for the Request
+        $requestEvent = new Events\RequestEvent();
         $requestEvent
             ->setPayload($payload)
             ->setPreparedPayload($preparedPayload)
         ;
-        $this->getEventDispatcher()->dispatch(RequestEvent::EVENT_NAME, $requestEvent);
+        $this->getEventDispatcher()->dispatch(Events\RequestEvent::EVENT_NAME, $requestEvent);
+        
+        // Send the request to slack
         $request = new Request(
             'POST',
-            ($endpoint !== null ? $endpoint : self::defaultEndpoint) . $payload->getMethod(),
+            self::WEB_API_ENDPOINT . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
             http_build_query($preparedPayload)
         );
         $response = $this->getClient()->send($request);
         
-        $receivedEvent = new ReceivedEvent();
+        // Trigger an event for the Response
+        $receivedEvent = new Events\ReceivedEvent();
         $receivedEvent
             ->setPayload($payload)
             ->setResponse($response)
         ;
-        $this->getEventDispatcher()->dispatch(ReceivedEvent::EVENT_NAME, $receivedEvent);
+        $this->getEventDispatcher()->dispatch(Events\ReceivedEvent::EVENT_NAME, $receivedEvent);
         
         if ($response->getStatusCode() != 200) {
-            throw new SlackException('Received status code should be 200, received: '.$response->getStatusCode(), SlackException::NOT_200_FROM_SLACK_SERVER);
+            throw new SlackException($response->getStatusCode().' received from server', SlackException::NOT_200_FROM_SLACK_SERVER);
         }
         
+        // Populate the response model
         $responseClassName = $payload->getResponseClass();
         $payloadResponse = $responseClassName::parseResponse($response->getBody()->getContents());
-        $parsedReceivedEvent = new ParsedReceivedEvent();
+        
+        // Trigger an event for the Parse
+        $parsedReceivedEvent = new Events\ParsedReceivedEvent();
         $parsedReceivedEvent
             ->setPayload($payload)
             ->setPayloadResponse($payloadResponse)
         ;
-        $this->getEventDispatcher()->dispatch(ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
+        $this->getEventDispatcher()->dispatch(Events\ParsedReceivedEvent::EVENT_NAME, $parsedReceivedEvent);
+        
+        if (!$payloadResponse->getOk()) {
+            throw new WebAPIException($payloadResponse->getError());
+        }
+        
+        if ($payloadResponse->getWarning() !== null) {
+            trigger_error($payloadResponse->getWarning(), E_USER_WARNING);
+        }
         
         return $payloadResponse;
     }

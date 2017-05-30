@@ -181,9 +181,9 @@ class Method extends Enum
      * @see https://api.slack.com/bot-users#method_list
      * @return bool
      */
-    public static function isAvailableToBot()
+    public function isAvailableToBot()
     {
-        return in_array($this->getValue(), [
+        return in_array($this->value, [
             self::API_TEST,
             self::AUTH_TEST,
             self::CHANNELS_INFO,
@@ -239,7 +239,7 @@ class Method extends Enum
      */
     public function isAvailableToCustomBot()
     {
-        return in_array($this->getValue(), [
+        return in_array($this->value, [
             self::API_TEST,
             self::AUTH_REVOKE,
             self::AUTH_TEST,

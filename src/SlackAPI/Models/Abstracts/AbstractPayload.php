@@ -10,6 +10,7 @@ use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\VisitorInterface;
 use MyCLabs\Enum\Enum;
+use SlackPHP\SlackAPI\Enumerators\Method;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -58,11 +59,11 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
     /**
      * Get the name of the Slack method for the payload
      * 
-     * @return string
+     * @return Method
      */
     public function getMethod()
     {
-        return static::METHOD;
+        return Method::{static::METHOD}();
     }
 
     /**
