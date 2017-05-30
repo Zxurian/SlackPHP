@@ -13,14 +13,7 @@ class Deserializer
     /** @var \JMS\Serializer\Serializer */
     private static $deserializer = null;
     
-    private function __construct()
-    {
-        AnnotationRegistry::registerAutoloadNamespace(
-            'Doctrine',
-            'vendor/doctrine'
-        );
-        AnnotationRegistry::registerLoader('class_exists');
-    }
+    private function __construct(){}
     
     private function __clone(){}
     
@@ -34,6 +27,11 @@ class Deserializer
     private static function getDeserializer()
     {
         if (static::$deserializer === null) {
+            AnnotationRegistry::registerAutoloadNamespace(
+                'JMS\\Serializer\\Annotation',
+                'vendor/jms/serializer/src'
+            );
+            
             static::$deserializer = SerializerBuilder::create()
                 ->configureHandlers(function(HandlerRegistry $registry) {
                     $registry->registerHandler('deserialization', 'MyCLabsEnum', 'json',
