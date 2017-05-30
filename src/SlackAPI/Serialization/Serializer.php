@@ -62,7 +62,7 @@ class Serializer
      */
     public static function __callstatic($name, $arguments)
     {
-        static::getSerializer()->{$name}(...$arguments);
+        return static::getSerializer()->{$name}(...$arguments);
     }
     
 }
