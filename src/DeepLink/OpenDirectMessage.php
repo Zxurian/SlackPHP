@@ -11,31 +11,30 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
+ * @see https://api.slack.com/docs/deep-linking#open_a_direct_message
+ * @package DeepLink
+ * @version 0.3
  */
 class OpenDirectMessage extends DeepLink implements LinkInterface
 {
     const BASE = 'user';
 
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $teamId = null;
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $userId = null;
     
     /**
      * Setter for teamId
      *
-     * @param scalar $teamId
+     * @param string $teamId
      * @return OpenDirectMessage
      */
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team ID should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Team ID should be scalar');
         }
         
         $this->teamId = (string)$teamId;
@@ -46,13 +45,13 @@ class OpenDirectMessage extends DeepLink implements LinkInterface
     /**
      * Setter for userId
      *
-     * @param scalar $userId
+     * @param string $userId
      * @return OpenDirectMessage
      */
     public function setUserId($userId)
     {
         if (!is_scalar($userId)) {
-            throw new DeepLinkException('User ID should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('User ID should be scalar');
         }
         
         $this->userId = (string)$userId;

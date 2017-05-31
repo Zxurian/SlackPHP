@@ -27,7 +27,7 @@ final class OpenSlackTest extends TestCase
     
     public function testInvalidTeamId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenSlack = new OpenSlack();
         $OpenSlack->setTeamId([]);

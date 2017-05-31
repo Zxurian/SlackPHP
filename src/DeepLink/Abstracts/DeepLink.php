@@ -6,6 +6,10 @@ namespace SlackPHP\DeepLink\Abstracts;
  * Class used to create full DeepLink url link with createURL method
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
+ * @package DeepLink
+ * @version 0.3
+ * @see https://api.slack.com/docs/deep-linking
  */
 class DeepLink
 {

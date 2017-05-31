@@ -11,19 +11,18 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  *
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @author Zxurian
+ * @version 0.3;
+ * @package DeepLink
+ * @see https://api.slack.com/docs/deep-linking#open_a_file
  */
 class OpenFile extends DeepLink implements LinkInterface
 {
     const BASE = 'file';
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $teamId = null;
     
-    /**
-     * @var string
-     */
+    /** @var string|null */
     private $fileId = null;
     
     /**
@@ -35,7 +34,7 @@ class OpenFile extends DeepLink implements LinkInterface
     public function setTeamId($teamId)
     {
         if (!is_scalar($teamId)) {
-            throw new DeepLinkException('Team id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('Team id should be scalar');
         }
         
         $this->teamId = (string)$teamId;
@@ -52,7 +51,7 @@ class OpenFile extends DeepLink implements LinkInterface
     public function setFileId($fileId)
     {
         if (!is_scalar($fileId)) {
-            throw new DeepLinkException('File id should be scalar type', DeepLinkException::NOT_SCALAR);
+            throw new \InvalidArgumentException('File id should be scalar');
         }
         
         $this->fileId = (string)$fileId;

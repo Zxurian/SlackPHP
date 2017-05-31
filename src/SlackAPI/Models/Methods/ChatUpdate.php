@@ -58,7 +58,7 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
     
     public function __construct()
     {
-        $this->parse = Parse::FULL();
+        $this->parse = Parse::CLIENT();
     }
     
     /**

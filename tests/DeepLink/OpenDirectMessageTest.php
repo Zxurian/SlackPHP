@@ -42,18 +42,18 @@ final class OpenDirectMessageTest extends TestCase
     
     public function testInvalidTeamId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenDirectMessage = new OpenDirectMessage();
-        $OpenDirectMessage->setTeamId([]);
+        $OpenDirectMessage->setTeamId(null);
     }
     
     public function testInvalidUserId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenDirectMessage = new OpenDirectMessage();
-        $OpenDirectMessage->setUserId([]);
+        $OpenDirectMessage->setUserId(null);
     }
     
     public function testMissingUser()
@@ -89,7 +89,7 @@ final class OpenDirectMessageTest extends TestCase
             ->setUserId($userId)
         ;
         
-            $this->assertEquals([ 'team' => $teamId, 'id' => $userId], $OpenDirectMessage->getQueryParameters());
+        $this->assertEquals([ 'team' => $teamId, 'id' => $userId], $OpenDirectMessage->getQueryParameters());
     }
     
     /**

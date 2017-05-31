@@ -42,7 +42,7 @@ final class OpenFileTest extends TestCase
     
     public function testInvalidTeamId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenFile = new OpenFile();
         $OpenFile->setTeamId([]);
@@ -50,7 +50,7 @@ final class OpenFileTest extends TestCase
     
     public function testInvalidFileId()
     {
-        $this->expectException(DeepLinkException::class, '', DeepLinkException::NOT_SCALAR);
+        $this->expectException(\InvalidArgumentException::class);
         
         $OpenFile = new OpenFile();
         $OpenFile->setFileId([]);
