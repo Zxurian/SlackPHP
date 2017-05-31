@@ -49,7 +49,7 @@ class Webhook extends Transport
     public function send(Message $message)
     {
         // Get an array of parameters from the payload
-        $jsonPayload = Serializer::toJson($message);
+        $jsonPayload = Serializer::serialize($message, 'json');
         
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();

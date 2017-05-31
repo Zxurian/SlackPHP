@@ -9,6 +9,7 @@ use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use SecurityLib\Enum;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 
 class Serializer
 {
@@ -29,6 +30,11 @@ class Serializer
     private static function getSerializer()
     {
         if (static::$serializer === null) {
+            AnnotationRegistry::registerAutoloadNamespace(
+                'JMS\\Serializer\\Annotation',
+                'vendor/jms/serializer/src'
+            );
+            
             static::$serializer = SerializerBuilder::create()
                 ->configureListeners(function(EventDispatcher $dispatcher) {
                     $dispatcher->addListener(Events::PRE_SERIALIZE,
