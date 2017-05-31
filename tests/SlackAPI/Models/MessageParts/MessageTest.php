@@ -248,4 +248,45 @@ class MessageTest extends TestCase
         $this->assertEquals($value, $message->getDeleteOriginal());
     }
     
+    /**
+     * Test to see if validatModel method can be completed sucessfully
+     */
+    public function testSuccessfulValidateModel()
+    {
+        $text = 'testing';
+        
+        $message = new Message();
+        $message->setText($text);
+        $message->validateModel();
+        
+        $this->assertTrue(true);
+    }
+    
+    /**
+     * Test that exception is thrown if text and attachments not provided
+     */
+    public function testValidateModelNoTextAndAttachments()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $message = new Message();
+        $message->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if responseType is provided for new message
+     */
+    public function testResponseTypeWithoutThreadTs()
+    {
+        $text = 'testing';
+        
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::INVALID_RESPONSE_TYPE);
+        $message = new Message();
+        $message
+            ->setText($text)
+            ->setResponseType(ResponseType::IN_CHANNEL())
+        ;
+        $message->validateModel();
+    }
 }

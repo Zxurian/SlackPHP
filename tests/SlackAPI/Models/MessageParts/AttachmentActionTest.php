@@ -571,5 +571,6 @@ class AttachmentActionTest extends TestCase
             ->addSelectedOption($selectedActionOption)
         ;
         $attachmentActionObject->validateModel();
+        $this->assertTrue(true);
     }
 }
