@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SlackAPI\Events;
+namespace SlackPHP\Tests\SlackAPI\Events;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Events\RequestEvent;

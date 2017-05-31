@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SlackAPI\Models\MessageParts;
+namespace SlackPHP\Tests\SlackAPI\Models\MessageParts;
 
 use SlackPHP\SlackAPI\Models\MessageParts\ActionOptionGroup;
 use PHPUnit\Framework\TestCase;

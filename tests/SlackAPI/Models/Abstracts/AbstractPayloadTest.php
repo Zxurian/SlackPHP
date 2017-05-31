@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Abstracts;
+namespace SlackPHP\Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
