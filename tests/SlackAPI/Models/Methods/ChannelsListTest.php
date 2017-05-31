@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SlackAPI\Models\Methods;
+namespace SlackPHP\Tests\SlackAPI\Models\Methods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChannelsList;

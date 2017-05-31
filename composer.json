@@ -1,7 +1,7 @@
 {
 	"name" : "zxurian/slack-php",
-	"description" : "PHP implementation of Slack’s API",
-	"version" : "0.1",
+	"description" : "PHP implementation of Slack\u2019s API",
+	"version" : "0.2",
 	"keywords" : [
 		"slack"
 	],
@@ -30,11 +30,7 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"SlackPHP\\" : "src/"
-		}
-	},
-	"autoload-dev" : {
-		"psr-4" : {
+			"SlackPHP\\" : "src/",
 			"SlackPHP\\Tests\\" : "tests/"
 		}
 	}

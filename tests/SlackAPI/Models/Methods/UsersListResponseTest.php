@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\SlackAPI\Models\PMethods;
+namespace SlackPHP\Tests\SlackAPI\Models\PMethods;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
