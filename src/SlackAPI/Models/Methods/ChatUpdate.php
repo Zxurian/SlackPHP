@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
 use SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * This method updates a message in a channel.
@@ -201,5 +202,29 @@ class ChatUpdate extends AbstractPayload implements PayloadInterface
         }
     }
 
-    
+    /**
+     * Create a ChatPostMessage from a Message model
+     * This will create a ChatPostMessage model using values from the already
+     * created Message model since most of the fields are the same.
+     *
+     * @param Message $message
+     * @return ChatPostMessage
+     */
+    static function createFromMessage(Message $message)
+    {
+        $chatUpdate = new self();
+        
+        $fieldsToCopy = [
+            'text',
+            'channel',
+            'attachments',
+            'threadTs',
+        ];
+        foreach($fieldsToCopy as $field) {
+            $methodName = 'get'.strtoupper(substr($field, 0, 1)).substr($field, 1);
+            $chatUpdate->{$field} = $message->$methodName();
+        }
+        
+        return $chatUpdate;
+    }
 }
