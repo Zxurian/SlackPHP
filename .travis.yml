@@ -3,7 +3,7 @@ sudo: false
 language: php
 addons:
   code_climate:
-    repo_token: eed316b784ee9b95451ed4e68a7f87c7dbc4eb3e930dde8273b7100891274616
+    repo_token: 280bb4322d0a382c7e362cd3d451e8fd0a7a291dc716feb673a4e354085a60e8
 php:
   - '5.6'
   - '7.0'
