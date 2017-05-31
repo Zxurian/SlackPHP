@@ -10,6 +10,8 @@ use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
 use SlackPHP\SlackAPI\SlackAPI;
 use SlackPHP\SlackAPI\Models\MessageParts\Message;
+use SlackPHP\Tests\SlackAPI\Models\MessageParts\AttachmentTest;
+use SlackPHP\Tests\SlackAPI\Models\MessageParts\MessageTest;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -636,24 +638,32 @@ class ChatPostMessageTest extends TestCase
     {
         $attachment = new Attachment();
         $attachment->setFallback($this->dummyString);
+        
         $message = new Message();
         $message
             ->setText($this->dummyString)
+            ->setChannel($this->dummyString)
             ->addAttachment($attachment)
             ->setThreadTs($this->dummyString)
         ;
-        $returnedObject = ChatPostMessage::createFromMessage($message);
-        $refReturnedObject = new \ReflectionObject($returnedObject);
-        $textProperty = $refReturnedObject->getProperty('text');
-        $attachmentsProperty = $refReturnedObject->getProperty('attachments');
-        $threadTsProperty = $refReturnedObject->getProperty('threadTs');
-        $textProperty->setAccessible(true);
-        $attachmentsProperty->setAccessible(true);
-        $threadTsProperty->setAccessible(true);
-        $this->assertInstanceOf(ChatPostMessage::class, $returnedObject);
-        $this->assertEquals($this->dummyString, $textProperty->getValue($returnedObject));
-        $this->assertEquals([$attachment], $attachmentsProperty->getValue($returnedObject));
-        $this->assertEquals($this->dummyString, $threadTsProperty->getValue($returnedObject));
+        
+        $chatPostMessage = ChatPostMessage::createFromMessage($message);
+        $refChatPostMessage = new \ReflectionObject($chatPostMessage);
+        $this->assertInstanceOf(ChatPostMessage::class, $chatPostMessage);
+        
+        $fieldsToCheck = [
+            'text',
+            'channel',
+            'attachments',
+            'threadTs',
+        ];
+        
+        foreach ($fieldsToCheck as $field) {
+            $methodName = 'get'.strtoupper(substr($field, 0, 1)).substr($field, 1);
+            $property = $refChatPostMessage->getProperty($field);
+            $property->setAccessible(true);
+            $this->assertEquals($message->$methodName(), $property->getValue($chatPostMessage));
+        }
         
     }
     

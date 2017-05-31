@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -342,4 +343,38 @@ class ChatUpdateTest extends TestCase
     
         $this->assertEquals(Method::CHAT_UPDATE(), $chatUpdateObject->getMethod());
     }
+    
+    public function testCreateFromMessage()
+    {
+        $attachment = new Attachment();
+        $attachment->setFallback($this->dummyString);
+        
+        $message = new Message();
+        $message
+        ->setText($this->dummyString)
+        ->setChannel($this->dummyString)
+        ->addAttachment($attachment)
+        ->setThreadTs($this->dummyString)
+        ;
+        
+        $chatUpdate = ChatUpdate::createFromMessage($message);
+        $refChatUpdate = new \ReflectionObject($chatUpdate);
+        $this->assertInstanceOf(ChatUpdate::class, $chatUpdate);
+        
+        $fieldsToCheck = [
+            'text',
+            'channel',
+            'attachments',
+            'threadTs',
+        ];
+        
+        foreach ($fieldsToCheck as $field) {
+            $methodName = 'get'.strtoupper(substr($field, 0, 1)).substr($field, 1);
+            $property = $refChatUpdate->getProperty($field);
+            $property->setAccessible(true);
+            $this->assertEquals($message->$methodName(), $property->getValue($chatUpdate));
+        }
+        
+    }
+    
 }

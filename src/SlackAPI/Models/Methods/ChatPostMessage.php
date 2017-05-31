@@ -382,6 +382,8 @@ class ChatPostMessage extends AbstractPayload
     
     /**
      * Create a ChatPostMessage from a Message model
+     * This will create a ChatPostMessage model using values from the already
+     * created Message model since most of the fields are the same.
      * 
      * @param Message $message
      * @return ChatPostMessage
@@ -389,13 +391,16 @@ class ChatPostMessage extends AbstractPayload
     static function createFromMessage(Message $message)
     {
         $chatPostMessage = new self();
-        $chatPostMessage
-            ->setText($message->getText())
-            ->setThreadTs($message->getThreadTs())
-        ;
         
-        foreach ($message->getAttachments() as $attachment) {
-            $chatPostMessage->addAttachment($attachment);
+        $fieldsToCopy = [
+            'text',
+            'channel',
+            'attachments',
+            'threadTs',
+        ];
+        foreach($fieldsToCopy as $field) {
+            $methodName = 'get'.strtoupper(substr($field, 0, 1)).substr($field, 1);
+            $chatPostMessage->{$field} = $message->$methodName();
         }
         
         return $chatPostMessage;
