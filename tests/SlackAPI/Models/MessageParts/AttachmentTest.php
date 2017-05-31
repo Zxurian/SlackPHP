@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
+use SlackPHP\SlackAPI\Enumerators\AttachmentColor;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -78,11 +79,34 @@ class AttachmentTest extends TestCase
     /**
      * Test for setting invalid color
      */
-    public function testSettingInvalidColor()
+    public function testSettingInvalidNonScalarColor()
     {
         $this->expectException(\InvalidArgumentException::class);
         $attachmentObject = new Attachment();
         $attachmentObject->setColor(null);
+    }
+    
+    /**
+     * Test for setting color with AttachmentColor enum
+     */
+    public function testSettingColorWithEnum()
+    {
+        $attachment = new Attachment();
+        $attachment->setColor(AttachmentColor::GOOD());
+        $refAttachment = new \ReflectionObject($attachment);
+        $colorProperty = $refAttachment->getProperty('color');
+        $colorProperty->setAccessible(true);
+        $this->assertEquals('#'.AttachmentColor::GOOD, $colorProperty->getValue($attachment));
+    }
+    
+    /**
+     * Test that exception is thrown if other that AttachmentColor enum or hex value proviede
+     */
+    public function testSettingInvalidColor()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $attachment = new Attachment();
+        $attachment->setColor('R');
     }
     
     /**
