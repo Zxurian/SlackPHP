@@ -2,7 +2,6 @@
 
 namespace SlackPHP\DeepLink;
 
-use SlackPHP\DeepLink\Interfaces\LinkInterface;
 use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 use SlackPHP\DeepLink\Abstracts\DeepLink;
 
@@ -15,7 +14,7 @@ use SlackPHP\DeepLink\Abstracts\DeepLink;
  * @package DeepLink
  * @see https://api.slack.com/docs/deep-linking#open_slack
  */
-class OpenSlack extends DeepLink implements LinkInterface
+class OpenSlack extends DeepLink
 {
     const BASE = 'open';
     
