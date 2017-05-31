@@ -2,7 +2,6 @@
 
 namespace SlackPHP\DeepLink;
 
-use SlackPHP\DeepLink\Interfaces\LinkInterface;
 use SlackPHP\DeepLink\Abstracts\DeepLink;
 use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
@@ -15,7 +14,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * @package DeepLink
  * @version 0.3
  */
-class OpenDirectMessage extends DeepLink implements LinkInterface
+class OpenDirectMessage extends DeepLink
 {
     const BASE = 'user';
 

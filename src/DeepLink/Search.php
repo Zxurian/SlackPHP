@@ -2,7 +2,6 @@
 
 namespace SlackPHP\DeepLink;
 
-use SlackPHP\DeepLink\Interfaces\LinkInterface;
 use SlackPHP\DeepLink\Abstracts\DeepLink;
 use SlackPHP\DeepLink\Exceptions\DeepLinkException;
 
@@ -15,7 +14,7 @@ use SlackPHP\DeepLink\Exceptions\DeepLinkException;
  * @version 0.3
  * @package DeepLink
  */
-class Search extends DeepLink implements LinkInterface
+class Search extends DeepLink
 {
     const BASE = 'search';
 

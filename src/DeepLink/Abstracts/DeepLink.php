@@ -2,6 +2,8 @@
 
 namespace SlackPHP\DeepLink\Abstracts;
 
+use SlackPHP\DeepLink\Interfaces\LinkInterface;
+
 /**
  * Class used to create full DeepLink url link with createURL method
  * 
@@ -11,7 +13,7 @@ namespace SlackPHP\DeepLink\Abstracts;
  * @version 0.3
  * @see https://api.slack.com/docs/deep-linking
  */
-class DeepLink
+class DeepLink implements DeepLinkInterface
 {
     const SLACK_DEEP_LINK = 'slack://';
     
