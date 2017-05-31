@@ -52,7 +52,7 @@ class Message extends AbstractModel
     
     /**
      * @var ResponseType|null
-     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\")
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\Enumerators\ResponseType>")
      */
     protected $responseType = null;
     
