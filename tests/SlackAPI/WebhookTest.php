@@ -37,5 +37,6 @@ class WebhookBotTest extends TestCase
      */
     public function testSend()
     {
+        
     }
 }
