@@ -8,6 +8,8 @@ use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Enumerators\Parse;
 use SlackPHP\SlackAPI\Enumerators\Method;
+use SlackPHP\SlackAPI\SlackAPI;
+use SlackPHP\SlackAPI\Models\MessageParts\Message;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -578,6 +580,81 @@ class ChatPostMessageTest extends TestCase
         $chatPostMessageObject = new ChatPostMessage();
         $chatPostMessageObject->setChannel($this->dummyString);
         $chatPostMessageObject->validatePayload();
+    }
+    /**
+     * Test that exception is thrown if asUser property is set to true and username property has a value in it
+     */
+    public function testValidatePayloadAsUserSetWithUsername()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::AS_USER_SET_WITH_USERNAME);
+        $chatPostMessageObject = new ChatPostMessage();
+        $chatPostMessageObject
+            ->setChannel($this->dummyString)
+            ->setText($this->dummyString)
+            ->setAsUser(true)
+            ->setUsername($this->dummyString)
+        ;
+        $chatPostMessageObject->validatePayload();
+    }
+    
+    /**
+     * Test that exception is thrown if asUser property is set to true and iconUrl property has a value in it
+     */
+    public function testValidatePayloadAsUserWithIconUrl()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::AS_USER_SET_WITH_ICON_URL);
+        $chatPostMessageObject = new ChatPostMessage();
+        $chatPostMessageObject
+            ->setChannel($this->dummyString)
+            ->setText($this->dummyString)
+            ->setAsUser(true)
+            ->setIconUrl(SlackAPI::WEB_API_ENDPOINT)
+        ;
+        $chatPostMessageObject->validatePayload();
+    }
+    
+    /**
+     * Test that exception is thrown if asUser property is set to true and iconEmoji property has a value in it
+     */
+    public function testValidatePaylaodAsUserSetWithIconEmoji()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::AS_USER_SET_WITH_ICON_EMOJI);
+        $chatPostMessageObject = new ChatPostMessage();
+        $chatPostMessageObject
+            ->setChannel($this->dummyString)
+            ->setText($this->dummyString)
+            ->setAsUser(true)
+            ->setIconEmoji($this->dummyString)
+        ;
+        $chatPostMessageObject->validatePayload();
+    }
+    
+    public function testCreateFromMessage()
+    {
+        $attachment = new Attachment();
+        $attachment->setFallback($this->dummyString);
+        $message = new Message();
+        $message
+            ->setText($this->dummyString)
+            ->addAttachment($attachment)
+            ->setThreadTs($this->dummyString)
+        ;
+        $returnedObject = ChatPostMessage::createFromMessage($message);
+        $refReturnedObject = new \ReflectionObject($returnedObject);
+        $textProperty = $refReturnedObject->getProperty('text');
+        $attachmentsProperty = $refReturnedObject->getProperty('attachments');
+        $threadTsProperty = $refReturnedObject->getProperty('threadTs');
+        $textProperty->setAccessible(true);
+        $attachmentsProperty->setAccessible(true);
+        $threadTsProperty->setAccessible(true);
+        $this->assertInstanceOf(ChatPostMessage::class, $returnedObject);
+        $this->assertEquals($this->dummyString, $textProperty->getValue($returnedObject));
+        $this->assertEquals([$attachment], $attachmentsProperty->getValue($returnedObject));
+        $this->assertEquals($this->dummyString, $threadTsProperty->getValue($returnedObject));
+        
     }
     
     /**

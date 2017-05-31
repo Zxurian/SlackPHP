@@ -391,9 +391,12 @@ class ChatPostMessage extends AbstractPayload
         $chatPostMessage = new self();
         $chatPostMessage
             ->setText($message->getText())
-            ->addAttachment($message->getAttachments())
             ->setThreadTs($message->getThreadTs())
         ;
+        
+        foreach ($message->getAttachments() as $attachment) {
+            $chatPostMessage->addAttachment($attachment);
+        }
         
         return $chatPostMessage;
     }
