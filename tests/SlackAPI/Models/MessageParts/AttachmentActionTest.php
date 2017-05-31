@@ -175,6 +175,17 @@ class AttachmentActionTest extends TestCase
     }
     
     /**
+     * Test that exception is thrown, if setting invalid value of more that 2000 characters
+     */
+    public function testLongInvalidValue()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::STRING_TOO_LONG);
+        $attachmentActionObject = new AttachmentAction();
+        $attachmentActionObject->setValue(str_repeat(' ', 2001));
+    }
+    
+    /**
      * Test setting invalid value
      */
     public function testSettingInvalidValue()
@@ -253,6 +264,21 @@ class AttachmentActionTest extends TestCase
     }
     
     /**
+     * Test that exception is thrown if more than 100 options added
+     */
+    public function testSettingMoreThan100Options()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::TOO_MANY_OPTIONS);
+        $actionOption = new ActionOption();
+        $attachmentActionObject = new AttachmentAction();
+        
+        for($i = 0; $i <= 101; $i++){
+            $attachmentActionObject->addOption($actionOption);
+        }
+    }
+    
+    /**
      * Test for getting options
      */
     public function testGetOptions()
@@ -291,6 +317,23 @@ class AttachmentActionTest extends TestCase
         $this->assertInstanceOf(AttachmentAction::class, $returnedObject);
         $this->assertInternalType('array', $selectedOptionsProperty->getValue($attachmentActionObject));
         $this->assertEquals(1, count($selectedOptionsProperty->getValue($attachmentActionObject)));
+    }
+    
+    /**
+     * Test that exception is thrown if trying to set more than one selected option
+     */
+    public function testSettingMoreThanOneSelectedOption()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::TOO_MANY_OPTIONS);
+        $actionOption = new ActionOption();
+        $attachmentActionObject = new AttachmentAction();
+
+        $attachmentActionObject
+            ->addSelectedOption($actionOption)
+            ->addSelectedOption($actionOption)
+        ;
+
     }
     
     /**
@@ -452,6 +495,52 @@ class AttachmentActionTest extends TestCase
         $attachmentActionObject = new AttachmentAction();
         $attachmentActionObject->setName($this->dummyString)
             ->setText($this->dummyString)
+        ;
+        $attachmentActionObject->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if ActionOptions are not provided, when using static data source
+     */
+    public function testValidateModelStaticDataSourceWithoutActionOptions()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentActionObject = new AttachmentAction();
+        $attachmentActionObject
+            ->setName($this->dummyString)
+            ->setText($this->dummyString)
+            ->setType(ActionType::BUTTON())
+            ->setDataSource(ActionDataSource::STATIC_SOURCE())
+        ;
+        $attachmentActionObject->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if selectedOption is not in the list of provided options
+     */
+    public function testValidateModelSelectedOptionNotInListOfOptions()
+    {
+        $actionOption = new ActionOption();
+        $actionOption
+            ->setText($this->dummyString)
+            ->setValue($this->dummyString)
+        ;
+        $selectedActionOption = new ActionOption();
+        $selectedActionOption
+            ->setText($this->dummyString)
+            ->setValue('text')
+        ;
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::SELECTED_OPTION_NOT_FOUND_IN_OPTIONS);
+        $attachmentActionObject = new AttachmentAction();
+        $attachmentActionObject
+            ->setName($this->dummyString)
+            ->setText($this->dummyString)
+            ->setType(ActionType::BUTTON())
+            ->setDataSource(ActionDataSource::STATIC_SOURCE())
+            ->addOption($actionOption)
+            ->addSelectedOption($selectedActionOption)
         ;
         $attachmentActionObject->validateModel();
     }

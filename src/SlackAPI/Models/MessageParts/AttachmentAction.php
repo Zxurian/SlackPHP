@@ -177,7 +177,7 @@ class AttachmentAction extends AbstractModel
         }
         
         if (strlen($value) > 2000) {
-            throw new SlackException('Value cannot contain more than 2000 characters');
+            throw new SlackException('Value cannot contain more than 2000 characters', SlackException::STRING_TOO_LONG);
         }
         
         $this->value = (string)$value;
@@ -326,7 +326,7 @@ class AttachmentAction extends AbstractModel
         }
         
         switch ($this->dataSource->getValue()) {
-            case ActionDataSource::staticSource:
+            case ActionDataSource::STATIC_SOURCE:
                 if (count($this->options) < 1) {
                     throw new SlackException('must provide ActionOptions when using static data source', SlackException::MISSING_REQUIRED_FIELD);
                 }
@@ -339,7 +339,7 @@ class AttachmentAction extends AbstractModel
                         }
                     }
                     if (!$foundMatch) {
-                        throw new SlackException('selectedOption value must be in list of provided options');
+                        throw new SlackException('selectedOption value must be in list of provided options', SlackException::SELECTED_OPTION_NOT_FOUND_IN_OPTIONS);
                     }
                 }
                 break;

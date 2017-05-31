@@ -38,4 +38,5 @@ class SlackException extends \Exception
     const AS_USER_SET_WITH_ICON_URL = 127;
     const AS_USER_SET_WITH_ICON_EMOJI = 128;
     const NOT_URL = 129;
+    const SELECTED_OPTION_NOT_FOUND_IN_OPTIONS = 130;
 }
