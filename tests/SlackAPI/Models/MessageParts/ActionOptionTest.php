@@ -81,6 +81,17 @@ class ActionOptionTest extends TestCase
     }
     
     /**
+     * Test that exception is thrown, if setting invalid value of more that 2000 characters
+     */
+    public function testLongInvalidValue()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::STRING_TOO_LONG);
+        $actionOption = new ActionOption();
+        $actionOption->setValue(str_repeat(' ', 2001));
+    }
+    
+    /**
      * Test getting value
      */
     public function testGetValue()
