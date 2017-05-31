@@ -9,6 +9,7 @@ use SlackPHP\SlackAPI\Models\MessageParts\AttachmentField;
 use SlackPHP\SlackAPI\Models\MessageParts\AttachmentAction;
 use SlackPHP\SlackAPI\Enumerators\MrkdwnIn;
 use SlackPHP\SlackAPI\Enumerators\AttachmentColor;
+use SlackPHP\SlackAPI\SlackAPI;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -786,6 +787,51 @@ class AttachmentTest extends TestCase
         $attachmentObject = new Attachment();
         $attachmentObject->addAction($attachmentActionObject)
             ->setFallback($this->dummyString)
+        ;
+        $attachmentObject->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if authorLink is used without authorName
+     */
+    public function testValidateModelAuthorLinkWithoutAuthorName()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentObject = new Attachment();
+        $attachmentObject
+            ->setFallback($this->dummyString)
+            ->setAuthorLink(SlackAPI::WEB_API_ENDPOINT)
+        ;
+        $attachmentObject->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if authorIcon is used without authorName
+     */
+    public function testValidateModelAuthorIconWithoutAuthorName()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentObject = new Attachment();
+        $attachmentObject
+            ->setFallback($this->dummyString)
+            ->setAuthorIcon(SlackAPI::WEB_API_ENDPOINT.'icon.ico')
+        ;
+        $attachmentObject->validateModel();
+    }
+    
+    /**
+     * Test that exception is thrown if footerIcon is used without footer 
+     */
+    public function testValidateModelFooterIconWithoutFooter()
+    {
+        $this->expectException(SlackException::class);
+        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
+        $attachmentObject = new Attachment();
+        $attachmentObject
+            ->setFallback($this->dummyString)
+            ->setFooterIcon(SlackAPI::WEB_API_ENDPOINT.'icon.ico')
         ;
         $attachmentObject->validateModel();
     }
