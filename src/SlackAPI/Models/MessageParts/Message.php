@@ -18,6 +18,7 @@ use SlackPHP\SlackAPI\Enumerators\ResponseType;
  * @version 0.2
  * 
  * @method string getText()
+ * @method string getChannel()
  * @method Attachment[] getAttachments()
  * @method string getThreadTs()
  * @method bool getReplaceOriginal()
@@ -32,6 +33,12 @@ class Message extends AbstractModel
     protected $text = null;
 
     /**
+     * @var string|null
+     * @Type("string")
+     */
+    protected $channel = null;
+    
+    /**
      * @var Attachment[]
      * @Type("array<SlackPHP\SlackAPI\Models\MessageParts\Attachment>")
      */
@@ -44,8 +51,8 @@ class Message extends AbstractModel
     protected $threadTs = null;
     
     /**
-     * @var string|null
-     * @Type("string")
+     * @var ResponseType|null
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\")
      */
     protected $responseType = null;
     
@@ -76,6 +83,24 @@ class Message extends AbstractModel
         }
         
         $this->text = (string)$text;
+        
+        return $this;
+    }
+
+    /**
+     * The Channel you want to post it to
+     *
+     * @param string $channel
+     * @throws \InvalidArgumentException
+     * @return Message
+     */
+    public function setChannel($channel)
+    {
+        if (!is_scalar($channel)) {
+            throw new \InvalidArgumentException('Must provide scalar value for channel');
+        }
+        
+        $this->channel = (string)$channel;
         
         return $this;
     }
@@ -114,16 +139,6 @@ class Message extends AbstractModel
     }
     
     /**
-     * Get the ResponseType Enum
-     * 
-     * @return ResponseType
-     */
-    public function getResponseType()
-    {
-        return new ResponseType($this->responseType);
-    }
-    
-    /**
      * Set a a value for responeType
      * This field cannot be specified for a brand new message and must be
      * used only in response to the execution of message button action or a
@@ -135,7 +150,7 @@ class Message extends AbstractModel
      */
     public function setResponseType(ResponseType $responseType)
     {
-        $this->responseType = $responseType->getValue();
+        $this->responseType = $responseType;
         
         return $this;
     }
