@@ -493,8 +493,36 @@ class AttachmentActionTest extends TestCase
         $this->expectException(SlackException::class);
         $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
         $attachmentActionObject = new AttachmentAction();
-        $attachmentActionObject->setName($this->dummyString)
+        $attachmentActionObject
+            ->setName($this->dummyString)
             ->setText($this->dummyString)
+        ;
+        $attachmentActionObject->validateModel();
+    }
+    
+    /**
+     * Test successful validation of model 
+     */
+    public function testValidateModelWithStaticDataSourceSuccess()
+    {
+        $actionOption = new ActionOption();
+        $actionOption
+            ->setText($this->dummyString)
+            ->setValue($this->dummyString)
+        ;
+        $selectedActionOption = new ActionOption();
+        $selectedActionOption
+            ->setText($this->dummyString)
+            ->setValue($this->dummyString)
+        ;
+        $attachmentActionObject = new AttachmentAction();
+        $attachmentActionObject
+            ->setName($this->dummyString)
+            ->setText($this->dummyString)
+            ->setType(ActionType::BUTTON())
+            ->setDataSource(ActionDataSource::STATIC_SOURCE())
+            ->addOption($actionOption)
+            ->addSelectedOption($selectedActionOption)
         ;
         $attachmentActionObject->validateModel();
     }
