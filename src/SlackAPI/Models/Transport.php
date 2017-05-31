@@ -62,8 +62,8 @@ class Transport
      */
     private function getStaticClient()
     {
-        if (static::$defaultClient=== null) {
-            static::$defaultClient= new Client();
+        if (static::$defaultClient === null) {
+            static::$defaultClient = new Client();
         }
         
         return static::$defaultClient;
@@ -103,8 +103,8 @@ class Transport
      */
     private function getStaticEventDispatcher()
     {
-        if (static::$defaultEventDispatcher=== null) {
-            static::$defaultEventDispatcher= new EventDispatcher();
+        if (static::$defaultEventDispatcher === null) {
+            static::$defaultEventDispatcher = new EventDispatcher();
         }
         
         return static::$defaultEventDispatcher;
