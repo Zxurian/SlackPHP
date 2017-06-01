@@ -122,7 +122,7 @@ class Transport
     public function getSerializer()
     {
         if ($this->serializer === null) {
-            $this->serializer = \SlackPHP\SlackAPI\Serialization\Serializer::buildSerializer();
+            $this->serializer = \SlackPHP\SlackAPI\Serialization\Serializer::getSerializer();
         }
         
         return $this->serializer;

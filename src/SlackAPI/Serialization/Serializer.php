@@ -6,7 +6,7 @@ use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
-use SecurityLib\Enum;
+use MyCLabs\Enum\Enum;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
@@ -16,7 +16,18 @@ class Serializer
     /** @var \JMS\Serializer\Serializer */
     private static $serializer = null;
     
-    private function __construct()
+    private function __construct(){}
+    
+    private function __clone(){}
+    
+    private function __wakeup(){}
+    
+    /**
+     * Build the custom serializer and return it
+     * 
+     * @return \JMS\Serializer\Serializer
+     */
+    private static function buildSerializer()
     {
         // Load JMS namespace specifically
         AnnotationRegistry::registerAutoloadNamespace(
@@ -24,7 +35,7 @@ class Serializer
             'vendor/jms/serializer/src'
         );
         
-        static::$serializer = SerializerBuilder::create()
+        $serializer = SerializerBuilder::create()
             ->configureListeners(function(EventDispatcher $dispatcher) {
                 $dispatcher->addListener(Events::PRE_SERIALIZE,
                     function(PreSerializeEvent $event) {
@@ -35,7 +46,7 @@ class Serializer
                 );
             })
             ->configureHandlers(function(HandlerRegistry $registry) {
-                $registry->registerHandler('serialization', 'MyCLabsEnum', 'array',
+                $registry->registerHandler('serialization', 'MyCLabsEnum', 'json',
                     function(VisitorInterface $visitor, Enum $object, array $type) {
                         return $object->getValue();
                     }
@@ -50,12 +61,9 @@ class Serializer
             })
             ->build()
         ;
-        
+            
+        return $serializer;
     }
-    
-    private function __clone(){}
-    
-    private function __wakeup(){}
     
     /**
      * Get the Serializer Singleton
@@ -65,7 +73,7 @@ class Serializer
     public static function getSerializer()
     {
         if (static::$serializer === null) {
-            static::$serializer = new self();
+            static::$serializer = self::buildSerializer();
         }
         
         return static::$serializer;

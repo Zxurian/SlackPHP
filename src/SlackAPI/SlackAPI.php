@@ -8,7 +8,6 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Exceptions\WebAPIException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\Transport;
-use SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface;
 
 /**
  * Main class for sending and processing Slack requests
@@ -43,6 +42,24 @@ class SlackAPI extends Transport
     }
     
     /**
+     * Convert the payload to a single level array for use with http_query_vars
+     * Lower level arrays will be converted to JSON
+     *
+     * @return string
+     */
+    public function convertToWebAPIArray(AbstractPayload $payload)
+    {
+        $arrayPayload = $this->getSerializer()->toArray($payload);
+        foreach($arrayPayload as $key => $value) {
+            if (is_array($value)) {
+                $arrayPayload[$key] = json_encode($value);
+            }
+        }
+        
+        return $arrayPayload;
+    }
+    
+    /**
      * Send payload to Slack API
      *
      * @param AbstractPayload $payload Payload to send
@@ -59,7 +76,7 @@ class SlackAPI extends Transport
         $payload->validatePayload();
         
         // Get an array of parameters from the payload
-        $preparedPayload = $payload->convertToWebAPIArray();
+        $preparedPayload = $this->convertToWebAPIArray($payload);
         
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();

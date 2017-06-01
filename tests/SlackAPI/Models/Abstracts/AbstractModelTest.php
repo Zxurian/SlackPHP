@@ -3,8 +3,6 @@
 namespace SlackPHP\Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;

@@ -4,21 +4,33 @@ namespace SlackPHP\Tests\SlackAPI\TestObjects;
 
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Enumerators\Parse;
+use MyCLabs\Enum\Enum;
 
 class MockPayload extends AbstractPayload
 {
-
-    private $string = 'string';
+    /** @var string */
+    public $string = 'string';
     
-    private $array = ['value'];
+    /** @var mixed[] */
+    public $array = [];
     
-    private $integer = 1;
+    /** @var int */
+    public $integer = 1;
     
-    private $parse = null;
+    /** @var Enum */
+    public $enum = null;
     
     public function __construct()
     {
-        $this->parse = Parse::CLIENT();
+        $this->enum = Parse::CLIENT();
+        $this->array[] = [
+            'subProp'   => 1,
+            'subProp'   => 'test1'
+        ];
+        $this->array[] = [
+            'subProp'   => 2,
+            'subProp'   => 'test3'
+        ];
     }
     
     public function validatePayload(){}

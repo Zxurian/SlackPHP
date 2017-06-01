@@ -5,6 +5,8 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Enumerators\Method;
 use JMS\Serializer\Serializer;
+use JMS\Serializer\Annotation\Exclude;
+use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
  * Abstract class for individual Slack Payloads 
@@ -15,14 +17,14 @@ use JMS\Serializer\Serializer;
  * @version 0.2
  * 
  * @method string getToken()
+ * @ExclusionPolicy("none")
  */
 abstract class AbstractPayload extends AbstractModel implements PayloadInterface
 {
-    /** @var string|null */
+    /**
+     * @var string|null
+     */
     protected $token = null;
-    
-    /** @var Serializer */
-    protected $serializer = null;
     
     /**
      * Authentication token.
@@ -74,39 +76,5 @@ abstract class AbstractPayload extends AbstractModel implements PayloadInterface
         }
         
         $this->validatePayload();
-    }
-    
-    /**
-     * Get the custom built serializer
-     * 
-     * @return Serializer
-     */
-    protected function getSerializer()
-    {
-        if ($this->serializer === null) {
-            $this->serializer = \SlackPHP\SlackAPI\Serialization\Serializer::getSerializer();
-        }
-        
-        return $this->serializer;
-    }
-    
-    /**
-     * Convert the payload to a single level array for use with http_query_vars
-     * Lower level arrays will be converted to JSON
-     * 
-     * @return string
-     */
-    public function convertToWebAPIArray()
-    {
-        $arrayPayload = $this->getSerializer()->toArray($this);
-        
-        foreach($arrayPayload as $key => $value) {
-            if (is_array($value)) {
-                $arrayPayload[$key] = json_encode($value);
-            }
-        }
-        
-        return $arrayPayload;
-    }
-    
+    }    
 }

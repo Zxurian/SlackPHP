@@ -8,16 +8,17 @@ use GuzzleHttp\Client;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockClient;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockEventDispatcher;
+use JMS\Serializer\Serializer;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @author Zxurian
  * @covers Transport
  */
 class TransportTest extends TestCase
 {
-    
     /**
-     * Test for getting default client
+     * Test for getting unset client
      */
     public function testGetClient()
     {
@@ -26,9 +27,9 @@ class TransportTest extends TestCase
     }
     
     /**
-     * Test for getting client other that guzzle
+     * Test for getting set client
      */
-    public function testGetPresetClient()
+    public function testGetSetClient()
     {
         $mockClient = new MockClient();
         $transport = new Transport();
@@ -36,7 +37,7 @@ class TransportTest extends TestCase
         $clientProperty = $refTransport->getProperty('client');
         $clientProperty->setAccessible(true);
         $clientProperty->setValue($transport, $mockClient);
-        $this->assertInstanceOf(MockClient::class, $transport->getClient());
+        $this->assertSame($mockClient, $transport->getClient());
     }
     
     /**
@@ -47,11 +48,12 @@ class TransportTest extends TestCase
         $mockClient = new MockClient();
         $transport = new Transport();
         $returnObject = $transport->setClient($mockClient);
+        $this->assertInstanceOf(Transport::class, $returnObject);
+        
         $refTransport = new \ReflectionObject($transport);
         $clientProperty = $refTransport->getProperty('client');
         $clientProperty->setAccessible(true);
-        $this->assertInstanceOf(MockClient::class, $clientProperty->getValue($transport));
-        $this->assertInstanceOf(Transport::class, $returnObject);
+        $this->assertSame($mockClient, $clientProperty->getValue($transport));
     }
     
     /**
@@ -63,15 +65,24 @@ class TransportTest extends TestCase
         $refTransport = new \ReflectionObject($transport);
         $getStaticClientMethod = $refTransport->getMethod('getStaticClient');
         $getStaticClientMethod->setAccessible(true);
-        $returnClient = $getStaticClientMethod->invokeArgs($transport, []);
-        $clientProperty = $refTransport->getProperty('defaultClient');
-        $clientProperty->setAccessible(true);
-        $this->assertInstanceOf(Client::class, $clientProperty->getValue($transport));
+        $returnClient = $getStaticClientMethod->invoke($transport);
         $this->assertInstanceOf(Client::class, $returnClient);
     }
     
+    public function testGetStaticClientSingleton()
+    {
+        $transport = new Transport();
+        $refTransport = new \ReflectionObject($transport);
+        $getStaticClientMethod = $refTransport->getMethod('getStaticClient');
+        $getStaticClientMethod->setAccessible(true);
+        
+        $client1 = $getStaticClientMethod->invoke($transport);
+        $client2 = $getStaticClientMethod->invoke($transport);
+        $this->assertSame($client1, $client2);
+    }
+    
     /**
-     * Test for getting eventDispatcher
+     * Test for getting unset client
      */
     public function testGetEventDispatcher()
     {
@@ -80,47 +91,73 @@ class TransportTest extends TestCase
     }
     
     /**
-     * Test for getting preset eventDispatcher
+     * Test for getting set client
      */
-    public function testGetPresetEventDispatcher()
+    public function testGetSetEventDispatcher()
     {
-        $transport = new Transport();
         $mockEventDispatcher = new MockEventDispatcher();
+        $transport = new Transport();
         $refTransport = new \ReflectionObject($transport);
-        $eventDispatcherProperty = $refTransport->getProperty('eventDispatcher');
-        $eventDispatcherProperty->setAccessible(true);
-        $eventDispatcherProperty->setValue($transport, $mockEventDispatcher);
-        $this->assertInstanceOf(MockEventDispatcher::class, $transport->getEventDispatcher());
+        $clientProperty = $refTransport->getProperty('eventDispatcher');
+        $clientProperty->setAccessible(true);
+        $clientProperty->setValue($transport, $mockEventDispatcher);
+        $this->assertSame($mockEventDispatcher, $transport->getEventDispatcher());
     }
     
     /**
-     * Tests for setting eventDispatcher
+     * Test for setting client
      */
     public function testSettingEventDispatcher()
     {
+        $mockEventDispatcher= new MockEventDispatcher();
         $transport = new Transport();
-        $mockEventDispatcher = new MockEventDispatcher();
         $returnObject = $transport->setEventDispatcher($mockEventDispatcher);
-        $refTransport = new \ReflectionObject($transport);
-        $eventDispatcherProperty = $refTransport->getProperty('eventDispatcher');
-        $eventDispatcherProperty->setAccessible(true);
-        $this->assertInstanceOf(MockEventDispatcher::class, $eventDispatcherProperty->getValue($transport));
         $this->assertInstanceOf(Transport::class, $returnObject);
+        
+        $refTransport = new \ReflectionObject($transport);
+        $eventDispatcher = $refTransport->getProperty('eventDispatcher');
+        $eventDispatcher->setAccessible(true);
+        $this->assertSame($mockEventDispatcher, $eventDispatcher->getValue($transport));
     }
     
     /**
-     * Test for getting staticEventDispatcher
+     * Test for getting staticClient
      */
-    public function testGetStaticeventDispatcher()
+    public function testGetStaticEventDispatcher()
     {
         $transport = new Transport();
         $refTransport = new \ReflectionObject($transport);
-        $getStaticEventDispatcherMethod = $refTransport->getMethod('getStaticEventDispatcher');
+        $getStaticEventDispatcherMethod = $refTransport->getMethod('getEventDispatcher');
         $getStaticEventDispatcherMethod->setAccessible(true);
-        $returnEventDispatcher = $getStaticEventDispatcherMethod->invokeArgs($transport, []);
-        $defaultEventDispatcherProperty = $refTransport->getProperty('defaultEventDispatcher');
-        $defaultEventDispatcherProperty->setAccessible(true);
+        $returnEventDispatcher = $getStaticEventDispatcherMethod->invoke($transport);
         $this->assertInstanceOf(EventDispatcher::class, $returnEventDispatcher);
-        $this->assertInstanceOf(EventDispatcher::class, $defaultEventDispatcherProperty->getValue($transport));
+    }
+    
+    /**
+     * Testing DefaultEventDisptacher Singleton
+     */
+    public function testDefaultEventDispatcherSingleton()
+    {
+        $transport = new Transport();
+        $refTransport = new \ReflectionObject($transport);
+        $getStaticEventDispatcherMethod= $refTransport->getMethod('getEventDispatcher');
+        $getStaticEventDispatcherMethod->setAccessible(true);
+        
+        $eventDispatcher1 = $getStaticEventDispatcherMethod->invoke($transport);
+        $eventDispatcher2= $getStaticEventDispatcherMethod->invoke($transport);
+        $this->assertSame($eventDispatcher1, $eventDispatcher2);
+    }
+    
+    /**
+     * Testing getting Serializer
+     */
+    public function testSerialzer()
+    {
+        $transport = new Transport();
+        $serializer = $transport->getSerializer();
+        $this->assertInstanceOf(Serializer::class, $serializer);
+        
+        $serializer2 = $transport->getSerializer();
+        $this->assertSame($serializer, $serializer2);
     }
 }

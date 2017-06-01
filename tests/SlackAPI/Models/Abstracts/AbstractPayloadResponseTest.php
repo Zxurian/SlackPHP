@@ -3,7 +3,7 @@
 namespace SlackPHP\Tests\SlackAPI\Models\Abstracts;
 
 use PHPUnit\Framework\TestCase;
-use SlackPHP\Tests\SlackAPI\TestObjects\MockAbstractPayloadResponse;
+use SlackPHP\Tests\SlackAPI\TestObjects\MockPayloadResponse;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -17,9 +17,9 @@ class AbstractPayloadResponseTest extends TestCase
     public function testParseResponse()
     {
         $stringResponse = '{"ok":true}';
-        $mockAbstractResponsePayload = new MockAbstractPayloadResponse();
-        $payloadResponseObject = MockAbstractPayloadResponse::parseResponse($stringResponse);
-        $this->assertInstanceOf(MockAbstractPayloadResponse::class, $payloadResponseObject);
+        $mockAbstractResponsePayload = new MockPayloadResponse();
+        $payloadResponseObject = MockPayloadResponse::createFromJson($stringResponse);
+        $this->assertInstanceOf(MockPayloadResponse::class, $payloadResponseObject);
         $this->assertTrue($payloadResponseObject->getOk());
     }
 }

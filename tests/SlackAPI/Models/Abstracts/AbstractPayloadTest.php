@@ -6,9 +6,6 @@ use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Enumerators\Method;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
-use SlackPHP\Tests\SlackAPI\TestObjects\MockPayload;
-use JMS\Serializer\Serializer;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -58,51 +55,5 @@ class AbstractPayloadTest extends TestCase
         $chatUpdateObject = new ChatUpdate();
         
         $this->assertEquals(Method::CHAT_UPDATE(), $chatUpdateObject->getMethod());
-    }
-    
-    /** 
-     * Test for getting serializer
-     */
-    public function testGetSerializer()
-    {
-        $stub = $this->getMockForAbstractClass(AbstractPayload::class);
-        
-        $this->assertInstanceOf(Serializer::class, $stub->getSerializer());
-    }
-    
-    /**
-     * Test for successful validation of model
-     */
-    public function testConvertToWebAPIArray()
-    {
-        $stub = $this->getMockForAbstractClass(AbstractPayload::class);
-        $stub->setToken($this->dummyString);
-        $stub->validateModel();
-        
-        $this->assertTrue(true);
-    }
-    
-    /**
-     * Test that exception is thrown, if token not set before validateModel method called
-     */
-    public function testValidateModelTokenNotSet()
-    {
-        $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::MISSING_REQUIRED_FIELD);
-        $stub = $this->getMockForAbstractClass(AbstractPayload::class);
-        $stub->validateModel();
-        
-    }
-    
-    /**
-     * Test that payload is prepared as single level array for sending to Slack WebAPI
-     */
-    public function testPreparePayloadForWebAPI()
-    {
-        $mockAbstractPayload = new MockPayload();
-        $mockAbstractPayload->setToken($this->dummyString);
-        $returnArray = $mockAbstractPayload->preparePayloadForWebAPI();
-//         var_dump($returnArray['parse']);
-//         $this->assertEquals(['token' => 'String', 'string' => 'string', 'array' => '["value"]', 'integer' => 1, 'parse' => '{}'], $returnArray);
     }
 }
