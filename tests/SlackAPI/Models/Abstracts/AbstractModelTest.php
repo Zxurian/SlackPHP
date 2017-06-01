@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Methods\ChatUpdate;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
+use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
+use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -25,6 +27,20 @@ class AbstractModelTest extends TestCase
         
         $stub->validateRequired($stub);
         
+        $this->assertTrue(true);
+    }
+    
+    /**
+     * Test that no exceptions are thrown, if Model contains othe models in properties
+     */
+    public function testvalidateRequiredModelWithModelInProperties()
+    {
+        $attachment = new Attachment();
+        $attachment->setFallback($this->dummyString);
+        $chatPostMessage = new ChatPostMessage();
+        $chatPostMessage->addAttachment($attachment);
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $stub->validateRequired($chatPostMessage);
         $this->assertTrue(true);
     }
 }
