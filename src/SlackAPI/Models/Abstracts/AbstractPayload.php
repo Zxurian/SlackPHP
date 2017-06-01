@@ -4,8 +4,6 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Enumerators\Method;
-use JMS\Serializer\Serializer;
-use JMS\Serializer\Annotation\Exclude;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 
 /**
