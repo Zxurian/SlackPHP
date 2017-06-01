@@ -78,8 +78,6 @@ class SlackAPI extends Transport
         // Get an array of parameters from the payload
         $preparedPayload = $this->convertToWebAPIArray($payload);
         
-        die('omg!');
-        
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();
         $requestEvent
