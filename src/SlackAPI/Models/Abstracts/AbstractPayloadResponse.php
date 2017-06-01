@@ -3,7 +3,6 @@
 namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\Annotation\Type;
-use SlackPHP\SlackAPI\Serialization\Deserializer;
 use SlackPHP\SlackAPI\Serialization\Serializer;
 
 /**

@@ -8,6 +8,8 @@ use MyCLabs\Enum\Enum;
 
 class MockPayload extends AbstractPayload
 {
+    const METHOD = 'channels.archive';
+    
     /** @var string */
     public $string = 'string';
     
