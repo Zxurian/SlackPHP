@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Enumerators\Method;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockAbstractPayload;
+use JMS\Serializer\Serializer;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -57,6 +58,16 @@ class AbstractPayloadTest extends TestCase
         $chatUpdateObject = new ChatUpdate();
         
         $this->assertEquals(Method::CHAT_UPDATE(), $chatUpdateObject->getMethod());
+    }
+    
+    /** 
+     * Test for getting serializer
+     */
+    public function testGetSerializer()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractPayload::class);
+        
+        $this->assertInstanceOf(Serializer::class, $stub->getSerializer());
     }
     
     /**
