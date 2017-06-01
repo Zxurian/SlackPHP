@@ -4,6 +4,7 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Serialization\Deserializer;
+use SlackPHP\SlackAPI\Serialization\Serializer;
 
 /**
  * Provides ok, error and warning properties for received Slack payload
@@ -39,13 +40,15 @@ abstract class AbstractPayloadResponse extends MagicGetter
     /**
      * Deserializes the response from Slack Web API and instantiates a 
      *
-     * @param string $responseContents
+     * @param string $json
      * @return AbstractPayloadResponse
      */
-    public static function parseResponse($responseContents)
+    public static function createFromJson($json)
     {
-        $payloadResponseObject = Deserializer::deserialize($responseContents, static::class, 'json');
+        $serializer = Serializer::getSerializer();
         
-        return $payloadResponseObject;
+        $payloadResponse = $serializer->deserialize($json, static::class, 'json');
+        
+        return $payloadResponse;
     }
 }

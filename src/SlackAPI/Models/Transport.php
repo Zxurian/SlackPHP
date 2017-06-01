@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use GuzzleHttp\ClientInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use JMS\Serializer\Serializer;
 
 /**
  * Base transport for Slack API HTTP
@@ -17,16 +18,19 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 class Transport
 {
     /** @var Client */
-    static $defaultClient;
+    static $defaultClient = null;
     
     /** @var Client */
-    private $client;
+    private $client = null;
     
     /** @var EventDispatcher */
-    static $defaultEventDispatcher;
+    static $defaultEventDispatcher = null;
     
     /** @var EventDispatcher */
-    private $eventDispatcher;
+    private $eventDispatcher = null;
+    
+    /** @var Serializer */
+    private $serializer = null;
     
     /**
      * Get the Client for use in transport
@@ -108,5 +112,19 @@ class Transport
         }
         
         return static::$defaultEventDispatcher;
+    }
+    
+    /**
+     * Getter for custom serializer
+     * 
+     * @return Serializer
+     */
+    public function getSerializer()
+    {
+        if ($this->serializer === null) {
+            $this->serializer = \SlackPHP\SlackAPI\Serialization\Serializer::buildSerializer();
+        }
+        
+        return $this->serializer;
     }
 }

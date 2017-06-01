@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Exceptions\WebAPIException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\Transport;
+use SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface;
 
 /**
  * Main class for sending and processing Slack requests
@@ -54,8 +55,11 @@ class SlackAPI extends Transport
             $payload->setToken($this->token);
         }
         
+        // Validate the payload to make sure all required fields are filled
+        $payload->validatePayload();
+        
         // Get an array of parameters from the payload
-        $preparedPayload = $payload->preparePayloadForWebAPI();
+        $preparedPayload = $payload->convertToWebAPIArray();
         
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();
@@ -103,7 +107,7 @@ class SlackAPI extends Transport
         }
         
         if ($payloadResponse->getWarning() !== null) {
-            trigger_error($payloadResponse->getWarning(), E_USER_WARNING);
+            trigger_error('Slack warning: '.$payloadResponse->getWarning(), E_USER_WARNING);
         }
         
         return $payloadResponse;

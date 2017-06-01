@@ -16,7 +16,42 @@ class Serializer
     /** @var \JMS\Serializer\Serializer */
     private static $serializer = null;
     
-    private function __construct(){}
+    private function __construct()
+    {
+        // Load JMS namespace specifically
+        AnnotationRegistry::registerAutoloadNamespace(
+            'JMS\\Serializer\\Annotation',
+            'vendor/jms/serializer/src'
+        );
+        
+        static::$serializer = SerializerBuilder::create()
+            ->configureListeners(function(EventDispatcher $dispatcher) {
+                $dispatcher->addListener(Events::PRE_SERIALIZE,
+                    function(PreSerializeEvent $event) {
+                        if ($event->getObject() instanceof Enum) {
+                            $event->setType('MyCLabsEnum');
+                        }
+                    }
+                );
+            })
+            ->configureHandlers(function(HandlerRegistry $registry) {
+                $registry->registerHandler('serialization', 'MyCLabsEnum', 'array',
+                    function(VisitorInterface $visitor, Enum $object, array $type) {
+                        return $object->getValue();
+                    }
+                );
+            })
+            ->configureHandlers(function(HandlerRegistry $registry) {
+                $registry->registerHandler('deserialization', 'MyCLabsEnum', 'json',
+                    function(VisitorInterface $visitor, $data, array $type) {
+                        return new $type['params'][0]($data);
+                    }
+                );
+            })
+            ->build()
+        ;
+        
+    }
     
     private function __clone(){}
     
@@ -27,47 +62,13 @@ class Serializer
      * 
      * @return \JMS\Serializer\Serializer
      */
-    private static function getSerializer()
+    public static function getSerializer()
     {
         if (static::$serializer === null) {
-            AnnotationRegistry::registerAutoloadNamespace(
-                'JMS\\Serializer\\Annotation',
-                'vendor/jms/serializer/src'
-            );
-            
-            static::$serializer = SerializerBuilder::create()
-                ->configureListeners(function(EventDispatcher $dispatcher) {
-                    $dispatcher->addListener(Events::PRE_SERIALIZE,
-                        function(PreSerializeEvent $event) {
-                            if ($event->getObject() instanceof Enum) {
-                                $event->setType('MyCLabsEnum');
-                            }
-                        }
-                        );
-                })
-                ->configureHandlers(function(HandlerRegistry $registry) {
-                    $registry->registerHandler('serialization', 'MyCLabsEnum', 'array',
-                        function(VisitorInterface $visitor, Enum $object, array $type) {
-                            return $object->getValue();
-                        }
-                        );
-                })
-                ->build()
-            ;
+            static::$serializer = new self();
         }
         
         return static::$serializer;
-    }
-    
-    /**
-     * Call the serializer as a static method passing through the actual serialize functions
-     * 
-     * @param string $name
-     * @param mixed[] $arguments
-     */
-    public static function __callstatic($name, $arguments)
-    {
-        return static::getSerializer()->{$name}(...$arguments);
     }
     
 }

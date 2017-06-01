@@ -7,8 +7,6 @@ use SlackPHP\SlackAPI\Models\MessageParts\Message;
 use SlackPHP\SlackAPI\Serialization\Serializer;
 use GuzzleHttp\Psr7\Request;
 use SlackPHP\SlackAPI\Events;
-use GuzzleHttp;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Exceptions\WebhookException;
 
 /**
@@ -49,7 +47,7 @@ class Webhook extends Transport
     public function send(Message $message)
     {
         // Get an array of parameters from the payload
-        $jsonPayload = Serializer::serialize($message, 'json');
+        $jsonPayload = Serializer::getSerializer()->serialize($message, 'json');
         
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();

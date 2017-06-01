@@ -59,7 +59,8 @@ class AbstractPayloadTest extends TestCase
     /**
      * Test that payload is prepared for sending to slack
      */
-    public function testPreparePayloadForSlack()
+    public function testConvertToWebAPIArray()
     {
+        
     }
 }
