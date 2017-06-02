@@ -8,6 +8,7 @@ use SlackPHP\SlackAPI\Serialization\Serializer;
 use GuzzleHttp\Psr7\Request;
 use SlackPHP\SlackAPI\Events;
 use SlackPHP\SlackAPI\Exceptions\WebhookException;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * Class for handling Incoming Webhook Messages
@@ -47,7 +48,7 @@ class Webhook extends Transport
     public function send(Message $message)
     {
         // Get an array of parameters from the payload
-        $jsonPayload = Serializer::getSerializer()->serialize($message, 'json');
+        $jsonPayload = $this->getSerializer()->serialize($message, 'json');
         
         // Trigger an event for the Request
         $requestEvent = new Events\RequestEvent();
@@ -64,7 +65,14 @@ class Webhook extends Transport
             ['Content-Type' => 'application/json'],
             $jsonPayload
         );
-        $response = $this->getClient()->send($request);
+        
+        try {
+            $response = $this->getClient()->send($request);
+        } catch (ClientException $e) {
+            $webhookException = new WebhookException('Client Error');
+            $webhookException->setGuzzleException($e);
+            throw $webhookException;
+        }
         
         // Trigger an event for the Response
         $receivedEvent = new Events\ReceivedEvent();
@@ -74,10 +82,6 @@ class Webhook extends Transport
         ;
         $this->getEventDispatcher()->dispatch(Events\ReceivedEvent::EVENT_NAME, $receivedEvent);
         
-        if ($response->getStatusCode() != 200) {
-            throw new WebhookException($response->getBody());
-        }
-        
-        return json_decode($response->getBody());
+        return $response->getBody()->getContents();
     }
 }
