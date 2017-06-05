@@ -76,6 +76,59 @@ class SlackAPITest extends TestCase
      */
     public function testSend()
     {
+        $expectedArray = [
+            'a' => 1,
+            'b' => 'test',
+            'c' => '{"x":"foo","y":123,"z":"bar"}',
+        ];
+        $mockPayload = $this->getMockBuilder(MockPayload::class)
+            ->setMethods(['getToken', 'setToken', 'validatePayload', 'getMethod', 'getResponseClass'])
+            ->getMock()
+        ;
+        $refMockPayload = new \ReflectionObject($mockPayload);
+        $tokenProperty = $refMockPayload->getProperty('token');
+        $tokenProperty->setAccessible(true);
+        $tokenProperty->setValue($mockPayload, $this->oAuthToken);
+        $mockPayload
+            ->expects($this->any())
+            ->method('getToken')
+            ->will($this->returnValue(null))
+        ;
+        $mockPayload
+            ->expects($this->any())
+            ->method('setToken')
+            ->will($this->returnValue(true))
+        ;
+        $mockPayload
+            ->expects($this->any())
+            ->method('validatePayload')
+            ->will($this->returnValue(true))
+        ;
+        $mockPayload
+            ->expects($this->any())
+            ->method('getMethod')
+            ->will($this->returnValue('method'))
+        ;
+        $mockPayload
+            ->expects($this->any())
+            ->method('getResponseClass')
+            ->will($this->returnValue('MockPayloadResponse'))
+        ;
         
+        $mockSlackAPI = $this->getMockBuilder(SlackAPI::class)
+            ->setConstructorArgs([$this->oAuthToken])
+            ->setMethods(['convertToWebAPIArray', 'getEventDispatcher', 'getClient'])
+            ->getMock()
+        ;
+        $mockSlackAPI
+            ->expects($this->any())
+            ->method('convertToWebAPIArray')
+            ->will($this->returnValue($expectedArray))
+        ;
+        $mockSlackAPI
+            ->expects($this->any())
+            ->method('getEventDispatcher')
+            ->will($this->returnValue($value))
+        ;
     }
 }
