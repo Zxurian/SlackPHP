@@ -1,14 +1,14 @@
 {
 	"name" : "zxurian/slack-php",
+	"type" : "library",
 	"description" : "PHP implementation of Slack\u2019s API",
-	"version" : "0.2",
 	"keywords" : [
 		"slack"
 	],
 	"homepage" : "https://github.com/Zxurian/SlackPHP",
 	"license" : "GPL-3.0+",
 	"authors" : [{
-			"name" : "Rick Goodrow"
+			"name" : "Zxurian"
 		}, {
 			"name" : "Dzianis Zhaunerchyk"
 		}
