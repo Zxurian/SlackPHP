@@ -64,33 +64,31 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      * Create formatted date for Slack text fields. Include at least one DateToken enum value in 
      * stringContainingDateTokens parameter to show formatted date.
      * 
-     * @param int $timestamp Unix format timestamp
+     * @param \DateTime $timestamp Date to be used
      * @param string $fallback Message in case the client is unable to process the date
      * @param string $stringContainingDateTokens Describe your date and time format as a string
      * @param string $link URL in case your date needs to be linked
      * @return string
      */
-    public function getFormatedDate($timestamp, $fallback, $stringContainingDateTokens = '', $link = null)
-    {   
-        if (!is_int($timestamp)) {
-            throw new \InvalidArgumentException('Timestamp must be an integer');
-        }
+    public function getFormatedDate(\DateTime $date, $fallback, $stringContainingDateTokens = '', $link = null)
+    {
         if (!is_scalar($fallback)) {
-            throw new \InvalidArgumentException('Fallback must be a scalar');
+            throw new \InvalidArgumentException('Fallback must be scalar');
         }
         if (!is_scalar($stringContainingDateTokens)) {
-            throw new \InvalidArgumentException('A stringContainingDateTokens parameter must be a scalar');
+            throw new \InvalidArgumentException('date string must be scalar');
         }
         if (!is_null($link) && !is_scalar($link)) {
-            throw new \InvalidArgumentException('Link must be a scalar');
+            throw new \InvalidArgumentException('Link must be scalar');
         }
         
-        return self::LEFT_ANGLE_PLACEHOLDER.'!date^'.$timestamp.
+        return self::LEFT_ANGLE_PLACEHOLDER.'!date^'.$date->getTimestamp().
             '^'.$stringContainingDateTokens.
             (!is_null($link) ? '^'.$link : '').
             '|'.$fallback.self::RIGHT_ANGLE_PLACEHOLDER
         ;
     }
+    
     /**
      * Create special command for use in Slack text fields
      * Provide label to create @here or @subteam commands
@@ -106,10 +104,10 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     public function getVariable(SpecialCommand $specialCommand, $label = null, $id = null)
     {
         if (!is_scalar($label) && !is_null($label)) {
-            throw new \InvalidArgumentException('label must be a scalar');
+            throw new \InvalidArgumentException('label must be scalar');
         }
         if (!is_scalar($id) && !is_null($id)) {
-            throw new \InvalidArgumentException('id must be a scalar');
+            throw new \InvalidArgumentException('id must be scalar');
         }
         $command = $specialCommand->getValue();
         
