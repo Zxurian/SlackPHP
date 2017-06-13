@@ -10,6 +10,7 @@ use MyCLabs\Enum\Enum;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\VisitorInterface;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 
 class Serializer
 {
@@ -49,6 +50,18 @@ class Serializer
                 $registry->registerHandler('serialization', 'MyCLabsEnum', 'json',
                     function(VisitorInterface $visitor, Enum $object, array $type) {
                         return $object->getValue();
+                    }
+                );
+                $registry->registerHandler('serialization', 'SlackText', 'json',
+                    function(VisitorInterface $visitor, $string, array $type) {
+                        $string = str_replace(['&', '<', '>'], [ '&amp;', '&lt;', '&gt;'], $string);
+                        $search = [
+                            AbstractModel::LINK_START,
+                            AbstractModel::LINK_MIDDLE,
+                            AbstractModel::LINK_END,
+                        ];
+                        $replace = [ '<', '|', '>' ];
+                        return urlencode(str_replace($search, $replace, $string));
                     }
                 );
             })

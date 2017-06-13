@@ -28,7 +28,7 @@ class Message extends AbstractModel
 {
     /**
      * @var string|null
-     * @Type("string")
+     * @Type("SlackText")
      */
     protected $text = null;
 

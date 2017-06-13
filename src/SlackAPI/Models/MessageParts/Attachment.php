@@ -149,8 +149,8 @@ class Attachment extends AbstractModel
     protected $attachmentType = 'default';
     
     /**
-     * @var array
-     * @Type("array<string>")
+     * @var MrkdwnIn[]
+     * @Type("MyCLabsEnum<SlackPHP\SlackAPI\Enumerators\MrkdwnIn>")
      */
     protected $mrkdwnIn = [];
     
