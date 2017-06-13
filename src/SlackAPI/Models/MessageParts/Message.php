@@ -16,7 +16,7 @@ use SlackPHP\SlackAPI\Enumerators\ResponseType;
  * @see https://api.slack.com/docs/interactive-message-field-guide#message
  * @package SlackAPI
  * @version 0.2
- * 
+ *
  * @method string getText()
  * @method string getChannel()
  * @method Attachment[] getAttachments()

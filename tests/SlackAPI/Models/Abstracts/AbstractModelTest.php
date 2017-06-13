@@ -41,4 +41,40 @@ class AbstractModelTest extends TestCase
         $stub->validateRequired($chatPostMessage);
         $this->assertTrue(true);
     }
+    
+    /**
+     * Test ways of getting links
+     */
+    public function testGetLink()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        
+        $link = '#1234';
+        $display = 'mylink';
+        
+        $this->assertEquals(AbstractModel::LINK_START.$link.AbstractModel::LINK_END, $stub->getLink($link));
+        $this->assertEquals(AbstractModel::LINK_START.$link.AbstractModel::LINK_MIDDLE.$display.AbstractModel::LINK_END, $stub->getLink($link, $display));
+    }
+    
+    /**
+     * Test an exception is thrown when providing a non scalar value to bad link
+     */
+    public function testGetLinkExceptionBadLink()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        
+        $this->expectException(\InvalidArgumentException::class);
+        $stub->getLink(null);
+    }
+    
+    /**
+     * Test an exception is thrown when providing a non scalar value to display
+     */
+    public function testGetLinkExceptionBadDisplay()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        
+        $this->expectException(\InvalidArgumentException::class);
+        $stub->getLink('test', new \stdClass());
+    }
 }

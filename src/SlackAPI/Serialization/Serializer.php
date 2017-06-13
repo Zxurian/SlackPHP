@@ -56,11 +56,15 @@ class Serializer
                     function(VisitorInterface $visitor, $string, array $type) {
                         $string = str_replace(['&', '<', '>'], [ '&amp;', '&lt;', '&gt;'], $string);
                         $search = [
-                            AbstractModel::LINK_START,
-                            AbstractModel::LINK_MIDDLE,
-                            AbstractModel::LINK_END,
+                            AbstractModel::LEFT_ANGLE_PLACEHOLDER,
+                            AbstractModel::RIGHT_ANGLE_PLACEHOLDER,
+                            AbstractModel::AMPERSAND_PLACEHOLDER,
                         ];
-                        $replace = [ '<', '|', '>' ];
+                        $replace = [
+                            AbstractModel::LEFT_ANGLE_ACTUAL,
+                            AbstractModel::RIGHT_ANGLE_ACTUAL,
+                            AbstractModel::AMPERSAND_ACTUAL
+                        ];
                         return urlencode(str_replace($search, $replace, $string));
                     }
                 );
