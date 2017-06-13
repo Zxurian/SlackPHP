@@ -101,29 +101,28 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      * @throws SlackException
      * @return string
      */
-    public function getVariable(SpecialCommand $specialCommand, $label = null, $id = null)
+    public function getVariable(SpecialCommand $specialCommand, $label = null, $id = null, $handle = null)
     {
         if (!is_null($label) && !is_scalar($label)) {
             throw new \InvalidArgumentException('label must be scalar');
         }
-        if (!is_null($id) && !is_scalar($id)) {
-            throw new \InvalidArgumentException('id must be scalar');
+        if ($specialCommand == SpecialCommand::SUBTEAM()) {
+            if (!is_scalar($id)) {
+                throw new \InvalidArgumentException('id is required for subteam');
+            }
+            if (!is_scalar($handle)) {
+                throw new \InvalidArgumentException('handle is required for subteam');
+            }
+            $idCommand = $specialCommand->getValue().'^'.$id.'|'.$handle;
+            return self::LEFT_ANGLE_PLACEHOLDER.'!'.$idCommand.self::RIGHT_ANGLE_PLACEHOLDER;
         }
-        $command = $specialCommand->getValue();
         
-        if ($specialCommand == SpecialCommand::HERE() || $specialCommand == SpecialCommand::SUBTEAM()) {
-            $id = '';
-            if (is_null($label)) {
-                throw new SlackException('Label required for '.$specialCommand->getValue(), SlackException::LABEL_REQUIRED);
-            }
-            if($specialCommand == SpecialCommand::SUBTEAM()) {
-                if (is_null($id)) {
-                    throw new SlackException($specialCommand->getValue().' requires id to be provided', SlackException::ID_REQUIRED);
-                }
-                $id = '^'.$id;
-            }
-            $command = $command.$id.'|'.$label;
+        if ($specialCommand == SpecialCommand::HERE() && is_null($label))  {
+            $label = SpecialCommand::HERE;
         }
-        return self::LEFT_ANGLE_PLACEHOLDER.'!'.$command.self::RIGHT_ANGLE_PLACEHOLDER;
+        
+        $labeledCommand = $specialCommand->getValue().(!is_null($label) ? '|'.$label : '');
+
+        return self::LEFT_ANGLE_PLACEHOLDER.'!'.$labeledCommand.self::RIGHT_ANGLE_PLACEHOLDER;
     }
 }
