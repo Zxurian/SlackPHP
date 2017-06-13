@@ -103,10 +103,10 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      */
     public function getVariable(SpecialCommand $specialCommand, $label = null, $id = null)
     {
-        if (!is_scalar($label) && !is_null($label)) {
+        if (!is_null($label) && !is_scalar($label)) {
             throw new \InvalidArgumentException('label must be scalar');
         }
-        if (!is_scalar($id) && !is_null($id)) {
+        if (!is_null($id) && !is_scalar($id)) {
             throw new \InvalidArgumentException('id must be scalar');
         }
         $command = $specialCommand->getValue();
