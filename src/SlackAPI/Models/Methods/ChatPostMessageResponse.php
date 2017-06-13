@@ -6,7 +6,7 @@ use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayloadResponse;
 use JMS\Serializer\Annotation\Type;
 
 /**
- * Class, used for deserialization of respponse payload received after posting message to channel
+ * Class, used for deserialization of response payload received after posting message to channel
  * 
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
  * @package SlackAPI
