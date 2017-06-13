@@ -4,11 +4,12 @@ namespace SlackPHP\SlackAPI;
 
 use SlackPHP\SlackAPI\Models\Transport;
 use SlackPHP\SlackAPI\Models\MessageParts\Message;
-use SlackPHP\SlackAPI\Serialization\Serializer;
 use GuzzleHttp\Psr7\Request;
 use SlackPHP\SlackAPI\Events;
 use SlackPHP\SlackAPI\Exceptions\WebhookException;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\BadResponseException;
 
 /**
  * Class for handling Incoming Webhook Messages
@@ -68,8 +69,12 @@ class Webhook extends Transport
         
         try {
             $response = $this->getClient()->send($request);
-        } catch (ClientException $e) {
-            $webhookException = new WebhookException('Client Error');
+        } catch (BadResponseException $e) {
+            $webhookException = new WebhookException('Bad Resposne from Slack. See getGuzzleHttp() for more info.', WebhookException::BAD_RESPONSE);
+            $webhookException->setGuzzleException($e);
+            throw $webhookException;
+        } catch (RequestException $e) {
+            $webhookException = new WebhookException('Error when trying to send request. See getGuzzleException() for more info.', WebhookException::CONNECTION_ERROR);
             $webhookException->setGuzzleException($e);
             throw $webhookException;
         }

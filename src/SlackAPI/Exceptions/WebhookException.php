@@ -2,19 +2,14 @@
 
 namespace SlackPHP\SlackAPI\Exceptions;
 
-use GuzzleHttp\Exception\ClientException;
-
-class WebhookException extends \Exception
+/**
+ * Exceptions returned from Slack’s Incoming Webhook
+ *
+ * @author Zxurian
+ * @package SlackAPI
+ * @version 0.1
+ *
+ */
+class WebhookException extends SlackException
 {
-    private $guzzleException = null;
-    
-    public function setGuzzleException(ClientException $e)
-    {
-        $this->guzzleException = $e;
-    }
-    
-    public function getGuzzleException()
-    {
-        return $this->guzzleException;
-    }
 }

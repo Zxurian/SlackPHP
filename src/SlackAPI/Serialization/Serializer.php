@@ -55,7 +55,15 @@ class Serializer
             ->configureHandlers(function(HandlerRegistry $registry) {
                 $registry->registerHandler('deserialization', 'MyCLabsEnum', 'json',
                     function(VisitorInterface $visitor, $data, array $type) {
-                        return new $type['params'][0]($data);
+                        if (!is_array($data)) {
+                            return new $type['params'][0]['name']($data);
+                        }
+                        
+                        $return = [];
+                        foreach($data as $value) {
+                            $return[] = new $type['params'][0]['name']($value);
+                        }
+                        return $return;
                     }
                 );
             })

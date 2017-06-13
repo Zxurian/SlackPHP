@@ -22,11 +22,12 @@ class ChannelsListTest extends TestCase
     {
         $channelsListObject = new ChannelsList();
         $returnedObject = $channelsListObject->setExcludeArchived($this->dummyBool);
+        $this->assertSame($channelsListObject, $returnedObject);
+        
         $refChannelsListObject = new \ReflectionObject($channelsListObject);
         $excludeArchivedProperty = $refChannelsListObject->getProperty('excludeArchived');
         $excludeArchivedProperty->setAccessible(true);
         
-        $this->assertInstanceOf(ChannelsList::class, $returnedObject);
         $this->assertEquals($this->dummyBool, $excludeArchivedProperty->getValue($channelsListObject));
     }
     
@@ -61,11 +62,12 @@ class ChannelsListTest extends TestCase
     {
         $channelsListObject = new ChannelsList();
         $returnedObject = $channelsListObject->setExcludeMembers($this->dummyBool);
+        $this->assertSame($channelsListObject, $returnedObject);
+        
         $refChannelsListObject = new \ReflectionObject($channelsListObject);
         $excludeMembersProperty = $refChannelsListObject->getProperty('excludeMembers');
         $excludeMembersProperty->setAccessible(true);
     
-        $this->assertInstanceOf(ChannelsList::class, $returnedObject);
         $this->assertEquals($this->dummyBool, $excludeMembersProperty->getValue($channelsListObject));
     }
     

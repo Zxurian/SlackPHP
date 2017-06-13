@@ -82,7 +82,13 @@ class SlackAPITest extends TestCase
             'c' => '{"x":"foo","y":123,"z":"bar"}',
         ];
         $mockPayload = $this->getMockBuilder(MockPayload::class)
-            ->setMethods(['getToken', 'setToken', 'validatePayload', 'getMethod', 'getResponseClass'])
+            ->setMethods([
+                'getToken',
+                'setToken',
+                'validatePayload',
+                'getMethod',
+                'getResponseClass',
+            ])
             ->getMock()
         ;
         $refMockPayload = new \ReflectionObject($mockPayload);
@@ -124,11 +130,6 @@ class SlackAPITest extends TestCase
             ->expects($this->any())
             ->method('convertToWebAPIArray')
             ->will($this->returnValue($expectedArray))
-        ;
-        $mockSlackAPI
-            ->expects($this->any())
-            ->method('getEventDispatcher')
-            ->will($this->returnValue($value))
         ;
     }
 }

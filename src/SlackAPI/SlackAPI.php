@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI;
 
 use GuzzleHttp\Psr7\Request;
 use SlackPHP\SlackAPI\Events;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Exceptions\WebAPIException;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\Transport;
@@ -102,10 +101,6 @@ class SlackAPI extends Transport
             ->setResponse($response)
         ;
         $this->getEventDispatcher()->dispatch(Events\ReceivedEvent::EVENT_NAME, $receivedEvent);
-        
-        if ($response->getStatusCode() != 200) {
-            throw new SlackException($response->getStatusCode().' received from server', SlackException::NOT_200_FROM_SLACK_SERVER);
-        }
         
         // Populate the response model
         $responseClassName = $payload->getResponseClass();

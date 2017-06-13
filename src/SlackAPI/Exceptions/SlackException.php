@@ -2,41 +2,57 @@
 
 namespace SlackPHP\SlackAPI\Exceptions;
 
+use GuzzleHttp\Exception\GuzzleException;
+
 /**
  * Class for Slack exceptions
  *
+ * @author Zxurian
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
+ * @package SlackAPI
+ * @version 0.1
+ * 
  */
 class SlackException extends \Exception
 {
-    const CANT_SERIALIZE_PAYLOAD = 100;
-    const NO_TOKEN_SET = 101;
-    const REQUEST_FAILED = 102;
-    const RESPONSE_FAILED = 103;
-    const JSON_DECODING = 104;
-    const NOT_200_FROM_SLACK_SERVER = 105;
-    const MORE_THAN_5_ACTIONS_IN_ATTACHMENT = 106;
-    const NO_TEXT = 107;
-    const CHANNEL_NOT_SET = 108;
-    const TEXT_NOT_SET = 109;
-    const TS_NOT_SET = 110;
-    const NOT_BOOLEAN = 111;
-    const NOT_STRING = 112;
-    const NOT_SCALAR = 113;
-    const INVALID_MRKDWN_IN_VALUES = 114;
-    const MISSING_REQUIRED_FIELD = 115;
-    const NOT_INT = 116;
-    const OK_STATUS_NOT_RECEIVED = 117;
-    const INVALID_APPBOT_METHOD = 118;
-    const STRING_TOO_LONG = 119;
-    const NOT_ENOUGH_OPTIONS = 120;
-    const TOO_MANY_OPTIONS = 121;
-    const INVALID_RESPONSE_TYPE = 122;
-    const MORE_THAN_300_CHARACTERS = 124;
-    const MORE_THAN_30_CHARACTERS = 125;
-    const AS_USER_SET_WITH_USERNAME = 126;
-    const AS_USER_SET_WITH_ICON_URL = 127;
-    const AS_USER_SET_WITH_ICON_EMOJI = 128;
-    const NOT_URL = 129;
-    const SELECTED_OPTION_NOT_FOUND_IN_OPTIONS = 130;
+    const CONNECTION_ERROR = 101;
+    const BAD_RESPONSE = 102;
+    
+    const MORE_THAN_5_ACTIONS_IN_ATTACHMENT = 201;
+    const MISSING_REQUIRED_FIELD = 202;
+    const INVALID_APPBOT_METHOD = 203;
+    const STRING_TOO_LONG = 204;
+    const NOT_ENOUGH_OPTIONS = 205;
+    const TOO_MANY_OPTIONS = 206;
+    const INVALID_RESPONSE_TYPE = 207;
+    const AS_USER_SET_WITH_USERNAME = 208;
+    const AS_USER_SET_WITH_ICON_URL = 209;
+    const AS_USER_SET_WITH_ICON_EMOJI = 210;
+    const SELECTED_OPTION_NOT_FOUND_IN_OPTIONS = 211;
+
+    /** @var GuzzleException */
+    private $guzzleException = null;
+    
+    /**
+     * Set the GuzzleException
+     * 
+     * @param TransferException $e
+     * @return $this
+     */
+    public function setGuzzleException(GuzzleException $exception)
+    {
+        $this->guzzleException = $exception;
+        
+        return $this;
+    }
+    
+    /**
+     * Get the Guzzle Exception
+     * 
+     * @return GuzzleException
+     */
+    public function getGuzzleException()
+    {
+        return $this->guzzleException;
+    }
 }

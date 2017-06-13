@@ -10,7 +10,6 @@ namespace SlackPHP\SlackAPI\Exceptions;
  * @version 0.1
  * 
  */
-class WebAPIException extends \Exception
+class WebAPIException extends SlackException
 {
-    
 }
