@@ -50,7 +50,7 @@ class AbstractModelTest extends TestCase
     {
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
-        $link = '#1234';
+        $link = 'http://1234';
         $display = 'mylink';
         
         $this->assertEquals(AbstractModel::LEFT_ANGLE_PLACEHOLDER.$link.AbstractModel::RIGHT_ANGLE_PLACEHOLDER, $stub->getLink($link));
