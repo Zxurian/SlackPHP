@@ -31,6 +31,7 @@ class SlackException extends \Exception
     const SELECTED_OPTION_NOT_FOUND_IN_OPTIONS = 211;
     const LABEL_REQUIRED = 212;
     const ID_REQUIRED = 213;
+    const INVALID_CUSTOMBOT_METHOD = 214;
 
     /** @var GuzzleException */
     private $guzzleException = null;

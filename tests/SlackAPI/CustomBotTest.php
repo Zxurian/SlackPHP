@@ -50,7 +50,7 @@ class CustomBotTest extends TestCase
     public function testSendInvalidPayload()
     {
         $this->expectException(SlackException::class);
-        $this->expectExceptionCode(SlackException::INVALID_APPBOT_METHOD);
+        $this->expectExceptionCode(SlackException::INVALID_CUSTOMBOT_METHOD);
         
         $methodEnum = $this->createMock(Method::class);
         $methodEnum->method('isAvailableToCustomBot')->willReturn(false);

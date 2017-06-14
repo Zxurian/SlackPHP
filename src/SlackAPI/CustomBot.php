@@ -29,7 +29,7 @@ class CustomBot extends SlackAPI
     public function send(AbstractPayload $payload)
     {
         if (!$payload->getMethod()->isAvailableToCustomBot()) {
-            throw new SlackException('The payload method provided can’t be used by App Bot', SlackException::INVALID_APPBOT_METHOD);
+            throw new SlackException('The payload method provided can’t be used by Custom Bot', SlackException::INVALID_CUSTOMBOT_METHOD);
         }
         
         return parent::send($payload);
