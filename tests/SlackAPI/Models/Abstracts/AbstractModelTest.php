@@ -76,7 +76,7 @@ class AbstractModelTest extends TestCase
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
         $this->expectException(\InvalidArgumentException::class);
-        $stub->getLink('test', new \stdClass());
+        $stub->getLink('http://1234', new \stdClass());
     }
     
     /**
@@ -163,7 +163,7 @@ class AbstractModelTest extends TestCase
     {
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         $this->expectException(\InvalidArgumentException::class);
-        $stub->getVariable(SpecialCommand::SUBTEAM(), []);
+        $stub->getVariable(SpecialCommand::CHANNEL(), []);
     }
     
     /**
