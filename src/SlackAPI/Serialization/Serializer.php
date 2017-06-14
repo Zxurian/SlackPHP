@@ -65,7 +65,7 @@ class Serializer
                             AbstractModel::RIGHT_ANGLE_ACTUAL,
                             AbstractModel::AMPERSAND_ACTUAL
                         ];
-                        return urlencode(str_replace($search, $replace, $string));
+                        return str_replace($search, $replace, $string);
                     }
                 );
             })
