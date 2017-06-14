@@ -91,7 +91,7 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     
     /**
      * Create special command for use in Slack text fields
-     * Provide label to create @here or @subteam commands
+     * Provide label to create here or subteam commands
      * Subteam special command requires id
      * 
      * @param SpecialCommand $specialCommand Special command from SpecialCommand enum
