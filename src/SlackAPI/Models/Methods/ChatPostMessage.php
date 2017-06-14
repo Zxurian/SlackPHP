@@ -258,7 +258,7 @@ class ChatPostMessage extends AbstractPayload
      */
     public function setIconUrl($iconUrl)
     {
-        if (!is_scalar($iconUrl) || filter_var($iconUrl, FILTER_VALIDATE_URL) === false) {
+        if (filter_var($iconUrl, FILTER_VALIDATE_URL) === false) {
             throw new \InvalidArgumentException('IconUrl should be a valid url string');
         }
         
