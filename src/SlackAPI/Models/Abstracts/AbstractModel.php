@@ -70,7 +70,7 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      * @param string $link URL in case your date needs to be linked
      * @return string
      */
-    public function getFormatedDate(\DateTime $date, $fallback, $stringContainingDateTokens = '', $link = null)
+    public function getFormattedDate(\DateTime $date, $fallback, $stringContainingDateTokens = '', $link = null)
     {
         if (!is_scalar($fallback)) {
             throw new \InvalidArgumentException('Fallback must be scalar');
