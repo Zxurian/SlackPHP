@@ -32,7 +32,7 @@ class AuthRevoke extends AbstractPayload
     public function setTest($test)
     {
         if (!is_bool($test)) {
-            throw new \InvalidArgumentException('Test should be a scalar type');
+            throw new \InvalidArgumentException('Test should be a boolean type');
         }
         
         $this->test = $test;
