@@ -80,9 +80,9 @@ class AbstractModelTest extends TestCase
     }
     
     /**
-     * Test getFormatDate returns correct string if link is scalar
+     * Test getFormattedDate returns correct string if link is scalar
      */
-    public function testGetFormatedLinkScalar()
+    public function testGetFormattedLinkScalar()
     {   
         $timestamp = 1497446779;
         $datetime = new \DateTime();
@@ -90,48 +90,48 @@ class AbstractModelTest extends TestCase
         $expectedReturn = '|||LEFT_ANGLE|||!date^'.$timestamp.'^string^string|string|||RIGHT_ANGLE|||';
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
-        $return = $stub->getFormatedDate($datetime, $this->dummyString, $this->dummyString, $this->dummyString);
+        $return = $stub->getFormattedDate($datetime, $this->dummyString, $this->dummyString, $this->dummyString);
         $this->assertEquals($expectedReturn, $return);
     }
     
     /**
-     * Test that exception is thrown if fllback is not scalar
+     * Test that exception is thrown if fallback is not scalar
      */
-    public function testGetFormatedDateNotScalarFallback()
+    public function testGetFormattedDateNotScalarFallback()
     {
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
         $this->expectException(\InvalidArgumentException::class);
-        $stub->getFormatedDate(new \DateTime(), null);
+        $stub->getFormattedDate(new \DateTime(), $this->dummyString, null);
     }
     
     /**
-     * Test that exception is thrown in getFormatedDate method if stringContainingDateTokens parameter is not scalar
+     * Test that exception is thrown in getFormattedDate method if stringContainingDateTokens parameter is not scalar
      */
-    public function testGetFormatedDateStringContainingDateTokensNotScalar()
+    public function testgetFormattedDateStringContainingDateTokensNotScalar()
     {
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
         $this->expectException(\InvalidArgumentException::class);
-        $stub->getFormatedDate(new \DateTime(), $this->dummyString, null);
+        $stub->getFormattedDate(new \DateTime(), null, $this->dummyString);
     }
 
     /**
-     * Test that exception is thrown in getFormatedDate method if links parameter is not scalar
+     * Test that exception is thrown in getFormattedDate method if links parameter is not scalar
      */
-    public function testGetFormatedDateLinkNotScalar()
+    public function testGetFormattedDateLinkNotScalar()
     {
         $datetime = new \DateTime();
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
         $this->expectException(\InvalidArgumentException::class);
-        $stub->getFormatedDate($datetime, $this->dummyString, $this->dummyString, $datetime);
+        $stub->getFormattedDate($datetime, $this->dummyString, $this->dummyString, $datetime);
     }
     
     /**
-     * Test that correct string returned from getFormatedDate method, if link is null(not provided)
+     * Test that correct string returned from getFormattedDate method, if link is null(not provided)
      */
-    public function testGetFormatedDateLinkDefaultNull()
+    public function testGetFormattedDateLinkDefaultNull()
     {
         $timestamp = 1497446779;
         $datetime = new \DateTime();
@@ -139,7 +139,7 @@ class AbstractModelTest extends TestCase
         $expectedString = AbstractModel::LEFT_ANGLE_PLACEHOLDER.'!date^'.$timestamp.'^string|string'.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
         $stub = $this->getMockForAbstractClass(AbstractModel::class);
         
-        $return = $stub->getFormatedDate($datetime, $this->dummyString, $this->dummyString);
+        $return = $stub->getFormattedDate($datetime, $this->dummyString, $this->dummyString);
         $this->assertEquals($expectedString, $return);
         
     }
