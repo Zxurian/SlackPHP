@@ -52,7 +52,7 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      */
     public function getLink($link, $display = null)
     {
-        if (!is_scalar($link)) {
+        if (filter_var($link, FILTER_VALIDATE_URL) === false) {
             throw new \InvalidArgumentException('Link must be scalar');
         }
         if (!is_null($display) && !is_scalar($display)) {
