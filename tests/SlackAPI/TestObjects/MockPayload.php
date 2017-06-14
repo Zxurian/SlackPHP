@@ -21,7 +21,7 @@ class MockPayload extends AbstractPayload
      * @var string
      * @Type ("SlackText")
      */
-    public $string2 = 'This & that < in > there '.AbstractModel::AMPERSAND_PLACEHOLDER.' '.AbstractModel::LEFT_ANGLE_PLACEHOLDER.'test1|test2'.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
+    public $string2 = 'This & that < in >'."\n".' there '."\r\n".AbstractModel::AMPERSAND_PLACEHOLDER.' '.AbstractModel::LEFT_ANGLE_PLACEHOLDER.'test1|test2'.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
     
     /** 
      * @var int
