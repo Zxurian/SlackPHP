@@ -54,7 +54,7 @@ class Serializer
                 );
                 $registry->registerHandler('serialization', 'SlackText', 'json',
                     function(VisitorInterface $visitor, $string, array $type) {
-                        $string = str_replace(['&', '<', '>'], [ '&amp;', '&lt;', '&gt;'], $string);
+                        $string = str_replace(['&', '<', '>', "\r\n", "\n"], [ '&amp;', '&lt;', '&gt;', '\n', '\n'], $string);
                         $search = [
                             AbstractModel::LEFT_ANGLE_PLACEHOLDER,
                             AbstractModel::RIGHT_ANGLE_PLACEHOLDER,
