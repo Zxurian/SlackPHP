@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 use SlackPHP\SlackAPI\Models\Methods\ChatPostMessage;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
+use SlackPHP\SlackAPI\Enumerators\SpecialCommand;
 
 /**
  * @author Dzianis Zhaunerchyk <dzhaunerchyk@gmail.com>
@@ -141,5 +142,69 @@ class AbstractModelTest extends TestCase
         $return = $stub->getFormatedDate($datetime, $this->dummyString, $this->dummyString);
         $this->assertEquals($expectedString, $return);
         
+    }
+    
+    /**
+     * Test that correct string is returned on subteam special command
+     */
+    public function testGetVariableWithSubteam()
+    {
+        $expectedString = AbstractModel::LEFT_ANGLE_PLACEHOLDER.'!subteam^'.$this->dummyString.'|'.$this->dummyString.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        
+        $return = $stub->getVariable(SpecialCommand::SUBTEAM(), null, $this->dummyString, $this->dummyString);
+        $this->assertEquals($expectedString, $return);
+    }
+    
+    /**
+     * Test that exception is thrown if special command is not scalar and not null
+     */
+    public function testGetVariableLabelNotScalar()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $this->expectException(\InvalidArgumentException::class);
+        $stub->getVariable(SpecialCommand::SUBTEAM(), []);
+    }
+    
+    /**
+     * Test that exception is thrown if id not provided with subteam
+     */
+    public function testGetVariableIdNotSetWithSubteam()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $this->expectException(\InvalidArgumentException::class);
+        $stub->getVariable(SpecialCommand::SUBTEAM(), null, null, $this->dummyString);
+    }
+    
+    /**
+     * Test that exception is thrown if handle is not set for subteam
+     */
+    public function testGetVariableHandleNotSetWithSubteam()
+    {
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $this->expectException(\InvalidArgumentException::class);
+        $stub->getVariable(SpecialCommand::SUBTEAM(), null, $this->dummyString);
+    }
+    
+    /**
+     * Test that corrent string is returned with here variable if label is not provided
+     */
+    public function testGetVariableHereWithLabelNotProvided()
+    {
+        $expectedString = AbstractModel::LEFT_ANGLE_PLACEHOLDER.'!'.SpecialCommand::HERE.'|'.SpecialCommand::HERE.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $return = $stub->getVariable(SpecialCommand::HERE());
+        $this->assertEquals($expectedString, $return);
+    }
+    
+    /**
+     * Test that correct string is returned if label is not provided to one of regular special command
+     */
+    public function testGetVariableChannelWithNoLabel()
+    {
+        $expectedString = AbstractModel::LEFT_ANGLE_PLACEHOLDER.'!'.SpecialCommand::CHANNEL.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
+        $stub = $this->getMockForAbstractClass(AbstractModel::class);
+        $return = $stub->getVariable(SpecialCommand::CHANNEL());
+        $this->assertEquals($expectedString, $return);
     }
 }
