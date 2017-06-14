@@ -2,6 +2,7 @@
 
 return [
     'string'    => 'Sure. You’d be surprised how far a hug goes with Geordi, or Worf.',
+    'string2'   => 'This &amp; that &lt; in &gt; there & <test1|test2>',
     'integer'   => 2017,
     'enum'      => 'ONE',
     'array1'    => [

@@ -4,7 +4,6 @@ namespace SlackPHP\SlackAPI\Models\Abstracts;
 
 use SlackPHP\SlackAPI\Models\Abstracts\ValidateInterface;
 use SlackPHP\SlackAPI\Enumerators\DateToken;
-use SlackPHP\SlackAPI\Exceptions\SlackException;
 use SlackPHP\SlackAPI\Enumerators\SpecialCommand;
 
 /**
@@ -45,8 +44,11 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     /**
      * Get a formatted Slack link to either a URL, user, or channel
      * 
+     * @see https://api.slack.com/docs/message-formatting#linking_to_urls
      * @param scalar $link The link
      * @param scalar $display (optional) The text to display
+     * @throws \InvalidArgumentException
+     * @return string
      */
     public function getLink($link, $display = null)
     {
@@ -61,22 +63,25 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     }
     
     /**
-     * Create formatted date for Slack text fields. Include at least one DateToken enum value in 
-     * stringContainingDateTokens parameter to show formatted date.
+     * Create formatted date for Slack text fields.
+     * Provide a string containing SlackPHP\SlackAPI\Enumerators\DateToken
+     * tokens as placeholders that will be parsed within Slack
      * 
+     * @see https://api.slack.com/docs/message-formatting#linking_to_urls
      * @param \DateTime $timestamp Date to be used
+     * @param string $stringContainingDateTokens string to be parsed
      * @param string $fallback Message in case the client is unable to process the date
-     * @param string $stringContainingDateTokens Describe your date and time format as a string
-     * @param string $link URL in case your date needs to be linked
+     * @param string $link (optional) URL in case your date needs to be linked
+     * @throws \InvalidArgumentException
      * @return string
      */
-    public function getFormatedDate(\DateTime $date, $fallback, $stringContainingDateTokens = '', $link = null)
+    public function getFormattedDate(\DateTime $date, $stringContainingDateTokens, $fallback, $link = null)
     {
-        if (!is_scalar($fallback)) {
-            throw new \InvalidArgumentException('Fallback must be scalar');
-        }
         if (!is_scalar($stringContainingDateTokens)) {
-            throw new \InvalidArgumentException('date string must be scalar');
+            throw new \InvalidArgumentException('The string to parse must be scalar');
+        }
+        if (!is_scalar($fallback)) {
+            throw new \InvalidArgumentException('Fallback text must be scalar');
         }
         if (!is_null($link) && !is_scalar($link)) {
             throw new \InvalidArgumentException('Link must be scalar');
@@ -91,38 +96,37 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
     
     /**
      * Create special command for use in Slack text fields
-     * Provide label to create here or subteam commands
-     * Subteam special command requires id
+     * here command will default to a label of "here" if one isn’t provided
+     * subteam command requires an id & handle
      * 
-     * @param SpecialCommand $specialCommand Special command from SpecialCommand enum
-     * @param string $label Label to be used with variable
-     * @param string $id Subteam id for special command
+     * @param SpecialCommand $specialCommand SpecialCommand Enumerator
+     * @param string $label (optional) Label
+     * @param string $id (required if using SUBTEAM) Subteam ID
+     * @param string $handle (required if using SUBTEAM) Subteam Handle
      * @throws \InvalidArgumentException
-     * @throws SlackException
      * @return string
      */
     public function getVariable(SpecialCommand $specialCommand, $label = null, $id = null, $handle = null)
     {
-        if (!is_null($label) && !is_scalar($label)) {
-            throw new \InvalidArgumentException('label must be scalar');
-        }
-        if ($specialCommand == SpecialCommand::SUBTEAM()) {
+        // Special handling for subteam command
+        if ($specialCommand->equals(SpecialCommand::SUBTEAM())) {
             if (!is_scalar($id)) {
                 throw new \InvalidArgumentException('id is required for subteam');
             }
             if (!is_scalar($handle)) {
                 throw new \InvalidArgumentException('handle is required for subteam');
             }
-            $idCommand = $specialCommand->getValue().'^'.$id.'|'.$handle;
-            return self::LEFT_ANGLE_PLACEHOLDER.'!'.$idCommand.self::RIGHT_ANGLE_PLACEHOLDER;
+            return self::LEFT_ANGLE_PLACEHOLDER.'!'.$specialCommand->getValue().'^'.$id.'|'.$handle.self::RIGHT_ANGLE_PLACEHOLDER;
         }
         
-        if ($specialCommand == SpecialCommand::HERE() && is_null($label))  {
+        if (!is_null($label) && !is_scalar($label)) {
+            throw new \InvalidArgumentException('label must be scalar');
+        }
+        
+        if ($specialCommand->equals(SpecialCommand::HERE()) && is_null($label))  {
             $label = SpecialCommand::HERE;
         }
         
-        $labeledCommand = $specialCommand->getValue().(!is_null($label) ? '|'.$label : '');
-
-        return self::LEFT_ANGLE_PLACEHOLDER.'!'.$labeledCommand.self::RIGHT_ANGLE_PLACEHOLDER;
+        return self::LEFT_ANGLE_PLACEHOLDER.'!'.$specialCommand->getValue().(!is_null($label) ? '|'.$label : '').self::RIGHT_ANGLE_PLACEHOLDER;
     }
 }

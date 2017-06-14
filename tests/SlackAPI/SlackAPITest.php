@@ -41,7 +41,12 @@ class SlackAPITest extends TestCase
     public function testConvertToWebAPIArray()
     {
         $mockPayload = new MockPayload();
-        $mockArray = [ 'a' => 1, 'b' => 'test', 'c' => [ 'x' => 'foo', 'y' => 123, 'z' => 'bar']];
+        $mockArray = [
+            'a' => 1,
+            'b' => 'test',
+            'c' => [ 'x' => 'foo', 'y' => 123, 'z' => 'bar'],
+            'd' => 'Now &lt; is % the @ time',
+        ];
         
         $Serializer = $this->createMock(Serializer::Class);
         $Serializer
@@ -53,7 +58,8 @@ class SlackAPITest extends TestCase
         $SlackAPI = $this->getMockBuilder(SlackAPI::class)
             ->setConstructorArgs([ $this->oAuthToken ])
             ->setMethods(['getSerializer'])
-            ->getMock();
+            ->getMock()
+        ;
         $SlackAPI
             ->expects($this->any())
             ->method('getSerializer')
@@ -63,9 +69,10 @@ class SlackAPITest extends TestCase
         $convertedArray = $SlackAPI->convertToWebAPIArray($mockPayload);
         
         $expectedArray = [
-            'a' => 1,
+            'a' => '1',
             'b' => 'test',
             'c' => '{"x":"foo","y":123,"z":"bar"}',
+            'd' => 'Now+%26lt%3B+is+%25+the+%40+time'
         ];
         $this->assertEquals($expectedArray, $convertedArray);
         

@@ -4,9 +4,9 @@ namespace SlackPHP\Tests\SlackAPI\Serialization;
 
 use PHPUnit\Framework\TestCase;
 use SlackPHP\SlackAPI\Serialization\Serializer;
+use SlackPHP\Tests\SlackAPI\TestObjects\MockEnum;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockPayload;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockPayloadResponse;
-use SlackPHP\Tests\SlackAPI\TestObjects\MockEnum;
 
 /**
  * @author Zxurian
@@ -54,14 +54,16 @@ class SerializerTest extends TestCase
         $serializer = Serializer::getSerializer();
         $payload = new MockPayload();
         
-        $this->assertEquals(include 'MockPayloadArray.php', $serializer->toArray($payload));
+        $this->assertEquals(include __DIR__.'/../TestObjects/MockPayloadArray.php', $serializer->toArray($payload));
     }
     
+    /**
+     * Test the specific handlers of deserializing the enum
+     */
     public function testDeserializingEnum()
     {
         $serializer = Serializer::getSerializer();
-        
-        $response = $serializer->deserialize(include 'MockResponseJson.php', MockPayloadResponse::class, 'json');
+        $response = $serializer->deserialize(include __DIR__.'/../TestObjects/MockResponseJson.php', MockPayloadResponse::class, 'json');
         $refResponse = new \ReflectionObject($response);
         $okProperty = $refResponse->getProperty('ok');
         $okProperty->setAccessible(true);
@@ -76,6 +78,6 @@ class SerializerTest extends TestCase
         ];
         $this->assertEquals($array1, $response->array1);
         $this->assertEquals(["riker", "laforge", "obrien"], $response->array2);
-        
     }
+    
 }
