@@ -16,6 +16,12 @@ class MockPayload extends AbstractPayload
      */
     public $string = 'Sure. You’d be surprised how far a hug goes with Geordi, or Worf.';
     
+    /**
+     * @var string
+     * @Type ("SlackText")
+     */
+    public $stringContainingControlCharacters = 'This & that < in > there';
+    
     /** 
      * @var int
      * @Type ("integer") 

@@ -67,6 +67,7 @@ class SerializerTest extends TestCase
         $okProperty->setAccessible(true);
         $this->assertEquals(true, $okProperty->getValue($response));
         $this->assertEquals('Sure. You’d be surprised how far a hug goes with Geordi, or Worf.', $response->string);
+        $this->assertEquals('This &amp; that &lt; in &rt; there');
         $this->assertEquals(2017, $response->integer);
         $this->assertEquals(MockEnum::ONE(), $response->enum);
         $array1 = [
@@ -76,6 +77,6 @@ class SerializerTest extends TestCase
         ];
         $this->assertEquals($array1, $response->array1);
         $this->assertEquals(["riker", "laforge", "obrien"], $response->array2);
-        
     }
+    
 }

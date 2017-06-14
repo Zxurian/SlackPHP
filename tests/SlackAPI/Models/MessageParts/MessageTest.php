@@ -289,4 +289,5 @@ class MessageTest extends TestCase
         ;
         $message->validateModel();
     }
+    
 }

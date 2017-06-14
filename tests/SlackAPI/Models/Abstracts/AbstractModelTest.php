@@ -52,8 +52,8 @@ class AbstractModelTest extends TestCase
         $link = '#1234';
         $display = 'mylink';
         
-        $this->assertEquals(AbstractModel::LINK_START.$link.AbstractModel::LINK_END, $stub->getLink($link));
-        $this->assertEquals(AbstractModel::LINK_START.$link.AbstractModel::LINK_MIDDLE.$display.AbstractModel::LINK_END, $stub->getLink($link, $display));
+        $this->assertEquals(AbstractModel::LEFT_ANGLE_PLACEHOLDER.$link.AbstractModel::RIGHT_ANGLE_PLACEHOLDER, $stub->getLink($link));
+        $this->assertEquals(AbstractModel::LEFT_ANGLE_PLACEHOLDER.$link.'|'.$display.AbstractModel::RIGHT_ANGLE_PLACEHOLDER, $stub->getLink($link, $display));
     }
     
     /**
