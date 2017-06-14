@@ -5,6 +5,7 @@ namespace SlackPHP\Tests\SlackAPI\TestObjects;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\Tests\SlackAPI\TestObjects\MockEnum;
 use JMS\Serializer\Annotation\Type;
+use SlackPHP\SlackAPI\Models\Abstracts\AbstractModel;
 
 class MockPayload extends AbstractPayload
 {
@@ -20,7 +21,7 @@ class MockPayload extends AbstractPayload
      * @var string
      * @Type ("SlackText")
      */
-    public $stringContainingControlCharacters = 'This & that < in > there';
+    public $string2 = 'This & that < in > there '.AbstractModel::AMPERSAND_PLACEHOLDER.' '.AbstractModel::LEFT_ANGLE_PLACEHOLDER.'test1|test2'.AbstractModel::RIGHT_ANGLE_PLACEHOLDER;
     
     /** 
      * @var int
