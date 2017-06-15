@@ -36,8 +36,8 @@ class MockPayload extends AbstractPayload
     public $enum = null;
     
     /**
-     * @var mixed[]
-     * @Type("array")
+     * @var MockEnum[]
+     * @Type("MyCLabsEnum<SlackPHP\Tests\SlackAPI\TestObjects\MockEnum>")
      */
     public $array1 = [];
     

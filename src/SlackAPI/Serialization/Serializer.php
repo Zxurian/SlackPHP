@@ -48,8 +48,16 @@ class Serializer
             })
             ->configureHandlers(function(HandlerRegistry $registry) {
                 $registry->registerHandler('serialization', 'MyCLabsEnum', 'json',
-                    function(VisitorInterface $visitor, Enum $object, array $type) {
-                        return $object->getValue();
+                    function(VisitorInterface $visitor, $data, array $type) {
+                        if (!is_array($data)) {
+                            return $data->getValue();
+                        }
+                        
+                        $return = [];
+                        foreach ($data as $enum) {
+                            $return[] = $enum->getValue();
+                        }
+                        return $return;
                     }
                 );
                 $registry->registerHandler('serialization', 'SlackText', 'json',
