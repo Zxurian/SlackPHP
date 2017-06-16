@@ -52,8 +52,6 @@ class SlackAPI extends Transport
         foreach($arrayPayload as $key => $value) {
             if (is_array($value)) {
                 $arrayPayload[$key] = json_encode($value);
-            } elseif ($key == 'text') {
-                $arrayPayload[$key] = urlencode($value);
             }
         }
         
