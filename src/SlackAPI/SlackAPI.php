@@ -106,7 +106,7 @@ class SlackAPI extends Transport
         
         // Populate the response model
         $responseClassName = $payload->getResponseClass();
-        $payloadResponse = $responseClassName::parseResponse($response->getBody()->getContents());
+        $payloadResponse = $responseClassName::createFromJson($response->getBody()->getContents());
         
         // Trigger an event for the Parse
         $parsedReceivedEvent = new Events\ParsedReceivedEvent();
