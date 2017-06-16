@@ -91,6 +91,11 @@ class Serializer
                         return $return;
                     }
                 );
+                $registry->registerHandler('deserialization', 'SlackText', 'json',
+                    function(VisitorInterface $visitor, $data, array $type) {
+                        return $data;
+                    }
+                );
             })
             ->build()
         ;

@@ -38,4 +38,9 @@ class MockPayloadResponse extends AbstractPayloadResponse
      */
     public $array2 = [];
     
+    /**
+     * @var string
+     * @Type ("SlackText")
+     */
+    public $slacktext = null;
 }

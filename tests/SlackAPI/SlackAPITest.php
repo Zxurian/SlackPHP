@@ -69,10 +69,10 @@ class SlackAPITest extends TestCase
         $convertedArray = $SlackAPI->convertToWebAPIArray($mockPayload);
         
         $expectedArray = [
-            'a' => '1',
+            'a' => 1,
             'b' => 'test',
             'c' => '{"x":"foo","y":123,"z":"bar"}',
-            'd' => 'Now+%26lt%3B+is+%25+the+%40+time'
+            'd' => 'Now &lt; is % the @ time',
         ];
         $this->assertEquals($expectedArray, $convertedArray);
         

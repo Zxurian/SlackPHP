@@ -52,7 +52,7 @@ class SlackAPI extends Transport
         foreach($arrayPayload as $key => $value) {
             if (is_array($value)) {
                 $arrayPayload[$key] = json_encode($value);
-            } else {
+            } elseif ($key == 'text') {
                 $arrayPayload[$key] = urlencode($value);
             }
         }
@@ -85,6 +85,7 @@ class SlackAPI extends Transport
             ->setPayload($payload)
             ->setPreparedPayload($preparedPayload)
         ;
+
         $this->getEventDispatcher()->dispatch(Events\RequestEvent::EVENT_NAME, $requestEvent);
         
         // Send the request to slack
