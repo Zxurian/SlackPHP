@@ -2,6 +2,7 @@
 
 namespace SlackPHP\SlackAPI\Models\Methods;
 
+use JMS\Serializer\Annotation\Type;
 use SlackPHP\SlackAPI\Models\Abstracts\AbstractPayload;
 use SlackPHP\SlackAPI\Models\MessageParts\Attachment;
 use SlackPHP\SlackAPI\Exceptions\SlackException;
@@ -40,7 +41,10 @@ class ChatPostMessage extends AbstractPayload
     /** @var string|null */
     protected $channel = null;
 
-    /** @var string|null $text */
+    /**
+     * @var string|null $text
+     * @Type("SlackText")
+     */
     protected $text = null;
 
     /** @var Parse $parse */
@@ -81,7 +85,7 @@ class ChatPostMessage extends AbstractPayload
     
     public function __construct()
     {
-        $this->parse = Parse::FULL();
+        $this->parse = Parse::NONE();
     }
     
     /**
@@ -353,7 +357,6 @@ class ChatPostMessage extends AbstractPayload
     }
     
     /**
-     * 
      * {@inheritDoc}
      * @see \SlackPHP\SlackAPI\Models\Abstracts\PayloadInterface::validatePayload()
      */

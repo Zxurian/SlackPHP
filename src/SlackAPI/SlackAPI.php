@@ -52,6 +52,8 @@ class SlackAPI extends Transport
         foreach($arrayPayload as $key => $value) {
             if (is_array($value)) {
                 $arrayPayload[$key] = json_encode($value);
+            } elseif (is_bool($value)) {
+                $arrayPayload[$key] = $value ? 'true' : 'false';
             }
         }
         
@@ -91,7 +93,7 @@ class SlackAPI extends Transport
             'POST',
             self::WEB_API_ENDPOINT . $payload->getMethod(),
             ['Content-Type' => 'application/x-www-form-urlencoded'],
-            http_build_query($preparedPayload)
+            http_build_query($preparedPayload, null, '&', PHP_QUERY_RFC3986)
         );
         $response = $this->getClient()->send($request);
         
@@ -125,4 +127,5 @@ class SlackAPI extends Transport
         
         return $payloadResponse;
     }
+
 }
