@@ -28,7 +28,7 @@ class AttachmentField extends AbstractModel
 
     /**
      * @var string|null
-     * @Type("string")
+     * @Type("SlackText")
      */
     protected $value = null;
 

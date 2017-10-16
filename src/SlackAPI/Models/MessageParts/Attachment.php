@@ -54,7 +54,7 @@ class Attachment extends AbstractModel
     
     /**
      * @var string
-     * @Type("string")
+     * @Type("SlackText")
      */
     protected $pretext = null;
     
@@ -90,7 +90,7 @@ class Attachment extends AbstractModel
 
     /**
      * @var string
-     * @Type("string")
+     * @Type("SlackText")
      */
     protected $text = null;
     
