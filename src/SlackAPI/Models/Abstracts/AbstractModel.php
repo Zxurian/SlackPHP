@@ -52,8 +52,8 @@ abstract class AbstractModel extends MagicGetter implements ValidateInterface
      */
     public function getLink($link, $display = null)
     {
-        if (filter_var($link, FILTER_VALIDATE_URL) === false) {
-            throw new \InvalidArgumentException('Link must be valid url');
+        if (!is_scalar($link) || (filter_var($link, FILTER_VALIDATE_URL) === false && !in_array(substr($link, 0, 1), [ '#', '@' ]))) {
+            throw new \InvalidArgumentException('Link should be a valid URL or Slack Channel(#) or User(@)');
         }
         if (!is_null($display) && !is_scalar($display)) {
             throw new \InvalidArgumentException('Display must be scalar');

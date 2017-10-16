@@ -250,8 +250,8 @@ class Attachment extends AbstractModel
      */
     public function setAuthorLink($authorLink)
     {
-        if (!is_scalar($authorLink) || filter_var($authorLink, FILTER_VALIDATE_URL) === false) {
-            throw new \InvalidArgumentException('Author link should be a valid URL');
+        if (!is_scalar($authorLink) || (filter_var($authorLink, FILTER_VALIDATE_URL) === false && !in_array(substr($authorLink, 0, 1), [ '#', '@' ]))) {
+            throw new \InvalidArgumentException('Author link should be a valid URL or Slack Channel/User');
         }
         
         $this->authorLink = (string)$authorLink;
@@ -305,7 +305,7 @@ class Attachment extends AbstractModel
      */
     public function setTitleLink($titleLink)
     {
-        if (!is_scalar($titleLink) || filter_var($titleLink, FILTER_VALIDATE_URL) === false) {
+        if (!is_scalar($titleLink) || (filter_var($titleLink, FILTER_VALIDATE_URL) === false && !in_array(substr($titleLink, 0, 1), [ '#', '@' ]))) {
             throw new \InvalidArgumentException('Title link should be a valid URL');
         }
         
